@@ -41,6 +41,25 @@ function flattenTokens(obj, prefix = '') {
     return result;
 }
 
+// Recoge el campo `comment` de cada token, con la misma clave aplanada que
+// flattenTokens. Sirve para que la explicacion de un token viva en su
+// definicion y no en el CSS generado, que se reescribe en cada build.
+function flattenComments(obj, prefix = '') {
+    let result = {};
+
+    for (const [key, value] of Object.entries(obj)) {
+        const newKey = prefix ? `${prefix}-${key}` : key;
+
+        if (value && typeof value === 'object' && value.value !== undefined) {
+            if (value.comment) result[newKey] = value.comment;
+        } else if (value && typeof value === 'object') {
+            Object.assign(result, flattenComments(value, newKey));
+        }
+    }
+
+    return result;
+}
+
 // Resolve token references like {color.zinc.900}
 function resolveReferences(tokens) {
     const resolved = { ...tokens };
@@ -66,11 +85,23 @@ function resolveReferences(tokens) {
 }
 
 // Generate CSS variables
-function generateCSS(tokens, mode = 'light') {
+function generateCSS(tokens, mode = 'light', comments = {}) {
     const selector = mode === 'dark' ? '.dark' : ':root';
-    const lines = [selector + ' {'];
+    const lines = [
+        '/* GENERADO POR build-tokens.mjs — no editar a mano.',
+        '   La fuente son los JSON de tokens/. Un cambio hecho aqui se pierde',
+        '   en el siguiente `npm run build:tokens`. */',
+        selector + ' {',
+    ];
 
     for (const [key, value] of Object.entries(tokens)) {
+        if (comments[key]) {
+            const body = String(comments[key]).split('\n');
+            lines.push(`  /* ${body[0]}`);
+            for (const extra of body.slice(1)) lines.push(`     ${extra}`);
+            lines[lines.length - 1] += ' */';
+            if (body.length === 1) lines[lines.length - 1] = `  /* ${body[0]} */`;
+        }
         lines.push(`  --${key}: ${value};`);
     }
 
@@ -132,6 +163,7 @@ dirs.forEach(dir => {
 });
 
 const flatLight = flattenTokens(lightTokens);
+const commentsLight = flattenComments(lightTokens);
 const resolvedLight = resolveReferences(flatLight);
 
 // Build dark mode tokens
@@ -148,6 +180,7 @@ deepMerge(darkTokens, darkSemantic);
 deepMerge(darkTokens, readTokens(path.join(__dirname, 'tokens', 'component')));
 
 const flatDark = flattenTokens(darkTokens);
+const commentsDark = flattenComments(darkTokens);
 const resolvedDark = resolveReferences(flatDark);
 
 
@@ -155,12 +188,12 @@ const resolvedDark = resolveReferences(flatDark);
 console.log('💅 Generating CSS variables...');
 fs.writeFileSync(
     path.join(cssDir, 'variables.css'),
-    generateCSS(resolvedLight, 'light')
+    generateCSS(resolvedLight, 'light', commentsLight)
 );
 
 fs.writeFileSync(
     path.join(cssDir, 'variables-dark.css'),
-    generateCSS(resolvedDark, 'dark')
+    generateCSS(resolvedDark, 'dark', commentsDark)
 );
 
 // Generate Tailwind v4 Theme Mapping

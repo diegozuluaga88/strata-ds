@@ -42,8 +42,16 @@
       "50": {
         "value": "#fafafa"
       },
+      "75": {
+        "value": "#F4F4F5",
+        "comment": "Escalon entre la superficie elevada (zinc-50) y el fondo de pagina (zinc-100).\nSin el, la familia muted/secondary/input no tenia donde sentarse y quedaba\nsobre zinc-50, es decir encima de --color-card: por eso esas superficies\neran invisibles en modo claro."
+      },
       "100": {
         "value": "#EBECEE"
+      },
+      "150": {
+        "value": "#E8EAEC",
+        "comment": "Sostiene --color-accent, la superficie de hover en modo claro."
       },
       "200": {
         "value": "#E0E2E5"
@@ -65,6 +73,10 @@
       },
       "800": {
         "value": "#141E2C"
+      },
+      "850": {
+        "value": "#1E2A3A",
+        "comment": "Sostiene --color-accent en oscuro. La rampa es primitiva y se declara igual\nen los dos temas, para que cada semantica tenga primitiva a la que aliasear\nen cada modo de Figma."
       },
       "900": {
         "value": "#02060C"
@@ -249,11 +261,21 @@
       }
     },
     "violet": {
-      "300": { "value": "#c4b5fd" },
-      "400": { "value": "#a78bfa" },
-      "500": { "value": "#8b5cf6" },
-      "600": { "value": "#7c3aed" },
-      "700": { "value": "#6d28d9" }
+      "300": {
+        "value": "#c4b5fd"
+      },
+      "400": {
+        "value": "#a78bfa"
+      },
+      "500": {
+        "value": "#8b5cf6"
+      },
+      "600": {
+        "value": "#7c3aed"
+      },
+      "700": {
+        "value": "#6d28d9"
+      }
     },
     "white": {
       "value": "#ffffff"

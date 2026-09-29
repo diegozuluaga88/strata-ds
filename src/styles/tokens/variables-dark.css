@@ -1,9 +1,12 @@
+/* GENERADO POR build-tokens.mjs — no editar a mano.
+   La fuente son los JSON de tokens/. Un cambio hecho aqui se pierde
+   en el siguiente `npm run build:tokens`. */
 .dark {
   --color-background: #02060C;
   --color-foreground: #EBECEE;
-  --color-card: #0B0F1A;
+  --color-card: #02060C;
   --color-card-foreground: #EBECEE;
-  --color-popover: #0F1320;
+  --color-popover: #02060C;
   --color-popover-foreground: #EBECEE;
   --color-primary: #C3E433;
   --color-primary-foreground: #02060C;
@@ -11,7 +14,9 @@
   --color-secondary-foreground: #EBECEE;
   --color-muted: #141E2C;
   --color-muted-foreground: #B4BBC2;
-  --color-accent: #141E2C;
+  /* accent = superficie de hover. En oscuro es un paso MAS claro que muted, no
+     mas oscuro. */
+  --color-accent: #1E2A3A;
   --color-accent-foreground: #EBECEE;
   --color-destructive: #340209;
   --color-destructive-foreground: #fff5f6;
@@ -42,6 +47,24 @@
   --color-status-info-foreground: #000000;
   --color-status-ai: #a78bfa;
   --color-status-ai-foreground: #000000;
+  /* Familia -soft: fondos de acento pre-mezclados. Existen porque Figma no
+     conserva la opacidad de un paint bindeado a una variable al instanciar un
+     componente, asi que `bg-status-error/10` se pierde. Pre-mezclar el 10-15%
+     sobre la superficie los hace estables en ambos lados. */
+  --color-status-success-soft: #142e29;
+  --color-status-warning-soft: #2f291c;
+  --color-status-error-soft: #2d1b28;
+  --color-status-info-soft: #18263c;
+  --color-status-ai-soft: #22223c;
+  --color-destructive-soft: #2d1b28;
+  /* Lavado de primary (~5%) para superficies SELECCIONADAS: fila elegida del
+     grid, opcion marcada de un radio. Es lo que el codigo escribia como
+     `bg-primary/5`. */
+  --color-primary-soft: #272f1e;
+  /* Tinte lleno de primary para chips pequenos (contadores de tab). Se llamaba
+     primary-foreground-soft y el nombre inducia a error: su valor es un tinte de
+     primary, no del foreground. */
+  --color-primary-tint: #4a5a28;
   --color-brand-50: #fdfee7;
   --color-brand-100: #F4F8E1;
   --color-brand-200: #F4FFC9;
@@ -55,7 +78,14 @@
   --color-brand-950: #233502;
   --color-brand-lime: #d6ff3c;
   --color-zinc-50: #fafafa;
+  /* Escalon entre la superficie elevada (zinc-50) y el fondo de pagina (zinc-100).
+     Sin el, la familia muted/secondary/input no tenia donde sentarse y quedaba
+     sobre zinc-50, es decir encima de --color-card: por eso esas superficies
+     eran invisibles en modo claro. */
+  --color-zinc-75: #F4F4F5;
   --color-zinc-100: #EBECEE;
+  /* Sostiene --color-accent, la superficie de hover en modo claro. */
+  --color-zinc-150: #E8EAEC;
   --color-zinc-200: #E0E2E5;
   --color-zinc-300: #D0D4D8;
   --color-zinc-400: #B4BBC2;
@@ -63,6 +93,10 @@
   --color-zinc-600: #546070;
   --color-zinc-700: #333F4E;
   --color-zinc-800: #141E2C;
+  /* Sostiene --color-accent en oscuro. La rampa es primitiva y se declara igual
+     en los dos temas, para que cada semantica tenga primitiva a la que aliasear
+     en cada modo de Figma. */
+  --color-zinc-850: #1E2A3A;
   --color-zinc-900: #02060C;
   --color-zinc-950: #09090b;
   --color-red-50: #fff5f6;

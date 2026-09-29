@@ -42,6 +42,14 @@
   --color-status-info-foreground: var(--color-status-info-foreground);
   --color-status-ai: var(--color-status-ai);
   --color-status-ai-foreground: var(--color-status-ai-foreground);
+  --color-status-success-soft: var(--color-status-success-soft);
+  --color-status-warning-soft: var(--color-status-warning-soft);
+  --color-status-error-soft: var(--color-status-error-soft);
+  --color-status-info-soft: var(--color-status-info-soft);
+  --color-status-ai-soft: var(--color-status-ai-soft);
+  --color-destructive-soft: var(--color-destructive-soft);
+  --color-primary-soft: var(--color-primary-soft);
+  --color-primary-tint: var(--color-primary-tint);
   --color-brand-50: var(--color-brand-50);
   --color-brand-100: var(--color-brand-100);
   --color-brand-200: var(--color-brand-200);
@@ -55,7 +63,9 @@
   --color-brand-950: var(--color-brand-950);
   --color-brand-lime: var(--color-brand-lime);
   --color-zinc-50: var(--color-zinc-50);
+  --color-zinc-75: var(--color-zinc-75);
   --color-zinc-100: var(--color-zinc-100);
+  --color-zinc-150: var(--color-zinc-150);
   --color-zinc-200: var(--color-zinc-200);
   --color-zinc-300: var(--color-zinc-300);
   --color-zinc-400: var(--color-zinc-400);
@@ -63,6 +73,7 @@
   --color-zinc-600: var(--color-zinc-600);
   --color-zinc-700: var(--color-zinc-700);
   --color-zinc-800: var(--color-zinc-800);
+  --color-zinc-850: var(--color-zinc-850);
   --color-zinc-900: var(--color-zinc-900);
   --color-zinc-950: var(--color-zinc-950);
   --color-red-50: var(--color-red-50);

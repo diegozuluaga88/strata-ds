@@ -1,133 +1,161 @@
 {
-    "color": {
-        "background": {
-            "value": "{color.zinc.900}"
-        },
-        "foreground": {
-            "value": "{color.zinc.100}"
-        },
-        "card": {
-            "value": "{color.zinc.900}"
-        },
-        "card-foreground": {
-            "value": "{color.zinc.100}"
-        },
-        "popover": {
-            "value": "{color.zinc.900}"
-        },
-        "popover-foreground": {
-            "value": "{color.zinc.100}"
-        },
-        "primary": {
-            "value": "{color.brand.500}"
-        },
-        "primary-foreground": {
-            "value": "{color.zinc.900}"
-        },
-        "secondary": {
-            "value": "{color.zinc.800}"
-        },
-        "secondary-foreground": {
-            "value": "{color.zinc.100}"
-        },
-        "muted": {
-            "value": "{color.zinc.800}"
-        },
-        "muted-foreground": {
-            "value": "{color.zinc.400}"
-        },
-        "accent": {
-            "value": "{color.zinc.800}"
-        },
-        "accent-foreground": {
-            "value": "{color.zinc.100}"
-        },
-        "destructive": {
-            "value": "{color.red.900}"
-        },
-        "destructive-foreground": {
-            "value": "{color.red.50}"
-        },
-        "border": {
-            "value": "{color.zinc.800}"
-        },
-        "input": {
-            "value": "{color.zinc.800}"
-        },
-        "input-background": {
-            "value": "{color.zinc.800}"
-        },
-        "ring": {
-            "value": "{color.zinc.400}"
-        },
-        "chart-1": {
-            "value": "{color.indigo.500}"
-        },
-        "chart-2": {
-            "value": "{color.green.500}"
-        },
-        "chart-3": {
-            "value": "{color.red.500}"
-        },
-        "chart-4": {
-            "value": "{color.amber.500}"
-        },
-        "chart-5": {
-            "value": "{color.indigo.400}"
-        },
-        "sidebar": {
-            "value": "{color.zinc.900}"
-        },
-        "sidebar-foreground": {
-            "value": "{color.zinc.100}"
-        },
-        "sidebar-primary": {
-            "value": "{color.brand.500}"
-        },
-        "sidebar-primary-foreground": {
-            "value": "{color.zinc.900}"
-        },
-        "sidebar-accent": {
-            "value": "{color.zinc.800}"
-        },
-        "sidebar-accent-foreground": {
-            "value": "{color.zinc.100}"
-        },
-        "sidebar-border": {
-            "value": "{color.zinc.800}"
-        },
-        "sidebar-ring": {
-            "value": "{color.zinc.400}"
-        },
-        "status-success": {
-            "value": "{color.green.400}"
-        },
-        "status-success-foreground": {
-            "value": "{color.black}"
-        },
-        "status-warning": {
-            "value": "{color.amber.400}"
-        },
-        "status-warning-foreground": {
-            "value": "{color.black}"
-        },
-        "status-error": {
-            "value": "{color.red.400}"
-        },
-        "status-error-foreground": {
-            "value": "{color.black}"
-        },
-        "status-info": {
-            "value": "{color.blue.400}"
-        },
-        "status-info-foreground": {
-            "value": "{color.black}"
-        },
-        "status-ai": {
-            "value": "{color.violet.400}"
-        },
-        "status-ai-foreground": {
-            "value": "{color.black}"
-        }
+  "color": {
+    "background": {
+      "value": "{color.zinc.900}"
+    },
+    "foreground": {
+      "value": "{color.zinc.100}"
+    },
+    "card": {
+      "value": "{color.zinc.900}"
+    },
+    "card-foreground": {
+      "value": "{color.zinc.100}"
+    },
+    "popover": {
+      "value": "{color.zinc.900}"
+    },
+    "popover-foreground": {
+      "value": "{color.zinc.100}"
+    },
+    "primary": {
+      "value": "{color.brand.500}"
+    },
+    "primary-foreground": {
+      "value": "{color.zinc.900}"
+    },
+    "secondary": {
+      "value": "{color.zinc.800}"
+    },
+    "secondary-foreground": {
+      "value": "{color.zinc.100}"
+    },
+    "muted": {
+      "value": "{color.zinc.800}"
+    },
+    "muted-foreground": {
+      "value": "{color.zinc.400}"
+    },
+    "accent": {
+      "value": "{color.zinc.850}",
+      "comment": "accent = superficie de hover. En oscuro es un paso MAS claro que muted, no\nmas oscuro."
+    },
+    "accent-foreground": {
+      "value": "{color.zinc.100}"
+    },
+    "destructive": {
+      "value": "{color.red.900}"
+    },
+    "destructive-foreground": {
+      "value": "{color.red.50}"
+    },
+    "border": {
+      "value": "{color.zinc.800}"
+    },
+    "input": {
+      "value": "{color.zinc.800}"
+    },
+    "input-background": {
+      "value": "{color.zinc.800}"
+    },
+    "ring": {
+      "value": "{color.zinc.400}"
+    },
+    "chart-1": {
+      "value": "{color.indigo.500}"
+    },
+    "chart-2": {
+      "value": "{color.green.500}"
+    },
+    "chart-3": {
+      "value": "{color.red.500}"
+    },
+    "chart-4": {
+      "value": "{color.amber.500}"
+    },
+    "chart-5": {
+      "value": "{color.indigo.400}"
+    },
+    "sidebar": {
+      "value": "{color.zinc.900}"
+    },
+    "sidebar-foreground": {
+      "value": "{color.zinc.100}"
+    },
+    "sidebar-primary": {
+      "value": "{color.brand.500}"
+    },
+    "sidebar-primary-foreground": {
+      "value": "{color.zinc.900}"
+    },
+    "sidebar-accent": {
+      "value": "{color.zinc.800}"
+    },
+    "sidebar-accent-foreground": {
+      "value": "{color.zinc.100}"
+    },
+    "sidebar-border": {
+      "value": "{color.zinc.800}"
+    },
+    "sidebar-ring": {
+      "value": "{color.zinc.400}"
+    },
+    "status-success": {
+      "value": "{color.green.400}"
+    },
+    "status-success-foreground": {
+      "value": "{color.black}"
+    },
+    "status-warning": {
+      "value": "{color.amber.400}"
+    },
+    "status-warning-foreground": {
+      "value": "{color.black}"
+    },
+    "status-error": {
+      "value": "{color.red.400}"
+    },
+    "status-error-foreground": {
+      "value": "{color.black}"
+    },
+    "status-info": {
+      "value": "{color.blue.400}"
+    },
+    "status-info-foreground": {
+      "value": "{color.black}"
+    },
+    "status-ai": {
+      "value": "{color.violet.400}"
+    },
+    "status-ai-foreground": {
+      "value": "{color.black}"
+    },
+    "status-success-soft": {
+      "value": "#142e29",
+      "comment": "Familia -soft: fondos de acento pre-mezclados. Existen porque Figma no\nconserva la opacidad de un paint bindeado a una variable al instanciar un\ncomponente, asi que `bg-status-error/10` se pierde. Pre-mezclar el 10-15%\nsobre la superficie los hace estables en ambos lados."
+    },
+    "status-warning-soft": {
+      "value": "#2f291c"
+    },
+    "status-error-soft": {
+      "value": "#2d1b28"
+    },
+    "status-info-soft": {
+      "value": "#18263c"
+    },
+    "status-ai-soft": {
+      "value": "#22223c"
+    },
+    "destructive-soft": {
+      "value": "#2d1b28"
+    },
+    "primary-soft": {
+      "value": "#272f1e",
+      "comment": "Lavado de primary (~5%) para superficies SELECCIONADAS: fila elegida del\ngrid, opcion marcada de un radio. Es lo que el codigo escribia como\n`bg-primary/5`."
+    },
+    "primary-tint": {
+      "value": "#4a5a28",
+      "comment": "Tinte lleno de primary para chips pequenos (contadores de tab). Se llamaba\nprimary-foreground-soft y el nombre inducia a error: su valor es un tinte de\nprimary, no del foreground."
     }
+  }
 }

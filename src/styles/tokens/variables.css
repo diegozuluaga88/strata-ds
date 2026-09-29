@@ -1,23 +1,32 @@
+/* GENERADO POR build-tokens.mjs — no editar a mano.
+   La fuente son los JSON de tokens/. Un cambio hecho aqui se pierde
+   en el siguiente `npm run build:tokens`. */
 :root {
   --color-background: #EBECEE;
   --color-foreground: #02060C;
   --color-card: #fafafa;
   --color-card-foreground: #02060C;
-  --color-popover: #f4f4f0;
+  --color-popover: #fafafa;
   --color-popover-foreground: #02060C;
   --color-primary: #E6F993;
   --color-primary-foreground: #02060C;
-  --color-secondary: #fafafa;
+  /* Familia recesiva: un escalon por debajo de --color-card (zinc-50). Antes
+     valia #fafafa, identico a card, asi que no producia ninguna separacion
+     visible. Los nombres semanticos no cambian: solo el valor. */
+  --color-secondary: #F4F4F5;
   --color-secondary-foreground: #02060C;
-  --color-muted: #fafafa;
+  --color-muted: #F4F4F5;
   --color-muted-foreground: #959DA7;
-  --color-accent: #fafafa;
+  /* accent = SUPERFICIE DE HOVER, un paso por debajo de card. Antes valia lo
+     mismo que --color-muted, asi que un hover no se distinguia de una fila
+     cebra. Es el rol que shadcn usa en `hover:bg-accent`. */
+  --color-accent: #E8EAEC;
   --color-accent-foreground: #02060C;
   --color-destructive: #E52D49;
   --color-destructive-foreground: #ffffff;
   --color-border: #D0D4D8;
   --color-input: #D0D4D8;
-  --color-input-background: #fafafa;
+  --color-input-background: #F4F4F5;
   --color-ring: #959DA7;
   --color-chart-1: #6366f1;
   --color-chart-2: #22c55e;
@@ -28,7 +37,7 @@
   --color-sidebar-foreground: #02060C;
   --color-sidebar-primary: #E6F993;
   --color-sidebar-primary-foreground: #02060C;
-  --color-sidebar-accent: #fafafa;
+  --color-sidebar-accent: #F4F4F5;
   --color-sidebar-accent-foreground: #02060C;
   --color-sidebar-border: #D0D4D8;
   --color-sidebar-ring: #959DA7;
@@ -42,6 +51,24 @@
   --color-status-info-foreground: #ffffff;
   --color-status-ai: #8b5cf6;
   --color-status-ai-foreground: #ffffff;
+  /* Familia -soft: fondos de acento pre-mezclados. Existen porque Figma no
+     conserva la opacidad de un paint bindeado a una variable al instanciar un
+     componente, asi que `bg-status-error/10` se pierde. Pre-mezclar el 10-15%
+     sobre la superficie los hace estables en ambos lados. */
+  --color-status-success-soft: #e3f1e8;
+  --color-status-warning-soft: #f3e9e2;
+  --color-status-error-soft: #f4e3e6;
+  --color-status-info-soft: #e5ebf9;
+  --color-status-ai-soft: #efeafa;
+  --color-destructive-soft: #f8e6e8;
+  /* Lavado de primary (~5%) para superficies SELECCIONADAS: fila elegida del
+     grid, opcion marcada de un radio. Es lo que el codigo escribia como
+     `bg-primary/5`. */
+  --color-primary-soft: #f8faef;
+  /* Tinte lleno de primary para chips pequenos (contadores de tab). Se llamaba
+     primary-foreground-soft y el nombre inducia a error: su valor es un tinte de
+     primary, no del foreground. */
+  --color-primary-tint: #cfe186;
   --color-brand-50: #fdfee7;
   --color-brand-100: #F4F8E1;
   --color-brand-200: #F4FFC9;
@@ -55,7 +82,14 @@
   --color-brand-950: #233502;
   --color-brand-lime: #d6ff3c;
   --color-zinc-50: #fafafa;
+  /* Escalon entre la superficie elevada (zinc-50) y el fondo de pagina (zinc-100).
+     Sin el, la familia muted/secondary/input no tenia donde sentarse y quedaba
+     sobre zinc-50, es decir encima de --color-card: por eso esas superficies
+     eran invisibles en modo claro. */
+  --color-zinc-75: #F4F4F5;
   --color-zinc-100: #EBECEE;
+  /* Sostiene --color-accent, la superficie de hover en modo claro. */
+  --color-zinc-150: #E8EAEC;
   --color-zinc-200: #E0E2E5;
   --color-zinc-300: #D0D4D8;
   --color-zinc-400: #B4BBC2;
@@ -63,6 +97,10 @@
   --color-zinc-600: #546070;
   --color-zinc-700: #333F4E;
   --color-zinc-800: #141E2C;
+  /* Sostiene --color-accent en oscuro. La rampa es primitiva y se declara igual
+     en los dos temas, para que cada semantica tenga primitiva a la que aliasear
+     en cada modo de Figma. */
+  --color-zinc-850: #1E2A3A;
   --color-zinc-900: #02060C;
   --color-zinc-950: #09090b;
   --color-red-50: #fff5f6;

@@ -26,19 +26,21 @@
         "value": "{color.zinc.900}"
       },
       "secondary": {
-        "value": "{color.zinc.50}"
+        "value": "{color.zinc.75}",
+        "comment": "Familia recesiva: un escalon por debajo de --color-card (zinc-50). Antes\nvalia #fafafa, identico a card, asi que no producia ninguna separacion\nvisible. Los nombres semanticos no cambian: solo el valor."
       },
       "secondary-foreground": {
         "value": "{color.zinc.900}"
       },
       "muted": {
-        "value": "{color.zinc.50}"
+        "value": "{color.zinc.75}"
       },
       "muted-foreground": {
         "value": "{color.zinc.500}"
       },
       "accent": {
-        "value": "{color.zinc.50}"
+        "value": "{color.zinc.150}",
+        "comment": "accent = SUPERFICIE DE HOVER, un paso por debajo de card. Antes valia lo\nmismo que --color-muted, asi que un hover no se distinguia de una fila\ncebra. Es el rol que shadcn usa en `hover:bg-accent`."
       },
       "accent-foreground": {
         "value": "{color.zinc.900}"
@@ -56,7 +58,7 @@
         "value": "{color.zinc.300}"
       },
       "input-background": {
-        "value": "{color.zinc.50}"
+        "value": "{color.zinc.75}"
       },
       "ring": {
         "value": "{color.zinc.500}"
@@ -89,7 +91,7 @@
         "value": "{color.zinc.900}"
       },
       "sidebar-accent": {
-        "value": "{color.zinc.50}"
+        "value": "{color.zinc.75}"
       },
       "sidebar-accent-foreground": {
         "value": "{color.zinc.900}"
@@ -129,6 +131,33 @@
       },
       "status-ai-foreground": {
         "value": "{color.white}"
+      },
+      "status-success-soft": {
+        "value": "#e3f1e8",
+        "comment": "Familia -soft: fondos de acento pre-mezclados. Existen porque Figma no\nconserva la opacidad de un paint bindeado a una variable al instanciar un\ncomponente, asi que `bg-status-error/10` se pierde. Pre-mezclar el 10-15%\nsobre la superficie los hace estables en ambos lados."
+      },
+      "status-warning-soft": {
+        "value": "#f3e9e2"
+      },
+      "status-error-soft": {
+        "value": "#f4e3e6"
+      },
+      "status-info-soft": {
+        "value": "#e5ebf9"
+      },
+      "status-ai-soft": {
+        "value": "#efeafa"
+      },
+      "destructive-soft": {
+        "value": "#f8e6e8"
+      },
+      "primary-soft": {
+        "value": "#f8faef",
+        "comment": "Lavado de primary (~5%) para superficies SELECCIONADAS: fila elegida del\ngrid, opcion marcada de un radio. Es lo que el codigo escribia como\n`bg-primary/5`."
+      },
+      "primary-tint": {
+        "value": "#cfe186",
+        "comment": "Tinte lleno de primary para chips pequenos (contadores de tab). Se llamaba\nprimary-foreground-soft y el nombre inducia a error: su valor es un tinte de\nprimary, no del foreground."
       },
       "brand": {
         "50": {
@@ -172,8 +201,16 @@
         "50": {
           "value": "#fafafa"
         },
+        "75": {
+          "value": "#F4F4F5",
+          "comment": "Escalon entre la superficie elevada (zinc-50) y el fondo de pagina (zinc-100).\nSin el, la familia muted/secondary/input no tenia donde sentarse y quedaba\nsobre zinc-50, es decir encima de --color-card: por eso esas superficies\neran invisibles en modo claro."
+        },
         "100": {
           "value": "#EBECEE"
+        },
+        "150": {
+          "value": "#E8EAEC",
+          "comment": "Sostiene --color-accent, la superficie de hover en modo claro."
         },
         "200": {
           "value": "#E0E2E5"
@@ -195,6 +232,10 @@
         },
         "800": {
           "value": "#141E2C"
+        },
+        "850": {
+          "value": "#1E2A3A",
+          "comment": "Sostiene --color-accent en oscuro. La rampa es primitiva y se declara igual\nen los dos temas, para que cada semantica tenga primitiva a la que aliasear\nen cada modo de Figma."
         },
         "900": {
           "value": "#02060C"
@@ -697,7 +738,8 @@
         "value": "{color.zinc.400}"
       },
       "accent": {
-        "value": "{color.zinc.800}"
+        "value": "{color.zinc.850}",
+        "comment": "accent = superficie de hover. En oscuro es un paso MAS claro que muted, no\nmas oscuro."
       },
       "accent-foreground": {
         "value": "{color.zinc.100}"
@@ -789,6 +831,33 @@
       "status-ai-foreground": {
         "value": "{color.black}"
       },
+      "status-success-soft": {
+        "value": "#142e29",
+        "comment": "Familia -soft: fondos de acento pre-mezclados. Existen porque Figma no\nconserva la opacidad de un paint bindeado a una variable al instanciar un\ncomponente, asi que `bg-status-error/10` se pierde. Pre-mezclar el 10-15%\nsobre la superficie los hace estables en ambos lados."
+      },
+      "status-warning-soft": {
+        "value": "#2f291c"
+      },
+      "status-error-soft": {
+        "value": "#2d1b28"
+      },
+      "status-info-soft": {
+        "value": "#18263c"
+      },
+      "status-ai-soft": {
+        "value": "#22223c"
+      },
+      "destructive-soft": {
+        "value": "#2d1b28"
+      },
+      "primary-soft": {
+        "value": "#272f1e",
+        "comment": "Lavado de primary (~5%) para superficies SELECCIONADAS: fila elegida del\ngrid, opcion marcada de un radio. Es lo que el codigo escribia como\n`bg-primary/5`."
+      },
+      "primary-tint": {
+        "value": "#4a5a28",
+        "comment": "Tinte lleno de primary para chips pequenos (contadores de tab). Se llamaba\nprimary-foreground-soft y el nombre inducia a error: su valor es un tinte de\nprimary, no del foreground."
+      },
       "brand": {
         "50": {
           "value": "#fdfee7"
@@ -831,8 +900,16 @@
         "50": {
           "value": "#fafafa"
         },
+        "75": {
+          "value": "#F4F4F5",
+          "comment": "Escalon entre la superficie elevada (zinc-50) y el fondo de pagina (zinc-100).\nSin el, la familia muted/secondary/input no tenia donde sentarse y quedaba\nsobre zinc-50, es decir encima de --color-card: por eso esas superficies\neran invisibles en modo claro."
+        },
         "100": {
           "value": "#EBECEE"
+        },
+        "150": {
+          "value": "#E8EAEC",
+          "comment": "Sostiene --color-accent, la superficie de hover en modo claro."
         },
         "200": {
           "value": "#E0E2E5"
@@ -854,6 +931,10 @@
         },
         "800": {
           "value": "#141E2C"
+        },
+        "850": {
+          "value": "#1E2A3A",
+          "comment": "Sostiene --color-accent en oscuro. La rampa es primitiva y se declara igual\nen los dos temas, para que cada semantica tenga primitiva a la que aliasear\nen cada modo de Figma."
         },
         "900": {
           "value": "#02060C"
