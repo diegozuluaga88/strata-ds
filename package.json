@@ -1,6 +1,6 @@
 {
   "name": "strata-design-system",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Strata Design System - Catalyst-based component library",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -17,9 +17,11 @@
       "import": "./dist/tokens.js",
       "require": "./dist/tokens.cjs"
     },
-    "./styles": "./dist/strata-ds-whitelabel.css",
+    "./styles": "./dist/styles/index.css",
     "./styles/tokens": "./dist/styles/tokens/variables.css",
-    "./styles/tokens-dark": "./dist/styles/tokens/variables-dark.css"
+    "./styles/tokens-dark": "./dist/styles/tokens/variables-dark.css",
+    "./styles/theme": "./dist/styles/tokens/theme-v4.css",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
@@ -142,5 +144,9 @@
   },
   "sideEffects": [
     "**/*.css"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegozuluaga88/strata-ds.git"
+  }
 }

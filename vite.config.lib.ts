@@ -12,22 +12,24 @@ const copyAssets = () => {
     return {
         name: 'copy-assets',
         closeBundle: async () => {
-            const srcDir = resolve(__dirname, 'src/styles/tokens');
-            const destDir = resolve(__dirname, 'dist/styles/tokens');
-
-            if (fs.existsSync(srcDir)) {
-                fs.mkdirSync(destDir, { recursive: true });
-                const files = fs.readdirSync(srcDir);
-                files.forEach(file => {
-                    if (file.endsWith('.css')) {
-                        fs.copyFileSync(
-                            path.join(srcDir, file),
-                            path.join(destDir, file)
-                        );
-                        console.log(`Copied ${file} to dist/styles/tokens`);
+            // Copia todo src/styles, no solo tokens/: la entrada que consume una
+            // app es index.css, que importa las fuentes, Tailwind, los tokens y
+            // el mapeo de tema. Copiar solo tokens/ dejaba el export `./styles`
+            // apuntando a un archivo que no existia.
+            const copyCss = (from: string, to: string) => {
+                if (!fs.existsSync(from)) return;
+                fs.mkdirSync(to, { recursive: true });
+                for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
+                    const src = path.join(from, entry.name);
+                    const dest = path.join(to, entry.name);
+                    if (entry.isDirectory()) copyCss(src, dest);
+                    else if (entry.name.endsWith('.css')) {
+                        fs.copyFileSync(src, dest);
+                        console.log(`Copied ${path.relative(resolve(__dirname, 'src'), src)} to dist`);
                     }
-                });
-            }
+                }
+            };
+            copyCss(resolve(__dirname, 'src/styles'), resolve(__dirname, 'dist/styles'));
         }
     };
 };
@@ -38,7 +40,10 @@ export default defineConfig({
         react(),
         dts({
             insertTypesEntry: true,
-            include: ['src/components/**/*.tsx', 'src/components/**/*.ts', 'src/tokens/**/*.ts', 'src/utils/**/*.ts'],
+            // src/types va incluido: ahi viven las declaraciones de modulo de los
+            // imports de imagenes. Sin ellas la generacion de .d.ts falla con
+            // TS2307 en los logos del navbar.
+            include: ['src/components/**/*.tsx', 'src/components/**/*.ts', 'src/tokens/**/*.ts', 'src/utils/**/*.ts', 'src/types/**/*.d.ts'],
             exclude: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'src/examples/**/*'],
         }),
         copyAssets(),
