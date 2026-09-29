@@ -97,36 +97,15 @@ See the live demo at `localhost:5173` (run `npm run dev` from this folder)
 
 ## Library installation
 
-The package is published to **GitHub Packages**, which is why the name is scoped.
-A consuming project needs a one-time `.npmrc` pointing the `@diegozuluaga88`
-scope at that registry, plus a GitHub token with `read:packages`:
-
-```ini
-# .npmrc — in the consuming project
-@diegozuluaga88:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
 ```bash
-npm install @diegozuluaga88/strata-design-system
+npm install strata-design-system
 ```
-
-### Publishing a new version
-
-```bash
-npm version <patch|minor|major>   # prepublishOnly runs build:lib
-npm publish                       # the registry comes from publishConfig
-```
-
-`build:lib` produces `dist/` with ESM, CJS, type declarations and the token CSS.
-Every path in the `exports` map must exist afterwards — `files` whitelists
-`dist`, so nothing outside it ships.
 
 ## Quick Start
 
 ```tsx
-import { Button, Card, CardHeader, CardTitle, CardContent } from '@diegozuluaga88/strata-design-system';
-import '@diegozuluaga88/strata-design-system/styles';
+import { Button, Card, CardHeader, CardTitle, CardContent } from 'strata-design-system';
+import 'strata-design-system/styles';
 
 function App() {
   return (

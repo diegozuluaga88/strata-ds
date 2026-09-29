@@ -1,10 +1,6 @@
 {
-  "name": "@diegozuluaga88/strata-design-system",
+  "name": "strata-design-system",
   "version": "0.1.0",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
-  },
   "description": "Strata Design System - Catalyst-based component library",
   "type": "module",
   "main": "./dist/index.cjs",
