@@ -732,8 +732,8 @@ componentes que habría que mantener en paralelo. Nada se perdió: cada variante
 **Conteos tras la etapa:** Atoms 15 sets · Molecules 24 sets + 5 sueltos · Organisms 12 sets +
 3 sueltos · Overlays 5 sets + 7 sueltos = **71 componentes** sin contar los 166 iconos.
 
-> ⚠️ **Falta republicar la librería.** Es acción manual en la UI de Figma y hay que hacerla una sola
-> vez, ahora que la etapa cerró, para no generar actualizaciones sueltas en `Strata · Quote Converter`
+> ✅ **Librería republicada (2026-09-29).** Era acción manual en la UI de Figma y se hizo una sola
+> vez, al cerrar la etapa, para no generar actualizaciones sueltas en `Strata · Quote Converter`
 > (`2dzdBwbG1ESDSLvzwC2vlc`), que ya la consume.
 
 ### Desviaciones registradas al construir
@@ -1066,7 +1066,7 @@ en el avatar de grupo — el DS no tiene gradientes, se resolvió con `status-ai
 **78 componentes** sin contar los 166 iconos (Atoms 16 · Molecules 24+5 · Organisms 12+3 ·
 Overlays 6+12).
 
-> ⚠️ **Falta republicar la librería.** Acción manual, una sola vez, con los 7 juntos — para no
+> ✅ **Librería republicada (2026-09-29).** Acción manual, una sola vez, con los 7 juntos — para no
 > generar actualizaciones sueltas en `Strata · Quote Converter` y `Strata · Expert Hub`, que ya la
 > consumen.
 
