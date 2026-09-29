@@ -7,7 +7,7 @@ export function Table({ className, striped, dense, ...props }: React.ComponentPr
         {...props}
         className={cn(
           "w-full text-left text-sm",
-          striped && "[&_tbody_tr:nth-child(even)]:bg-zinc-950/[2.5%] dark:[&_tbody_tr:nth-child(even)]:bg-white/[2.5%]",
+          striped && "[&_tbody_tr:nth-child(even)]:bg-foreground/[2.5%]",
           dense ? "[&_td]:py-2 [&_th]:py-2" : "[&_td]:py-4 [&_th]:py-4",
           className
         )}

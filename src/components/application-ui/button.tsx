@@ -9,18 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-brand-300 text-zinc-900 hover:bg-brand-600 dark:bg-brand-500 dark:text-zinc-900 dark:hover:bg-brand-600",
-        destructive:
-          "bg-red-500 text-white hover:bg-red-600 dark:hover:bg-red-600",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border border-border bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-zinc-100 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700",
-        ghost:
-          "text-foreground hover:bg-black/5 dark:hover:bg-white/10",
-        link: "text-brand-500 underline-offset-4 hover:underline dark:text-brand-500",
-        brand: "bg-brand-300 text-zinc-900 hover:bg-brand-600 dark:bg-brand-500 dark:text-zinc-900 dark:hover:bg-brand-600",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "text-foreground hover:bg-accent hover:text-accent-foreground",
+        link: "text-foreground underline underline-offset-4 hover:decoration-2",
+        brand: "bg-primary text-primary-foreground hover:bg-primary/90",
+        // La unica variante que sigue en color crudo: es indigo y no hay token
+        // semantico equivalente. Pendiente decidir si el DS necesita uno.
         accent: "bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer border-0",
       },
       size: {
