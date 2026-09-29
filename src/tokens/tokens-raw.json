@@ -37,7 +37,8 @@
         "value": "{color.zinc.75}"
       },
       "muted-foreground": {
-        "value": "{color.zinc.500}"
+        "value": "#616A76",
+        "comment": "Un paso mas oscuro que zinc-500, que sobre card (#fafafa) daba ~2,6:1 y no\nllegaba a AA. Este da ~5:1. No es un peldano de la rampa: valor propio, igual\nque en el Storybook de Avanto, para no inventar un escalon que ellos no tienen."
       },
       "accent": {
         "value": "{color.zinc.150}",

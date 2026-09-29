@@ -10,7 +10,7 @@ export const tokens = {
   'color-secondary': '#F4F4F5',
   'color-secondary-foreground': '#02060C',
   'color-muted': '#F4F4F5',
-  'color-muted-foreground': '#959DA7',
+  'color-muted-foreground': '#616A76',
   'color-accent': '#E8EAEC',
   'color-accent-foreground': '#02060C',
   'color-destructive': '#E52D49',

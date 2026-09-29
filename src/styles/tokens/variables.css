@@ -19,7 +19,10 @@
   --color-secondary: #F4F4F5;
   --color-secondary-foreground: #02060C;
   --color-muted: #F4F4F5;
-  --color-muted-foreground: #959DA7;
+  /* Un paso mas oscuro que zinc-500, que sobre card (#fafafa) daba ~2,6:1 y no
+     llegaba a AA. Este da ~5:1. No es un peldano de la rampa: valor propio, igual
+     que en el Storybook de Avanto, para no inventar un escalon que ellos no tienen. */
+  --color-muted-foreground: #616A76;
   /* accent = SUPERFICIE DE HOVER, un paso por debajo de card. Antes valia lo
      mismo que --color-muted, asi que un hover no se distinguia de una fila
      cebra. Es el rol que shadcn usa en `hover:bg-accent`. */

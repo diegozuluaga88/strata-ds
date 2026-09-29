@@ -1508,11 +1508,11 @@
           "type": "COLOR",
           "codeToken": "--color-muted-foreground",
           "values": {
-            "Light": "#959DA7",
+            "Light": "#616A76",
             "Dark": "#B4BBC2"
           },
           "alias": {
-            "Light": "Zinc/zinc-500",
+            "Light": null,
             "Dark": "Zinc/zinc-400"
           },
           "tailwind": [
