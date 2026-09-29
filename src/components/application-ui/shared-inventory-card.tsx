@@ -2,10 +2,6 @@ import * as React from 'react';
 import { MapPin, EllipsisVertical } from 'lucide-react';
 import { Checkbox } from '../forms/checkbox';
 import { cn } from '@/utils';
-
-export type SharedInventoryCardStatusVariant = 'blue' | 'green' | 'orange' | 'zinc';
-export type SharedInventoryCardPriorityVariant = 'green' | 'yellow' | 'muted';
-
 export interface SharedInventoryCardProps {
   /** Optional main image URL */
   imageUrl?: string;
@@ -26,12 +22,12 @@ export interface SharedInventoryCardProps {
   /** Bottom-right image overlay status */
   statusBadge?: {
     label: string;
-    variant?: SharedInventoryCardStatusVariant;
+    variant?: 'blue' | 'green' | 'orange' | 'zinc';
   };
   /** Bottom-right content footer priority */
   priorityBadge?: {
     label: string;
-    variant?: SharedInventoryCardPriorityVariant;
+    variant?: 'green' | 'yellow' | 'muted';
     emoji?: string;
   };
   /** Toggle top-left checkbox visibility */
@@ -48,54 +44,31 @@ export interface SharedInventoryCardProps {
   onClick?: () => void;
 }
 
-const STATUS_VARIANTS: Record<SharedInventoryCardStatusVariant, string> = {
-  blue: 'bg-info-light text-info',
-  green: 'bg-success-light text-success',
-  orange: 'bg-orange-light text-orange',
-  zinc: 'bg-muted text-muted-foreground',
-};
+function StatusBadge({ label, variant = 'zinc' }: { label: string; variant?: string }) {
+  const base = 'px-2.5 py-1 rounded-lg text-[10px] font-bold shadow-sm backdrop-blur-md border border-white/10';
+  const variants = {
+    blue: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+    green: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+    orange: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
+    zinc: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-400',
+  };
 
-function StatusBadge({
-  label,
-  variant = 'zinc',
-}: {
-  label: string;
-  variant?: SharedInventoryCardStatusVariant;
-}) {
   return (
-    <span
-      className={cn(
-        'px-2.5 py-1 rounded-lg text-[10px] font-bold shadow-sm backdrop-blur-md border border-border/40',
-        STATUS_VARIANTS[variant],
-      )}
-    >
+    <span className={cn(base, variants[variant as keyof typeof variants] || variants.zinc)}>
       {label}
     </span>
   );
 }
 
-const PRIORITY_VARIANTS: Record<SharedInventoryCardPriorityVariant, string> = {
-  green: 'text-success bg-success-light/60',
-  yellow: 'text-warning bg-warning-light/60',
-  muted: 'text-muted-foreground bg-muted/30',
-};
+function PriorityBadge({ label, variant = 'muted', emoji }: { label: string; variant?: string; emoji?: string }) {
+  const variants = {
+    green: 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/10',
+    yellow: 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/10',
+    muted: 'text-muted-foreground bg-muted/30',
+  };
 
-function PriorityBadge({
-  label,
-  variant = 'muted',
-  emoji,
-}: {
-  label: string;
-  variant?: SharedInventoryCardPriorityVariant;
-  emoji?: string;
-}) {
   return (
-    <span
-      className={cn(
-        'px-2 py-1 rounded text-[10px] font-medium border border-transparent',
-        PRIORITY_VARIANTS[variant],
-      )}
-    >
+    <span className={cn('px-2 py-1 rounded text-[10px] font-medium border border-transparent', variants[variant as keyof typeof variants] || variants.muted)}>
       {emoji && (
         <span role="img" aria-label={label} className="mr-1">
           {emoji}
@@ -130,10 +103,10 @@ export function SharedInventoryCard({
 }: SharedInventoryCardProps) {
   return (
     <div
-      className="group bg-card rounded-2xl border border-border shadow-sm hover:shadow-lg transition-all cursor-pointer relative overflow-hidden flex flex-col h-[340px] hover:border-primary/50"
+      className="group bg-card rounded-2xl border shadow-sm hover:shadow-lg transition-all cursor-pointer relative overflow-hidden flex flex-col h-[340px] border-zinc-200 dark:border-zinc-800 hover:border-primary/50"
       onClick={onClick}
     >
-      <div className="h-44 w-full relative bg-muted overflow-hidden">
+      <div className="h-44 w-full relative bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -141,7 +114,7 @@ export function SharedInventoryCard({
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground/60">
+          <div className="w-full h-full flex flex-col items-center justify-center text-zinc-300 dark:text-zinc-600">
             {FallbackIcon && <FallbackIcon className="w-12 h-12 mb-2" />}
             {imageFallbackLabel && <span className="text-xs font-medium">{imageFallbackLabel}</span>}
           </div>
@@ -153,7 +126,7 @@ export function SharedInventoryCard({
             <Checkbox
               checked={checked}
               onCheckedChange={(val) => onCheckboxChange?.(!!val)}
-              className="rounded border-border focus:ring-ring shadow-sm w-5 h-5 cursor-pointer"
+              className="rounded border-zinc-300 text-primary focus:ring-primary shadow-sm w-5 h-5 cursor-pointer"
               aria-label={`Select ${title}`}
             />
           </div>
@@ -163,7 +136,7 @@ export function SharedInventoryCard({
           <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               type="button"
-              className="p-1.5 bg-background/90 backdrop-blur rounded-lg text-foreground hover:bg-background shadow-sm cursor-pointer"
+              className="p-1.5 bg-white/90 dark:bg-black/80 backdrop-blur rounded-lg text-foreground hover:bg-white dark:hover:bg-zinc-800 shadow-sm cursor-pointer"
               aria-label="More actions"
               onClick={(e) => {
                 e.stopPropagation();
@@ -187,17 +160,17 @@ export function SharedInventoryCard({
           <h3 className="font-semibold text-foreground truncate text-base" title={title}>
             {title}
           </h3>
-          <p className="text-xs text-muted-foreground mb-3 truncate">{subtitle}</p>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+          <p className="text-xs text-muted-foreground mb-3 truncate">
+            {subtitle}
+          </p>
+          <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 mb-2">
             <MapPin className="w-3.5 h-3.5 shrink-0" aria-hidden />
             <span className="truncate">{location}</span>
           </div>
         </div>
-        <div className="pt-3 border-t border-border/60 flex justify-between items-end">
+        <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex justify-between items-end">
           <div>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium mb-0.5">
-              {valueLabel}
-            </p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium mb-0.5">{valueLabel}</p>
             <p className="text-sm font-bold text-foreground">{value}</p>
           </div>
           {priorityBadge && (

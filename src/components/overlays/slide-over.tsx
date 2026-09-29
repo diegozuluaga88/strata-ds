@@ -47,7 +47,7 @@ export function SlideOver({
                                     className={clsx(
                                         className,
                                         "pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700",
-                                        "flex flex-col bg-card shadow-xl"
+                                        "flex flex-col bg-white dark:bg-zinc-900 shadow-xl"
                                     )}
                                 >
                                     {children}
@@ -65,7 +65,7 @@ export function SlideOverTitle({ className, ...props }: ComponentPropsWithoutRef
     return (
         <HeadlessDialogTitle
             {...props}
-            className={clsx(className, 'text-base/6 font-semibold text-foreground')}
+            className={clsx(className, 'text-base/6 font-semibold text-zinc-900 dark:text-white')}
         />
     )
 }
@@ -74,7 +74,7 @@ export function SlideOverDescription({ className, ...props }: ComponentPropsWith
     return (
         <p
             {...props}
-            className={clsx(className, 'text-sm text-muted-foreground')}
+            className={clsx(className, 'text-sm text-zinc-500 dark:text-zinc-400')}
         />
     )
 }
@@ -85,14 +85,14 @@ export function SlideOverBody({ className, ...props }: ComponentPropsWithoutRef<
 
 export function SlideOverHeader({ className, children, onClose, ...props }: ComponentPropsWithoutRef<'div'> & { onClose?: () => void }) {
     return (
-        <div className={clsx(className, 'flex items-start justify-between px-4 py-6 sm:px-6 border-b border-border')} {...props}>
+        <div className={clsx(className, 'flex items-start justify-between px-4 py-6 sm:px-6 border-b border-zinc-200 dark:border-zinc-800')} {...props}>
             <div className="flex flex-col gap-1">
                 {children}
             </div>
             <div className="ml-3 flex h-7 items-center">
                 <button
                     type="button"
-                    className="relative rounded-md bg-card text-muted-foreground hover:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="relative rounded-md bg-white dark:bg-zinc-900 text-zinc-400 hover:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     onClick={onClose}
                 >
                     <span className="absolute -inset-2.5" />

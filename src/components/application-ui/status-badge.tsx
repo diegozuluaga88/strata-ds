@@ -53,14 +53,33 @@ function resolveStatus(status: StatusBadgeValue): StatusBadgeStatus {
   return status as StatusBadgeStatus
 }
 
+const statusDotClassMap: Record<StatusBadgeStatus, string> = {
+  active: 'bg-green-600 dark:bg-green-400',
+  available: 'bg-emerald-600 dark:bg-emerald-400',
+  in_progress: 'bg-blue-600 dark:bg-blue-400',
+  pending: 'bg-amber-600 dark:bg-amber-400',
+  completed: 'bg-green-600 dark:bg-green-400',
+  maintenance: 'bg-indigo-600 dark:bg-indigo-400',
+  warning: 'bg-amber-600 dark:bg-amber-400',
+  error: 'bg-red-600 dark:bg-red-400',
+  archived: 'bg-zinc-500 dark:bg-zinc-400',
+}
+
 export interface StatusBadgeProps extends React.ComponentProps<'span'> {
   status: StatusBadgeValue
+  /**
+   * Renders a small solid dot before the content, regardless of whether `children`
+   * overrides the default label. If `children` itself renders a leading icon, that
+   * icon will visually double up with the dot — don't combine the two.
+   */
+  dot?: boolean
 }
 
 export function StatusBadge({
   status,
   className,
   children,
+  dot = false,
   ...props
 }: StatusBadgeProps) {
   const canonicalStatus = resolveStatus(status)
@@ -75,10 +94,20 @@ export function StatusBadge({
       )}
       {...props}
     >
+      {dot && (
+        <span
+          data-slot="status-badge-dot"
+          className={cn('h-1.5 w-1.5 rounded-full', statusDotClassMap[canonicalStatus])}
+        />
+      )}
       {children ?? statusLabelMap[canonicalStatus]}
     </span>
   )
 }
 
-export { resolveStatus as resolveStatusBadgeValue, statusClassMap as statusBadgeClassMap }
+export {
+  resolveStatus as resolveStatusBadgeValue,
+  statusClassMap as statusBadgeClassMap,
+  statusDotClassMap,
+}
 

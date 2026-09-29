@@ -17,8 +17,8 @@ function formatFileSize(bytes: number): string {
 }
 
 function getFileTypeIcon(file: File): React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }> {
-  if (/\.pdf$/i.test(file.name)) return FileText as React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>;
-  return FileSpreadsheet as React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>;
+  if (/\.pdf$/i.test(file.name)) return FileText;
+  return FileSpreadsheet;
 }
 
 export interface OrderFileDropzoneProps {

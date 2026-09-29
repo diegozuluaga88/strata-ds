@@ -5,7 +5,7 @@ export function FeatureSection({ className, ...props }: ComponentPropsWithoutRef
     return (
         <div
             {...props}
-            className={clsx(className, "py-24 sm:py-32 bg-card")}
+            className={clsx(className, "py-24 sm:py-32 bg-white dark:bg-zinc-900")}
         />
     )
 }
@@ -28,7 +28,7 @@ export function Feature({ className, ...props }: ComponentPropsWithoutRef<'div'>
 
 export function FeatureIcon({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={clsx(className, "mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-status-info")}>
+        <div className={clsx(className, "mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600")}>
             {props.children}
         </div>
     )
@@ -38,7 +38,7 @@ export function FeatureTitle({ className, ...props }: ComponentPropsWithoutRef<'
     return (
         <div
             {...props}
-            className={clsx(className, 'text-base font-semibold leading-7 text-foreground')}
+            className={clsx(className, 'text-base font-semibold leading-7 text-zinc-900 dark:text-white')}
         />
     )
 }
@@ -47,7 +47,7 @@ export function FeatureDescription({ className, ...props }: ComponentPropsWithou
     return (
         <div
             {...props}
-            className={clsx(className, 'mt-1 flex flex-auto flex-col text-base leading-7 text-muted-foreground')}
+            className={clsx(className, 'mt-1 flex flex-auto flex-col text-base leading-7 text-zinc-600 dark:text-zinc-400')}
         />
     )
 }

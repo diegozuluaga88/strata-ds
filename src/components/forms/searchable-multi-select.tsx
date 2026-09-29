@@ -208,7 +208,7 @@ export function SearchableMultiSelect({
               <span>{item.label}</span>
               <button
                 type="button"
-                className="hidden ml-0.5 rounded p-0.5 group-hover:inline focus:inline focus:outline-none hover:bg-muted cursor-pointer"
+                className="invisible ml-0.5 rounded p-0.5 group-hover:visible focus:visible focus:outline-none hover:bg-muted cursor-pointer"
                 onClick={() => handleRemove(item)}
                 aria-label={`Remove ${item.label}`}
               >

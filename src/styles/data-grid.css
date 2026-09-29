@@ -1,0 +1,283 @@
+/*
+ * DataGrid component styles.
+ *
+ * The grid is a vendored port of doktorigi/Fancy-UI-Grid (MIT), whose components
+ * style themselves with plain class names that upstream defined in its own
+ * `globals.css`. That stylesheet was not part of the port, so every one of these
+ * classes rendered unstyled until this file existed — see
+ * `src/components/application-ui/data-grid/README.md`.
+ *
+ * Adapted rather than copied: upstream wrote colors as `hsl(var(--border) / 0.5)`
+ * because it ran on shadcn, whose tokens hold HSL components. This repo's tokens
+ * hold hex values, so `hsl(#D0D4D8)` would be invalid CSS and the declaration
+ * silently dropped — the same defect that made the sparkline render as a dot.
+ * These rules use `var(--color-*)` and Tailwind utilities that resolve here.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Grid-scoped colour variables. Every one resolves to an existing Strata
+ * token — this file introduces no new colour. An application that wants its
+ * grid re-skinned redefines these ten and nothing else.
+ *
+ * Light fills are solid lime under dark text. Dark fills are translucent lime
+ * over --color-card, because a solid lime row on #0B0F1A would bury the text.
+ *
+ * The focus ring is brand-700, not brand-500: measured against --color-card
+ * (#fafafa), brand-500 is 1.6:1 and brand-600 is 2.0:1, both below the 3:1
+ * WCAG 2.2 non-text minimum. brand-700 is 3.8:1.
+ * ------------------------------------------------------------------------- */
+:root {
+  --dg-header-bg:           var(--color-zinc-100);
+  --dg-col-sorted-bg:       var(--color-brand-100);
+  --dg-row-hover:           var(--color-brand-50);
+  --dg-row-selected:        var(--color-brand-200);
+  --dg-row-selected-hover:  var(--color-brand-300);
+  --dg-range-fill:          var(--color-brand-100);
+  --dg-range-border:        var(--color-brand-600);
+  --dg-resize-handle:       var(--color-border);
+  --dg-resize-handle-hover: var(--color-brand-700);
+  --dg-focus-ring:          var(--color-brand-700);
+}
+
+.dark {
+  --dg-header-bg:           var(--color-muted);
+  --dg-col-sorted-bg:       color-mix(in oklab, var(--color-brand-500) 10%, transparent);
+  --dg-row-hover:           color-mix(in oklab, var(--color-brand-500)  8%, transparent);
+  --dg-row-selected:        color-mix(in oklab, var(--color-brand-500) 18%, transparent);
+  --dg-row-selected-hover:  color-mix(in oklab, var(--color-brand-500) 24%, transparent);
+  --dg-range-fill:          color-mix(in oklab, var(--color-brand-500) 12%, transparent);
+  --dg-range-border:        var(--color-brand-500);
+  --dg-resize-handle:       var(--color-border);
+  --dg-resize-handle-hover: var(--color-brand-500);
+  --dg-focus-ring:          var(--color-brand-500);
+}
+
+/* Column resize: an 8px hit area pinned to the right edge of the header cell.
+   Without the width and the cursor the handle is invisible and unclickable.
+   Widened from 5px -- at 5px the strip was easy to miss/overshoot, especially
+   next to the pin/filter icon buttons that sit right before it, so drags meant
+   to resize would land on those controls (or on the header's own reorder-drag
+   area) instead. The visible mark (.resize-handle-visible::before) stays a
+   thin 1-2px line regardless -- only the invisible hit area got bigger. */
+.resize-handle {
+  @apply absolute right-0 top-0 h-full w-[8px] cursor-col-resize select-none z-10;
+}
+
+/* Pinned columns. The background is what stops scrolling content showing through;
+   the z-index keeps header cells above body cells. */
+.sticky-header-cell,
+.sticky-body-cell {
+  @apply sticky bg-card;
+}
+
+.sticky-header-cell {
+  z-index: 20;
+}
+
+.sticky-body-cell {
+  z-index: 10;
+}
+
+/* The seam between a pinned column and the scrolling area. */
+.pinned-left-shadow {
+  box-shadow: 2px 0 3px -1px var(--color-border);
+}
+
+.pinned-right-shadow {
+  box-shadow: -2px 0 3px -1px var(--color-border);
+}
+
+/* Keyboard focus ring for the focused cell. */
+.cell-focused {
+  @apply ring-2 ring-inset;
+  /* The default ring token is #959DA7 grey — this was the one visible
+     interaction in the grid with no brand colour. */
+  --tw-ring-color: var(--dg-focus-ring);
+}
+
+/* Cells inside an active range selection. Tint only, so the focused cell's own ring
+   (.cell-focused, applied on top) stays the stronger signal. */
+.cell-range-selected {
+  background-color: var(--dg-range-fill);
+}
+
+/* Cells the fill handle is about to write to. The port never brought a rule for this,
+   so a fill drag gave no feedback at all: stronger tint than a plain range selection
+   plus an inset ring, consistent with .cell-focused above. */
+.cell-fill-preview {
+  @apply bg-primary/20 ring-1 ring-primary ring-inset;
+}
+
+/* Excel-style fill handle: the small square at the corner of a selected range. */
+.fill-handle {
+  @apply absolute h-2 w-2 bg-primary border border-background;
+  right: -1px;
+  bottom: -1px;
+  cursor: crosshair;
+  z-index: 30;
+}
+
+/* Active-groupings panel above the grid (menu-driven, not drag-and-drop). */
+.grouping-panel {
+  @apply p-2 border-b bg-muted/50 min-h-[3.5rem] flex items-center flex-wrap gap-2;
+}
+
+.grouping-panel-pill {
+  @apply flex items-center bg-primary text-primary-foreground rounded-md px-2 py-1 text-sm;
+}
+
+.grouping-panel-pill-remove {
+  @apply ml-1.5 p-0.5 rounded-full hover:bg-primary-foreground/20;
+}
+
+/* Feedback while dragging a column header to reorder it. */
+th[data-is-dragged='true'] > div {
+  opacity: 0.35;
+  background-color: var(--dg-header-bg);
+}
+
+th[data-is-drop-target='true'] {
+  background-color: var(--dg-col-sorted-bg);
+  outline: 2px solid var(--dg-resize-handle-hover);
+  outline-offset: -2px;
+}
+
+/* Row states. These live here rather than as utilities on the row because
+ * table.tsx's TableRow — shared by every Strata table — hard-codes
+ * `hover:bg-muted/50`. data-grid.css is imported unlayered while Tailwind
+ * utilities sit in @layer utilities, and unlayered rules win, so these
+ * override the shared primitive for this grid only.
+ *
+ * Targets `> td` rather than the row: pinned cells paint their own opaque
+ * bg-card on top, which would hide a tint set on the <tr>. */
+.dg-row:hover > td {
+  background-color: var(--dg-row-hover);
+}
+
+.dg-row[data-state='selected'] > td {
+  background-color: var(--dg-row-selected);
+}
+
+.dg-row[data-state='selected']:hover > td {
+  background-color: var(--dg-row-selected-hover);
+}
+
+/* A pinned column's whole job is masking scrolled-under content, so it must stay opaque
+ * regardless of row state -- `.sticky-body-cell` alone (0,1,0) loses to
+ * `.dg-row[data-state='selected'] > td` (0,2,1) and `.dg-row:hover > td` (0,1,1), so the
+ * selection/hover tint painted through a pinned cell instead of being masked by it.
+ * Combining the row-state selector with the sticky class outranks both. */
+.dg-row[data-state='selected'] > td.sticky-body-cell,
+.dg-row:hover > td.sticky-body-cell {
+  background-color: var(--color-card);
+}
+
+.dg-row[data-state='selected']:hover > td.sticky-body-cell {
+  background-color: var(--color-card);
+}
+
+/* The header needs its own opaque background: it is sticky, so rows scroll
+ * underneath it. */
+.dg-header {
+  background-color: var(--dg-header-bg);
+}
+
+/* Every header cell's own top and bottom edge, applied per <th> rather than
+ * once on <thead>, for two reasons:
+ *
+ * 1. `border-collapse: collapse` resolves competing borders at each grid
+ *    line by its own priority rules and can drop a thead-level border
+ *    rather than paint it — and whether it does turns out to depend on
+ *    scroll position, so a `border-top`/`border-bottom` on <thead> can
+ *    vanish only once the header is actually stuck.
+ * 2. A pinned header cell paints its own opaque `bg-card` (so scrolling
+ *    columns don't show through it) — that background sits on top of
+ *    whatever the parent <thead> draws behind it, so a thead-level border
+ *    is invisible under every pinned column's header specifically, even
+ *    where it survives border-collapse for the rest of the row.
+ *
+ * An inset box-shadow on the cell itself sits outside the border-collapse
+ * model and paints over that same cell's own background, so both problems
+ * disappear — pinned or not, scrolled or not, it always shows. */
+.dg-header-cell-border {
+  box-shadow: inset 0 1px 0 0 var(--color-border), inset 0 -1px 0 0 var(--color-border);
+}
+
+/* box-shadow is one property: a pinned header cell also carries
+ * .pinned-left-shadow/.pinned-right-shadow (the seam shadow toward the
+ * scrolling area), which would otherwise silently replace the rule above
+ * instead of combining with it. These union both into one declaration. */
+.dg-header-cell-border.pinned-left-shadow {
+  box-shadow: inset 0 1px 0 0 var(--color-border), inset 0 -1px 0 0 var(--color-border), 2px 0 3px -1px var(--color-border);
+}
+
+.dg-header-cell-border.pinned-right-shadow {
+  box-shadow: inset 0 1px 0 0 var(--color-border), inset 0 -1px 0 0 var(--color-border), -2px 0 3px -1px var(--color-border);
+}
+
+/* The sorted column. The arrow in DataGridHeaderCell is the second, non-colour
+ * signal — never identify the sorted column by tint alone.
+ *
+ * `.sticky-header-cell.dg-col-sorted` would be enough to select a pinned+sorted header, but
+ * the pinned side needed the specificity bump: `th.dg-col-sorted` alone is (0,1,1), which lost
+ * to nothing here -- the actual defect was the OTHER direction, `.sticky-header-cell` (0,1,0)
+ * losing to this rule, so the pinned column's opaque background disappeared under a sorted
+ * header. Adding `.sticky-header-cell` to this selector's own specificity fixes it without
+ * touching the plain (non-pinned) sorted case below. */
+th.dg-col-sorted.sticky-header-cell {
+  background-color: var(--dg-col-sorted-bg);
+}
+
+th.dg-col-sorted {
+  background-color: var(--dg-col-sorted-bg);
+}
+
+/* The visible mark for the resize affordance. Drawn as a pseudo-element so the
+ * 5px grab area above keeps its full height and hit box: the divider is inset
+ * vertically for looks, the grab zone is not. Transparent at rest -- target
+ * design has no permanent vertical divider lines between headers -- and only
+ * painted on hover/focus so the resize affordance is still discoverable. */
+.resize-handle-visible::before {
+  content: '';
+  position: absolute;
+  top: 0.375rem;
+  bottom: 0.375rem;
+  right: 0;
+  width: 1px;
+  background-color: transparent;
+}
+
+.resize-handle-visible:hover::before,
+.resize-handle-visible:focus-visible::before {
+  background-color: var(--dg-resize-handle);
+}
+
+.resize-handle-visible:hover::before {
+  width: 2px;
+  background-color: var(--dg-resize-handle-hover);
+}
+
+/* ---------------------------------------------------------------------------
+ * Ctrl+F and row reorder. Like the fill preview above, the port applied these
+ * class names without bringing upstream's rules, so the find highlight and the
+ * row-drop indicator rendered as nothing.
+ *
+ * Both use inset box-shadow rather than a border: a border would change the
+ * cell box and shift every column while a match or a drag is active.
+ * ------------------------------------------------------------------------- */
+.cell-find-match {
+  background-color: var(--dg-col-sorted-bg);
+}
+
+.cell-find-current {
+  background-color: var(--dg-row-selected);
+  box-shadow: inset 0 0 0 2px var(--dg-range-border);
+}
+
+.row-drop-above > td {
+  box-shadow: inset 0 2px 0 0 var(--dg-range-border);
+}
+
+.row-drop-below > td {
+  box-shadow: inset 0 -2px 0 0 var(--dg-range-border);
+}

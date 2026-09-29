@@ -1,17 +1,31 @@
 import * as React from 'react';
-import { createContext, useCallback, useContext, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { CheckCircle, XCircle, AlertCircle, X } from 'lucide-react';
+import { Toaster, toast } from 'sonner';
 import { cn } from './utils';
+import { Button } from '../application-ui/button';
+import { useToastModalGuard } from './feedback-toast-modal-guard';
 
 const DEFAULT_DURATION_MS = 3000;
 
 export type FeedbackToastVariant = 'success' | 'error' | 'warning';
 
+export type FeedbackToastPosition =
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'top-right'
+  | 'top-left';
+
+const DEFAULT_TOAST_POSITION: FeedbackToastPosition = 'bottom-left';
+
 export interface FeedbackToastOptions {
   variant: FeedbackToastVariant;
   message: string;
   duration?: number;
+  actions?: FeedbackToastAction[];
+  /** Screen corner for this toast. Defaults to `bottom-left`. */
+  position?: FeedbackToastPosition;
 }
 
 interface FeedbackToastContextValue {
@@ -31,7 +45,7 @@ function noopHide() {
 const defaultContextValue: FeedbackToastContextValue = { show: noopShow, hide: noopHide };
 
 const feedbackToastVariants = cva(
-  'relative flex max-w-[393px] items-start gap-3 rounded-lg px-4 py-3 text-sm text-white shadow-lg border-l-4',
+  'relative flex flex-col max-w-[393px] items-start gap-3 rounded-lg px-4 py-3 text-sm text-white shadow-lg border-l-4',
   {
     variants: {
       variant: {
@@ -49,17 +63,27 @@ const feedbackToastVariants = cva(
   },
 );
 
+export interface FeedbackToastAction {
+  label: string;
+  onClick: () => void;
+  variant?: 'default' | 'outline' | 'ghost' | 'link';
+  className?: string;
+  disabled?: boolean;
+}
+
 export interface FeedbackToastProps
   extends React.ComponentProps<'div'>,
     VariantProps<typeof feedbackToastVariants> {
   message: string;
   onClose: () => void;
+  actions?: FeedbackToastAction[];
 }
 
 function FeedbackToast({
   variant = 'success',
   message,
   onClose,
+  actions,
   className,
   ...props
 }: FeedbackToastProps) {
@@ -76,89 +100,97 @@ function FeedbackToast({
       className={cn(feedbackToastVariants({ variant }), className)}
       {...props}
     >
-      <Icon
-        className="size-5 shrink-0 text-white"
-        aria-hidden
-      />
-      <p className="flex-1 pt-0.5 text-white">{message}</p>
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Close"
-        className="shrink-0 rounded p-0.5 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
-      >
-        <X className="size-4" aria-hidden />
-      </button>
+
+      <div className='relative flex items-start gap-3 w-full'>
+        <Icon
+          className="size-5 shrink-0 text-white"
+          aria-hidden
+        />
+        <p className="flex-1 pt-0.5 text-white">{message}</p>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="shrink-0 rounded p-0.5 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer"
+        >
+          <X className="size-4" aria-hidden />
+        </button>
+      </div>
+
+      {actions && actions.length > 0 && (
+        <div className='relative flex justify-end gap-3 w-full'>
+          {actions?.map((action) => (
+            <Button key={action.label} onClick={action.onClick} variant={action.variant} size={'sm'} className={action.className} disabled={action.disabled}>
+              {action.label}
+            </Button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
-function FeedbackToastProvider({ children }: { children: React.ReactNode }) {
-  const [toast, setToast] = useState<FeedbackToastOptions | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const autoDismissRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const leaveRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+export interface FeedbackToastProviderProps {
+  children: React.ReactNode;
+  /**
+   * Sonner theme, forwarded to the shared Toaster this provider mounts. Pass the app's
+   * own theme state so every toast — including a raw `toast.success()`/`toast.error()`
+   * call made directly against sonner elsewhere in the app — matches light/dark mode.
+   * Apps should not mount their own separate `<Toaster>`; this is the only one.
+   */
+  theme?: 'light' | 'dark' | 'system';
+}
 
-  const hide = useCallback(() => {
-    if (autoDismissRef.current) {
-      clearTimeout(autoDismissRef.current);
-      autoDismissRef.current = null;
-    }
-    if (leaveRef.current) {
-      clearTimeout(leaveRef.current);
-      leaveRef.current = null;
-    }
-    setIsVisible(false);
-    leaveRef.current = setTimeout(() => {
-      setToast(null);
-      leaveRef.current = null;
-    }, 200);
+function FeedbackToastProvider({ children, theme }: FeedbackToastProviderProps) {
+  useToastModalGuard();
+
+  // toast.dismiss() with no argument dismisses every active sonner toast, not just
+  // the one being closed. Track the most recently shown toast's id so its own X
+  // button and the imperative hide() only ever target that one toast.
+  const lastToastIdRef = useRef<string | number | null>(null);
+
+  const show = useCallback((options: FeedbackToastOptions) => {
+    const id = toast.custom(
+      (toastId) => (
+        <FeedbackToast
+          variant={options.variant}
+          message={options.message}
+          actions={options.actions}
+          onClose={() => toast.dismiss(toastId)}
+        />
+      ),
+      {
+        duration: options.duration ?? DEFAULT_DURATION_MS,
+        position: options.position ?? DEFAULT_TOAST_POSITION,
+        // Per-call, not on the Toaster's own toastOptions: [data-styled] is
+        // `!(toast.unstyled || toasterUnstyled)`, so a Toaster-level default would
+        // also strip sonner's default skin from raw toast.success()/error() calls
+        // made directly elsewhere in the app, silently defeating richColors for them.
+        unstyled: true,
+      },
+    );
+    lastToastIdRef.current = id;
   }, []);
 
-  const show = useCallback(
-    (options: FeedbackToastOptions) => {
-      if (autoDismissRef.current) {
-        clearTimeout(autoDismissRef.current);
-        autoDismissRef.current = null;
-      }
-      if (leaveRef.current) {
-        clearTimeout(leaveRef.current);
-        leaveRef.current = null;
-      }
-      const duration = options.duration ?? DEFAULT_DURATION_MS;
-      setToast(options);
-      setIsVisible(true);
-      autoDismissRef.current = setTimeout(hide, duration);
-    },
-    [hide],
-  );
+  const hide = useCallback(() => {
+    if (lastToastIdRef.current != null) {
+      toast.dismiss(lastToastIdRef.current);
+    }
+  }, []);
 
   const value = React.useMemo(() => ({ show, hide }), [show, hide]);
 
   return (
     <FeedbackToastContext.Provider value={value}>
       {children}
-      <div
-        className="fixed bottom-6 right-6 z-[100] flex flex-col gap-2"
-        aria-live="polite"
-      >
-        {toast && (
-          <div
-            data-state={isVisible ? 'open' : 'closed'}
-            className={cn(
-              'duration-200',
-              'data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:slide-in-from-right-5',
-              'data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=closed]:slide-out-to-right-5',
-            )}
-          >
-            <FeedbackToast
-              variant={toast.variant}
-              message={toast.message}
-              onClose={hide}
-            />
-          </div>
-        )}
-      </div>
+      <Toaster
+        theme={theme}
+        richColors
+        position={DEFAULT_TOAST_POSITION}
+        className="ds-feedback-toaster"
+        style={{ pointerEvents: 'auto' }}
+        toastOptions={{ style: { pointerEvents: 'auto' } }}
+      />
     </FeedbackToastContext.Provider>
   );
 }

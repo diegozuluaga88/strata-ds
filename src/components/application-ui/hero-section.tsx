@@ -5,7 +5,7 @@ export function Hero({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
     return (
         <div
             {...props}
-            className={clsx(className, 'relative overflow-hidden bg-card py-16 sm:py-24 lg:py-32')}
+            className={clsx(className, 'relative overflow-hidden bg-white dark:bg-zinc-900 py-16 sm:py-24 lg:py-32')}
         />
     )
 }
@@ -16,7 +16,7 @@ export function HeroTitle({ className, ...props }: ComponentPropsWithoutRef<'h1'
             {...props}
             className={clsx(
                 className,
-                "text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+                "text-4xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-5xl lg:text-6xl"
             )}
         />
     )
@@ -28,7 +28,7 @@ export function HeroSubtitle({ className, ...props }: ComponentPropsWithoutRef<'
             {...props}
             className={clsx(
                 className,
-                "mt-6 text-lg leading-8 text-muted-foreground"
+                "mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-300"
             )}
         />
     )

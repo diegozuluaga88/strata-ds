@@ -8,6 +8,7 @@
  * sidebar nav id (`recipe-<slug>`).
  */
 
+import type * as React from 'react';
 import {
   TransactionsListWithFiltersExample,
   DashboardKpiGridExample,
@@ -21,7 +22,7 @@ interface RecipeEntry {
   description: string;
   combines: string[];
   source: string;
-  Component: () => JSX.Element;
+  Component: () => React.JSX.Element;
 }
 
 const RECIPES: Record<string, RecipeEntry> = {

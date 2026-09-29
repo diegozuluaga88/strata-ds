@@ -148,11 +148,11 @@ export function ActionPanelContent({
         .length,
       icon: MegaphoneIcon,
       colorTheme: {
-        activeBg: 'bg-ai/15',
-        activeText: 'text-ai',
+        activeBg: 'bg-purple-500/15',
+        activeText: 'text-purple-500',
         activeBorder: 'border-purple-500/20',
-        badgeBg: 'bg-ai/20',
-        badgeText: 'text-ai',
+        badgeBg: 'bg-purple-500/20',
+        badgeText: 'text-purple-500',
       },
       filter: (n) => n.type === 'announcement',
     },
@@ -204,14 +204,14 @@ export function ActionPanelContent({
         <>
           <div className="px-5 pt-5 pb-3 shrink-0">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-foreground">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                 Action Center
               </h3>
               <div className="flex items-center gap-2">
-                <button className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-muted-foreground transition-colors">
+                <button className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 transition-colors">
                   <MagnifyingGlassIcon className="w-5 h-5" />
                 </button>
-                <button className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-muted-foreground transition-colors">
+                <button className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 transition-colors">
                   <XMarkIcon className="w-5 h-5" />
                 </button>
               </div>
@@ -241,8 +241,8 @@ export function ActionPanelContent({
               ))}
 
             {!isLoading && !isError && filteredNotifications.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground">
-                <BellIcon className="w-12 h-12 mb-3 text-gray-300 dark:text-muted-foreground" />
+              <div className="flex flex-col items-center justify-center py-12 text-center text-gray-500 dark:text-gray-400">
+                <BellIcon className="w-12 h-12 mb-3 text-gray-300 dark:text-gray-600" />
                 <p className="text-sm font-medium">No updates found</p>
                 <p className="text-xs mt-1">You're all caught up!</p>
               </div>
@@ -250,8 +250,8 @@ export function ActionPanelContent({
           </div>
 
           {!isLoading && !isError && (
-            <div className="px-5 py-3 border-t border-border bg-gray-50/50 dark:bg-black/20 backdrop-blur-md flex items-center justify-between shrink-0">
-              <p className="text-xs font-medium text-muted-foreground">
+            <div className="px-5 py-3 border-t border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-black/20 backdrop-blur-md flex items-center justify-between shrink-0">
+              <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
                 {filteredNotifications.length} actions
               </p>
               <p className="text-xs font-bold text-red-500 flex items-center gap-1.5">
@@ -289,8 +289,8 @@ export default function ActionCenter({
             className={clsx(
               'relative p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors outline-none',
               open
-                ? 'bg-black/5 dark:bg-white/10 text-foreground'
-                : 'text-muted-foreground hover:text-foreground dark:hover:text-white'
+                ? 'bg-black/5 dark:bg-white/10 text-gray-900 dark:text-white'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             )}
           >
             <BellIcon className="w-5 h-5" />

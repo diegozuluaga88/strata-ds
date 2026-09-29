@@ -20,14 +20,14 @@ export function DisclosureButton({
             data-slot="button"
             className={clsx(
                 className,
-                'group flex w-full items-center justify-between py-2 text-left text-sm/6 font-medium text-foreground',
+                'group flex w-full items-center justify-between py-2 text-left text-sm/6 font-medium text-zinc-900 dark:text-white',
                 'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-blue-500',
-                'hover:text-muted-foreground dark:hover:text-zinc-300'
+                'hover:text-zinc-700 dark:hover:text-zinc-300'
             )}
             {...props}
         >
             <span className="flex items-center gap-3">
-                <ChevronRight className="size-4 text-muted-foreground group-data-[open]:rotate-90 group-data-[hover]:text-muted-foreground dark:text-muted-foreground dark:group-data-[hover]:text-zinc-300 transition-transform duration-200" />
+                <ChevronRight className="size-4 text-zinc-500 group-data-[open]:rotate-90 group-data-[hover]:text-zinc-700 dark:text-zinc-400 dark:group-data-[hover]:text-zinc-300 transition-transform duration-200" />
                 {children}
             </span>
         </HeadlessDisclosureButton>
@@ -41,7 +41,7 @@ export function DisclosurePanel({
     return (
         <HeadlessDisclosurePanel
             data-slot="panel"
-            className={clsx(className, 'ml-7 text-sm text-muted-foreground pb-3')}
+            className={clsx(className, 'ml-7 text-sm text-zinc-600 dark:text-zinc-400 pb-3')}
             {...props}
         />
     )

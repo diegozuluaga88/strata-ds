@@ -47,7 +47,7 @@ export function CreateOrderDraftView({
         <Card>
           <CardContent className="p-4 flex flex-col gap-1">
             <div className="flex items-center gap-2">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-ai/20 text-ai dark:text-ai mb-1">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-violet-500/20 text-violet-600 dark:text-violet-400 mb-1">
                 <Copy className="size-5" />
               </div>
               <span className="text-lg font-medium uppercase text-foreground">CUSTOMER</span>
@@ -59,7 +59,7 @@ export function CreateOrderDraftView({
         <Card>
           <CardContent className="p-4 flex flex-col gap-1">
             <div className="flex items-center gap-2">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-ai/20 text-ai dark:text-ai mb-1">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-violet-500/20 text-violet-600 dark:text-violet-400 mb-1">
                 <Copy className="size-5" />
               </div>
               <span className="text-lg font-medium uppercase text-foreground">TOTAL VALUE</span>
@@ -71,7 +71,7 @@ export function CreateOrderDraftView({
         <Card>
           <CardContent className="p-4 flex flex-col gap-1">
             <div className="flex items-center gap-2">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-ai/20 text-ai dark:text-ai mb-1">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-violet-500/20 text-violet-600 dark:text-violet-400 mb-1">
                 <Copy className="size-5" />
               </div>
               <span className="text-lg font-medium uppercase text-foreground">REQUESTED DATE</span>

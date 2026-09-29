@@ -4,7 +4,7 @@ export function Navbar({ className, ...props }: React.ComponentPropsWithoutRef<"
     return (
         <nav
             {...props}
-            className={cn("flex items-center gap-4 bg-card border-b border-border px-4 py-3", className)}
+            className={cn("flex items-center gap-4 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-4 py-3", className)}
         />
     )
 }
@@ -28,8 +28,8 @@ export function NavbarItem({ current, className, children, ...props }: NavbarIte
             className={cn(
                 "relative flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-medium transition-colors",
                 current
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:text-zinc-900 dark:hover:text-zinc-50",
+                    ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50"
+                    : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:text-zinc-900 dark:hover:text-zinc-50",
                 className
             )}
         >

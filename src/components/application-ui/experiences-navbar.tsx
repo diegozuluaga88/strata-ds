@@ -32,9 +32,10 @@ import {
   PhotoIcon,
   CreditCardIcon,
   BanknotesIcon,
+  KeyIcon,
 } from '@heroicons/react/24/outline';
 import { useTheme } from '../../hooks/useTheme';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '../../contexts/TenantContext'; // el canonico no tiene src/index.ts: aqui la ruta directa es la correcta
 import StrataLogoLight from '@/components/assets/logos/logo-light-brand.png';
 import StrataLogoDark from '@/components/assets/logos/logo-dark-brand.png';
 import ActionCenter from './action-center/ActionCenter';
@@ -105,10 +106,23 @@ export interface ExperiencesNavbarProps {
     /** When true, the action center trigger is not rendered. Default: show action center. */
     hideActionCenter?: boolean;
     /**
-     * When true, the quick-actions popover (app grid, desktop shortcuts, and mobile-only nav list) is not rendered.
-     * On small screens the main nav is inside this popover—hide only when another nav path exists.
+     * When true, suppresses only the app-grid/desktop-shortcuts sections of the quick-actions
+     * popover. The popover itself (and its mobile-only nav list) still renders whenever
+     * `navItems` is non-empty -- on small screens it's the only path to the main nav, so it
+     * is never gated by this prop alone. Its trigger button becomes `lg:hidden` in this case:
+     * with the app-grid content suppressed, the only thing left inside is the mobile nav list,
+     * which is itself `lg:hidden` -- without this the trigger would still render on desktop and
+     * open a visibly empty popover there.
      */
     hideQuickActions?: boolean;
+    /** When true, show current tenant only and disable tenant switching UI. */
+    hideTenantSwitcher?: boolean;
+    /** Current user's name. Falls back to "Jhon Doe" when not provided. */
+    userName?: string;
+    /** Current user's role. Falls back to "Admin" when not provided. */
+    userRole?: string;
+    /** When set, shows a "Change Password" item above Sign Out in the user menu. */
+    onChangePassword?: () => void;
 }
 
 export function ExperiencesNavbar({
@@ -124,10 +138,22 @@ export function ExperiencesNavbar({
     logoDark,
     hideActionCenter = false,
     hideQuickActions = false,
+    hideTenantSwitcher = false,
+    userName = 'Jhon Doe',
+    userRole = 'Admin',
+    onChangePassword,
 }: ExperiencesNavbarProps) {
     const { theme, toggleTheme } = useTheme()
     const { currentTenant, tenants, setTenant } = useTenant()
     const { pathname } = useLocation()
+
+    // Generate user initials from userName
+    const userInitials = userName
+        .split(' ')
+        .map(n => n[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2) || 'JD'
 
     const derivedActiveTab =
         activeTabProp ??
@@ -166,27 +192,38 @@ export function ExperiencesNavbar({
 
                     {/* Tenant Selector */}
                     <div className="relative hidden lg:block">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <button className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-muted transition-colors outline-hidden cursor-pointer">
-                                    <div className="flex flex-col items-start text-left">
-                                        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-none">Tenant</span>
-                                        <div className="flex items-center gap-1">
-                                            <span className="text-sm font-bold text-foreground leading-tight">{currentTenant}</span>
-                                            <ChevronDownIcon className="w-3 h-3 text-muted-foreground" />
-                                        </div>
+                        {hideTenantSwitcher ? (
+                            <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg">
+                                <div className="flex flex-col items-start text-left">
+                                    <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-none">Tenant</span>
+                                    <div className="flex items-center gap-1">
+                                        <span className="text-sm font-bold text-foreground leading-tight">{currentTenant}</span>
                                     </div>
-                                </button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="start" className="w-48 rounded-xl shadow-xl ring-1 ring-black/5">
-                                {tenants.map((tenant) => (
-                                    <DropdownMenuItem key={tenant} onClick={() => setTenant(tenant)}>
-                                        {tenant}
-                                        {currentTenant === tenant && <CheckIcon className="ml-auto w-4 h-4 text-foreground" />}
-                                    </DropdownMenuItem>
-                                ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                                </div>
+                            </div>
+                        ) : (
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <button className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-muted transition-colors outline-hidden cursor-pointer">
+                                        <div className="flex flex-col items-start text-left">
+                                            <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-none">Tenant</span>
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-sm font-bold text-foreground leading-tight">{currentTenant}</span>
+                                                <ChevronDownIcon className="w-3 h-3 text-muted-foreground" />
+                                            </div>
+                                        </div>
+                                    </button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="start" className="w-48 rounded-xl shadow-xl ring-1 ring-black/5">
+                                    {tenants.map((tenant) => (
+                                        <DropdownMenuItem key={tenant} onClick={() => setTenant(tenant)}>
+                                            {tenant}
+                                            {currentTenant === tenant && <CheckIcon className="ml-auto w-4 h-4 text-foreground" />}
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        )}
                     </div>
                 </div>
 
@@ -213,10 +250,10 @@ export function ExperiencesNavbar({
                         />
                     )}
 
-                    {!hideQuickActions && (
+                    {(navItems.length > 0 || !hideQuickActions) && (
                     <Popover>
                         <PopoverTrigger asChild>
-                            <button className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors outline-none cursor-pointer">
+                            <button aria-label="Navigation menu" className={`p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors outline-none cursor-pointer${hideQuickActions ? ' lg:hidden' : ''}`}>
                                 <Squares2X2Icon className="w-5 h-5" />
                             </button>
                         </PopoverTrigger>
@@ -224,7 +261,16 @@ export function ExperiencesNavbar({
                             className="w-[320px] p-3"
                         >
                             <div className="space-y-4">
-                                {/* Mobile Navigation List - Hidden on Desktop */}
+                                {/* Mobile Navigation List - Hidden on Desktop. Always rendered when
+                                    navItems exist: on small screens this popover is the ONLY path to
+                                    the main nav (the "Center Group" above is `hidden` below `lg`), so
+                                    it must not be gated by hideQuickActions -- that prop only controls
+                                    the app-grid/desktop-shortcuts sections below, never navigation
+                                    itself (ST-940 grid-bugfixes: hideQuickActions used to hide this
+                                    whole popover, which silently removed all nav on small screens for
+                                    any caller -- e.g. dealer-hub -- that sets it without realizing the
+                                    coupling). */}
+                                {navItems.length > 0 && (
                                 <div className="lg:hidden space-y-1">
                                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2 px-1">Navigation</h3>
                                     {navItems.map((item, i) => (
@@ -239,7 +285,10 @@ export function ExperiencesNavbar({
                                     ))}
                                     <div className="h-px bg-border my-2 mx-1"></div>
                                 </div>
+                                )}
 
+                                {!hideQuickActions && (
+                                <>
                                 {/* Mobile View: Categorized Grid */}
                                 <div className="lg:hidden space-y-4">
                                     {[
@@ -253,7 +302,7 @@ export function ExperiencesNavbar({
                                         {
                                             title: "Sales Tools",
                                             apps: [
-                                                { icon: CalculatorIcon, label: "Quoting", color: "text-success dark:text-success", bg: "bg-emerald-50 dark:bg-success/10" },
+                                                { icon: CalculatorIcon, label: "Quoting", color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
                                                 { icon: WrenchScrewdriverIcon, label: "Configurator", color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-500/10" },
                                                 { icon: PhotoIcon, label: "Marketing", color: "text-pink-600 dark:text-pink-400", bg: "bg-pink-50 dark:bg-pink-500/10" },
                                             ]
@@ -261,7 +310,7 @@ export function ExperiencesNavbar({
                                         {
                                             title: "Finance",
                                             apps: [
-                                                { icon: CreditCardIcon, label: "Credit", color: "text-ai dark:text-ai", bg: "bg-violet-50 dark:bg-ai/10" },
+                                                { icon: CreditCardIcon, label: "Credit", color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-500/10" },
                                                 { icon: DocumentTextIcon, label: "Invoices", color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-500/10" },
                                                 { icon: BanknotesIcon, label: "Rebates", color: "text-teal-600 dark:text-teal-400", bg: "bg-teal-50 dark:bg-teal-500/10" },
                                             ]
@@ -322,10 +371,10 @@ export function ExperiencesNavbar({
                                         {[
                                             { icon: BriefcaseIcon, label: "My Work Space", color: "text-zinc-900", bg: "bg-brand-500", isHighlighted: true, onClick: onNavigateToWorkspace },
                                             { icon: HomeIcon, label: "Portal", color: "text-zinc-900 dark:text-brand-500", bg: "bg-brand-500/10", onClick: () => onNavigate('dashboard') },
-                                            { icon: CalculatorIcon, label: "Quoting", color: "text-success dark:text-success", bg: "bg-emerald-50 dark:bg-success/10" },
+                                            { icon: CalculatorIcon, label: "Quoting", color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
                                             { icon: WrenchScrewdriverIcon, label: "Configurator", color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-500/10" },
                                             { icon: PhotoIcon, label: "Marketing", color: "text-pink-600 dark:text-pink-400", bg: "bg-pink-50 dark:bg-pink-500/10" },
-                                            { icon: CreditCardIcon, label: "Credit", color: "text-ai dark:text-ai", bg: "bg-violet-50 dark:bg-ai/10" },
+                                            { icon: CreditCardIcon, label: "Credit", color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-500/10" },
                                             { icon: DocumentTextIcon, label: "Invoices", color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-500/10" },
                                             { icon: BanknotesIcon, label: "Rebates", color: "text-teal-600 dark:text-teal-400", bg: "bg-teal-50 dark:bg-teal-500/10" },
                                             { icon: BookOpenIcon, label: "Academy", color: "text-cyan-600 dark:text-cyan-400", bg: "bg-cyan-50 dark:bg-cyan-500/10" },
@@ -366,6 +415,8 @@ export function ExperiencesNavbar({
                                         </button>
                                     </div>
                                 </div>
+                                </>
+                                )}
                             </div>
                         </PopoverContent>
                     </Popover>
@@ -386,11 +437,11 @@ export function ExperiencesNavbar({
                                     <span className="w-full truncate text-right text-sm font-bold leading-tight text-foreground">{currentTenant}</span>
                                 </div>
                                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-blue-500 to-purple-600 text-xs font-bold text-white shadow-sm">
-                                    JD
+                                    {userInitials}
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-foreground">Jhon Doe</p>
-                                    <p className="text-xs text-muted-foreground">Admin</p>
+                                    <p className="text-sm font-medium text-foreground">{userName}</p>
+                                    <p className="text-xs text-muted-foreground">{userRole}</p>
                                 </div>
                                 <ChevronDownIcon className="h-3 w-3 text-muted-foreground" />
                             </button>
@@ -401,32 +452,49 @@ export function ExperiencesNavbar({
                             className="w-56 rounded-xl border border-border bg-navbar/95 p-0 text-foreground shadow-xl backdrop-blur-xl"
                         >
                             <DropdownMenuLabel className="border-b border-border px-4 py-2 font-normal">
-                                <p className="text-sm font-medium">Jhon Doe</p>
-                                <p className="text-xs text-muted-foreground">Admin</p>
+                                <p className="text-sm font-medium">{userName}</p>
+                                <p className="text-xs text-muted-foreground">{userRole}</p>
                             </DropdownMenuLabel>
 
-                            <div className="px-2 py-1 lg:hidden">
-                                <p className="mb-1 px-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Switch Tenant</p>
-                                {tenants.map((tenant) => (
-                                    <DropdownMenuItem
-                                        key={tenant}
-                                        className="flex cursor-pointer items-center justify-between gap-2 text-xs"
-                                        onSelect={() => setTenant(tenant)}
-                                    >
-                                        <span>{tenant}</span>
-                                        {currentTenant === tenant && (
-                                            <CheckIcon className="h-3 w-3 shrink-0 text-brand-600 dark:text-brand-500" />
-                                        )}
-                                    </DropdownMenuItem>
-                                ))}
-                            </div>
+                            {!hideTenantSwitcher && (
+                                <>
+                                    <div className="px-2 py-1 lg:hidden">
+                                        <p className="mb-1 px-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Switch Tenant</p>
+                                        {tenants.map((tenant) => (
+                                            <DropdownMenuItem
+                                                key={tenant}
+                                                className="flex cursor-pointer items-center justify-between gap-2 text-xs"
+                                                onSelect={() => setTenant(tenant)}
+                                            >
+                                                <span>{tenant}</span>
+                                                {currentTenant === tenant && (
+                                                    <CheckIcon className="h-3 w-3 shrink-0 text-brand-600 dark:text-brand-500" />
+                                                )}
+                                            </DropdownMenuItem>
+                                        ))}
+                                    </div>
 
-                            <DropdownMenuSeparator className="my-1 bg-border lg:hidden" />
+                                    <DropdownMenuSeparator className="my-1 bg-border lg:hidden" />
+                                </>
+                            )}
 
                             <DropdownMenuItem className="cursor-pointer text-xs lg:hidden" onSelect={() => toggleTheme()}>
                                 {theme === 'dark' ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
                                 <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
                             </DropdownMenuItem>
+
+                            {onChangePassword != null && (
+                                <>
+                                    <DropdownMenuItem
+                                        className="cursor-pointer text-sm"
+                                        onSelect={() => onChangePassword()}
+                                    >
+                                        <KeyIcon className="h-4 w-4" />
+                                        Change Password
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator className="my-1 bg-border" />
+                                </>
+                            )}
 
                             <DropdownMenuItem
                                 variant="destructive"

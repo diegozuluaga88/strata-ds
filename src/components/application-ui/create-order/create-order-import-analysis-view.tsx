@@ -113,7 +113,7 @@ export function CreateOrderImportAnalysisView({
                   <TableCell className="flex items-center gap-1 text-center !text-foreground">
                     <div className="flex items-center justify-center w-full gap-2">
                       {formatCurrency(item.total)}
-                      <CheckCircle className="size-4 shrink-0 text-success" aria-hidden />
+                      <CheckCircle className="size-4 shrink-0 text-emerald-500" aria-hidden />
                     </div>
                   </TableCell>
                 </TableRow>

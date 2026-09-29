@@ -21,7 +21,7 @@ export function ProductGallery({ images, className, ...props }: { images: { id: 
                     {images.map((image) => (
                         <Tab
                             key={image.id}
-                            className="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-card text-sm font-medium uppercase text-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
+                            className="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-zinc-900 hover:bg-zinc-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
                         >
                             {({ selected }) => (
                                 <>
@@ -31,7 +31,7 @@ export function ProductGallery({ images, className, ...props }: { images: { id: 
                                     </span>
                                     <span
                                         className={clsx(
-                                            selected ? 'ring-primary' : 'ring-transparent',
+                                            selected ? 'ring-indigo-500' : 'ring-transparent',
                                             'pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2'
                                         )}
                                         aria-hidden="true"
@@ -68,12 +68,12 @@ export function ProductDetails({ className, children, ...props }: ComponentProps
 
 export function ProductTitle({ className, ...props }: ComponentPropsWithoutRef<'h1'>) {
     return (
-        <h1 className={clsx(className, "text-3xl font-bold tracking-tight text-foreground")} {...props} />
+        <h1 className={clsx(className, "text-3xl font-bold tracking-tight text-zinc-900 dark:text-white")} {...props} />
     )
 }
 
 export function ProductPrice({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
     return (
-        <p className={clsx(className, "text-3xl tracking-tight text-foreground")} {...props} />
+        <p className={clsx(className, "text-3xl tracking-tight text-zinc-900 dark:text-white")} {...props} />
     )
 }

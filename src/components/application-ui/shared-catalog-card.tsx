@@ -10,7 +10,7 @@ import { cn } from '@/utils';
 export interface SharedCatalogCardProps {
   /** Optional background image URL for the header */
   backgroundImageUrl?: string;
-  /** Fallback background color class for the header (e.g., 'bg-status-warning') */
+  /** Fallback background color class for the header (e.g., 'bg-orange-500') */
   fallbackBackgroundColor?: string;
   /** Primary heading */
   title: string;
@@ -52,9 +52,9 @@ export interface SharedCatalogCardProps {
 function StatusBadge({ label, variant }: { label: string; variant?: string }) {
   const base = 'px-2 py-0.5 rounded-full text-xs font-medium';
   const variants: Record<string, string> = {
-    Active: 'bg-success-light text-success',
-    Inactive: 'bg-muted text-muted-foreground',
-    Archived: 'bg-warning-light text-warning',
+    Active: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+    Inactive: 'bg-gray-100 text-gray-700',
+    Archived: 'bg-yellow-100 text-yellow-700',
   };
 
   return (
@@ -70,7 +70,7 @@ function StatusBadge({ label, variant }: { label: string; variant?: string }) {
  */
 export function SharedCatalogCard({
   backgroundImageUrl,
-  fallbackBackgroundColor = 'bg-status-warning',
+  fallbackBackgroundColor = 'bg-orange-500',
   title,
   itemsCount,
   catalogType,
@@ -90,7 +90,7 @@ export function SharedCatalogCard({
 }: SharedCatalogCardProps) {
   return (
     <div
-      className="group bg-card border border-border rounded-2xl shadow-sm hover:shadow-md transition-all hover:border-primary/50 cursor-pointer flex flex-col relative z-0 h-[380px]"
+      className="group bg-card border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm hover:shadow-md transition-all hover:border-primary/50 cursor-pointer flex flex-col relative z-0 h-[380px]"
       onClick={onClick}
     >
       {/* Header Section */}
@@ -113,7 +113,7 @@ export function SharedCatalogCard({
         <h3 className="text-white font-bold text-xl relative z-10 truncate" title={title}>
           {title}
         </h3>
-        <div className="absolute top-4 right-4 backdrop-blur-md text-white text-xs px-2 py-1 rounded-full font-medium border border-white/30 z-10">
+        <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-xs px-2 py-1 rounded-full font-medium border border-white/10 z-10">
           {typeof itemsCount === 'number' ? `${itemsCount} Items` : itemsCount}
         </div>
       </div>
@@ -144,7 +144,7 @@ export function SharedCatalogCard({
 
               {/* Last Synced Row + optional slot below */}
               <div className="space-y-1">
-                <div className="text-[10px] text-muted-foreground h-4">{lastSyncedText}</div>
+                <div className="text-[10px] text-zinc-400 h-4">{lastSyncedText}</div>
                 {lastSyncedSlot != null ? lastSyncedSlot : null}
               </div>
             </div>
@@ -154,7 +154,7 @@ export function SharedCatalogCard({
               <div className="flex items-center gap-1">
                 <button
                   type="button"
-                  className="p-2 rounded-lg transition-colors hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
+                  className="p-2 rounded-lg transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 text-muted-foreground hover:text-foreground cursor-pointer"
                   title="Sync Catalog"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -168,7 +168,7 @@ export function SharedCatalogCard({
                 </button>
                 <button
                   type="button"
-                  className="p-2 rounded-lg transition-colors hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
+                  className="p-2 rounded-lg transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 text-muted-foreground hover:text-foreground cursor-pointer"
                   title="View History"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -179,7 +179,7 @@ export function SharedCatalogCard({
                 </button>
                 <button
                   type="button"
-                  className="p-2 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                  className="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-muted-foreground hover:text-red-600 transition-colors cursor-pointer"
                   title="Delete Catalog"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -191,7 +191,7 @@ export function SharedCatalogCard({
               </div>
               <button
                 type="button"
-                className="text-foreground bg-card hover:bg-muted text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors border border-border cursor-pointer"
+                className="text-zinc-900 bg-card hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-white text-xs font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700 px-3 py-1.5 rounded-lg transition-colors border border-zinc-200 dark:border-zinc-700 cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
                   onPrimaryAction?.(e);

@@ -1,7 +1,18 @@
 @utility scrollbar-micro {
+  /* Firefox, and Chromium builds that paint a native/overlay scrollbar and ignore
+   * ::-webkit-scrollbar-thumb's color -- the standard scrollbar-color property is
+   * what actually tints the thumb there. scrollbar-width only offers auto/thin/none
+   * (no exact px), so "thin" is the closest match to this tier's small size. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-zinc-300) transparent;
+
+  .dark & {
+    scrollbar-color: var(--color-zinc-700) transparent;
+  }
+
   &::-webkit-scrollbar {
     width: 4px;
-    height: 4px;
+    height: 8px;
   }
 
   &::-webkit-scrollbar-track {
@@ -19,10 +30,47 @@
   }
 }
 
+@utility scrollbar-thin {
+  /* "auto" (not "thin") -- this tier is the grid body's own scroll, which needs to
+   * stay as grabbable as the browser default; only its color is customized. */
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-zinc-300) transparent;
+
+  .dark & {
+    scrollbar-color: var(--color-zinc-700) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 14px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-zinc-300 dark:bg-zinc-700 rounded-full transition-colors;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-400 dark:bg-zinc-600;
+  }
+}
+
 @utility scrollbar-minimal {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-zinc-300) transparent;
+
+  .dark & {
+    scrollbar-color: var(--color-zinc-700) transparent;
+  }
+
   &::-webkit-scrollbar {
     width: 6px;
-    height: 6px;
+    height: 12px;
   }
 
   &::-webkit-scrollbar-track {

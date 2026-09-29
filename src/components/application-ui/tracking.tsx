@@ -29,7 +29,7 @@ const completeCircleMap: Record<OrderTrackingColor, string> = {
 
 /** Ring (border) around step circles; color matches variant when showRing is true. */
 const ringMap: Record<OrderTrackingColor, string> = {
-    default: 'ring-8 ring-background',
+    default: 'ring-8 ring-white dark:ring-zinc-900',
     brand: 'ring-8 ring-brand-500/20 dark:ring-brand-500/30',
     success: 'ring-8 ring-success/20 dark:ring-success/30',
 };
@@ -52,7 +52,7 @@ const currentDotMap: Record<OrderTrackingColor, string> = {
     success: 'bg-success dark:bg-success',
 };
 
-const upcomingRing = 'ring-8 ring-background';
+const upcomingRing = 'ring-8 ring-white dark:ring-zinc-900';
 
 /** How name and description are shown: inline (one line) or stacked (two lines). */
 export type OrderTrackingLayout = 'inline' | 'stacked';
@@ -152,7 +152,7 @@ export function ProgressTracker({ currentStep, totalSteps, className, ...props }
 
     return (
         <div className={cn("w-full", className)} {...props}>
-            <div className="relative h-2 w-full rounded-full bg-muted">
+            <div className="relative h-2 w-full rounded-full bg-zinc-100 dark:bg-zinc-800">
                 <div
                     className="absolute h-2 rounded-full bg-zinc-900 transition-all duration-500 ease-in-out dark:bg-zinc-100"
                     style={{ width: `${progress}%` }}
@@ -162,7 +162,7 @@ export function ProgressTracker({ currentStep, totalSteps, className, ...props }
                         <div
                             key={i}
                             className={cn(
-                                "h-2.5 w-2.5 rounded-full ring-4 ring-background",
+                                "h-2.5 w-2.5 rounded-full ring-4 ring-white dark:ring-zinc-900",
                                 i <= currentStep ? "bg-zinc-900 dark:bg-zinc-100" : "bg-zinc-200 dark:bg-zinc-800"
                             )}
                             style={{ position: 'absolute', left: `${(i / (totalSteps - 1)) * 100}%`, transform: 'translateX(-50%)', top: '-1px' }}

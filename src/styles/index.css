@@ -4,6 +4,8 @@
 /* Tailwind v4 Setup */
 @import 'tailwindcss';
 
+@source '../**/*.{ts,tsx}';
+
 @custom-variant dark (&:is(.dark *));
 
 /* Import token CSS variables (Runtime values) */
@@ -13,4 +15,31 @@
 /* Import Tailwind Theme Mapping (Build-time config) */
 @import './tokens/theme-v4.css';
 
+/* Custom @utility classes (scrollbar-*, etc.) — shipped in lib `styles.css` */
+@import './utilities.css';
+
+/* DataGrid component classes the vendored port depends on — shipped in lib `styles.css` */
+@import './data-grid.css';
+
 /* Legacy Shadcn Theme (Removed - Migrated to Tokens) */
+html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+}
+
+/*
+ * Global border-color reset. Without this, a bare `border`/`border-t`/`border-b`
+ * utility (no explicit border-color utility alongside it) falls back to Tailwind's
+ * default, `currentColor` — so any element that also sets a text color renders its
+ * border in that text color instead of the design system's border token. This bit
+ * `DataGrid`'s own outer container (`rounded-lg border ... text-card-foreground`)
+ * and `DataGridPagination`'s `border-t`, both rendering a near-black border from
+ * `--color-foreground` instead of the intended `--color-border`.
+ */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    @apply border-border;
+  }
+}

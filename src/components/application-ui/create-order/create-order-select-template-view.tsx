@@ -55,7 +55,7 @@ export function CreateOrderSelectTemplateView({
             onClick={() => onSelectTemplate(template)}
           >
             <CardContent className="p-4 flex flex-row items-center gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-ai/20 text-ai dark:text-ai">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-violet-500/20 text-violet-600 dark:text-violet-400">
                 <Copy className="size-6" />
               </div>
               <div className="min-w-0 flex-1 space-y-1">

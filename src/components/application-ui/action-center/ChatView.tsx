@@ -55,24 +55,24 @@ export default function ChatView({ onBack }: { onBack: () => void }) {
     };
 
     return (
-        <div className="flex flex-col h-[500px] bg-card">
+        <div className="flex flex-col h-[500px] bg-white dark:bg-zinc-900">
             {/* Header */}
             <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-100 dark:border-white/10 shrink-0">
                 <button
                     onClick={onBack}
-                    className="p-1 -ml-1 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-muted-foreground transition-colors"
+                    className="p-1 -ml-1 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 transition-colors"
                 >
                     <ArrowLeftIcon className="w-5 h-5" />
                 </button>
                 <div>
-                    <h3 className="text-sm font-bold text-foreground">Support Chat</h3>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white">Support Chat</h3>
                     <p className="text-xs text-green-500 flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                         Sarah is online
                     </p>
                 </div>
                 <button
-                    className="ml-auto p-1 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-muted-foreground hover:text-muted-foreground dark:hover:text-white transition-colors"
+                    className="ml-auto p-1 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors"
                     title="Open in full page"
                 >
                     <ArrowsPointingOutIcon className="w-5 h-5" />
@@ -92,11 +92,11 @@ export default function ChatView({ onBack }: { onBack: () => void }) {
                         <div className={clsx(
                             "w-8 h-8 rounded-full flex items-center justify-center shrink-0 border",
                             msg.sender === 'user'
-                                ? "bg-muted border-border"
+                                ? "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700"
                                 : "bg-indigo-50 dark:bg-indigo-900/30 border-indigo-100 dark:border-indigo-500/20"
                         )}>
                             {msg.sender === 'user' ? (
-                                <UserIcon className="w-4 h-4 text-muted-foreground" />
+                                <UserIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                             ) : (
                                 <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">S</span>
                             )}
@@ -106,7 +106,7 @@ export default function ChatView({ onBack }: { onBack: () => void }) {
                             "px-4 py-2.5 rounded-2xl text-sm leading-relaxed",
                             msg.sender === 'user'
                                 ? "bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-tr-none"
-                                : "bg-gray-100 dark:bg-white/10 text-foreground rounded-tl-none"
+                                : "bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-gray-100 rounded-tl-none"
                         )}>
                             {msg.text}
                             <div className={clsx(
@@ -132,7 +132,7 @@ export default function ChatView({ onBack }: { onBack: () => void }) {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Type a message..."
-                        className="flex-1 bg-transparent border-none text-sm px-3 text-foreground placeholder:text-muted-foreground focus:ring-0"
+                        className="flex-1 bg-transparent border-none text-sm px-3 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0"
                     />
                     <button
                         type="submit"

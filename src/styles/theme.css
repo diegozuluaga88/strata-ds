@@ -31,21 +31,6 @@
   --chart-4: #f59e0b;
   --chart-5: #8b5cf6;
   --radius: 0.375rem;
-  /* Semantic Status Colors — Figma UI-Reps */
-  --success: var(--color-success);
-  --success-light: var(--color-success-light);
-  --warning: var(--color-warning);
-  --warning-light: var(--color-warning-light);
-  --info: var(--color-info);
-  --info-light: var(--color-info-light);
-  --error: var(--color-error);
-  --error-light: var(--color-error-light);
-  --orange: var(--color-orange);
-  --orange-light: var(--color-orange-light);
-  --purple: var(--color-purple);
-  --purple-light: var(--color-purple-light);
-  --ai: var(--color-ai);
-  --ai-light: var(--color-ai-light);
   --sidebar: #ffffff;
   --sidebar-foreground: #18181b;
   --sidebar-primary: #27272a;
@@ -54,12 +39,15 @@
   --sidebar-accent-foreground: #18181b;
   --sidebar-border: #e4e4e7;
   --sidebar-ring: #71717a;
+  --shadow-glow-sm: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-glow-md: 0 4px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow-lg: 0 8px 40px rgba(0, 0, 0, 0.18);
 }
 
 .dark {
-  --background: #09090b;
+  --background: #18181b;
   --foreground: #fafafa;
-  --card: #09090b;
+  --card: #18181b;
   --card-foreground: #fafafa;
   --popover: #09090b;
   --popover-foreground: #fafafa;
@@ -75,6 +63,7 @@
   --destructive-foreground: #ffffff;
   --border: #27272a;
   --input: #27272a;
+  --input-background: #27272a;
   --ring: #52525b;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
@@ -83,21 +72,6 @@
   --chart-3: #f43f5e;
   --chart-4: #f59e0b;
   --chart-5: #8b5cf6;
-  /* Semantic Status Colors — same as light until designers provide dark variants */
-  --success: var(--color-success);
-  --success-light: var(--color-success-light);
-  --warning: var(--color-warning);
-  --warning-light: var(--color-warning-light);
-  --info: var(--color-info);
-  --info-light: var(--color-info-light);
-  --error: var(--color-error);
-  --error-light: var(--color-error-light);
-  --orange: var(--color-orange);
-  --orange-light: var(--color-orange-light);
-  --purple: var(--color-purple);
-  --purple-light: var(--color-purple-light);
-  --ai: var(--color-ai);
-  --ai-light: var(--color-ai-light);
   --sidebar: #18181b;
   --sidebar-foreground: #fafafa;
   --sidebar-primary: #6366f1;
@@ -106,6 +80,9 @@
   --sidebar-accent-foreground: #fafafa;
   --sidebar-border: #27272a;
   --sidebar-ring: #52525b;
+  --shadow-glow-sm: 0 2px 12px rgba(0, 0, 0, 0.25);
+  --shadow-glow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-glow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
 }
 
 @theme inline {
@@ -139,21 +116,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  /* Semantic Status Colors */
-  --color-success: var(--success);
-  --color-success-light: var(--success-light);
-  --color-warning: var(--warning);
-  --color-warning-light: var(--warning-light);
-  --color-info: var(--info);
-  --color-info-light: var(--info-light);
-  --color-error: var(--error);
-  --color-error-light: var(--error-light);
-  --color-orange: var(--orange);
-  --color-orange-light: var(--orange-light);
-  --color-purple: var(--purple);
-  --color-purple-light: var(--purple-light);
-  --color-ai: var(--ai);
-  --color-ai-light: var(--ai-light);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);

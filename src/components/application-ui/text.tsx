@@ -8,7 +8,7 @@ export function Text({ className, ...props }: TextProps) {
     return (
         <p
             data-slot="text"
-            className={cn("text-base/6 text-muted-foreground sm:text-sm/6 dark:text-muted-foreground", className)}
+            className={cn("text-base/6 text-zinc-500 sm:text-sm/6 dark:text-zinc-400", className)}
             {...props}
         />
     )

@@ -27,7 +27,7 @@ export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsP
                                         tab.colorTheme.activeBg,
                                         tab.colorTheme.activeBorder
                                     )
-                                    : "p-2 hover:bg-black/5 dark:hover:bg-white/5 text-muted-foreground dark:text-muted-foreground hover:text-muted-foreground dark:hover:text-gray-300"
+                                    : "p-2 hover:bg-black/5 dark:hover:bg-white/5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                             )}
                         >
                             <div className="flex items-center gap-2">

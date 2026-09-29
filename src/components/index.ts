@@ -31,6 +31,7 @@ export * from './application-ui/feature-section';
 export * from './application-ui/filter-panel';
 export * from './application-ui/filter-pills';
 export * from './application-ui/data-list-toolbar';
+export * from './application-ui/data-grid';
 export * from './application-ui/data-list-table';
 export * from './application-ui/data-list-card';
 export * from './application-ui/editable-line-table';
@@ -147,5 +148,19 @@ export * from './overlays/tooltip';
 export * from './data-visualization/accordion';
 export * from './data-visualization/description-list';
 export * from './data-visualization/disclosure';
+export * from './data-visualization/shelf-view';
 export * from './data-visualization/empty-state';
 export * from './data-visualization/stacked-list';
+
+// Contextos · el Storybook de Avanto los expone en su entrada publica y el
+// experiences-navbar depende de useTenant. Aqui viajan por el barril, que es
+// la entrada de la libreria en este repo.
+export {
+  TenantProvider,
+  useTenant,
+  type TenantProviderProps,
+  type TenantDetails,
+  type RoleDetails,
+  type UserDetails,
+  type TenantWithRoles,
+} from '../contexts/TenantContext';

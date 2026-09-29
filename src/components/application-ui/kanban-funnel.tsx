@@ -19,7 +19,7 @@ export interface KanbanFunnelColumn<TCard = unknown> {
   id: string;
   label: React.ReactNode;
   cards: TCard[];
-  /** Tailwind class controlling the active highlight (e.g. 'text-foreground font-bold'). */
+  /** Tailwind class controlling the active highlight (e.g. 'text-primary'). */
   accentClass?: string;
   /** Optional context render for the column header right-side (defaults to MoreHorizontal). */
   headerRight?: React.ReactNode;
@@ -104,7 +104,7 @@ export function KanbanFunnel<TCard>({
                   <h4
                     className={cn(
                       'font-medium text-sm flex items-center gap-2',
-                      isActive ? col.accentClass ?? 'text-foreground font-bold' : 'text-foreground',
+                      isActive ? col.accentClass ?? 'text-primary' : 'text-foreground',
                     )}
                   >
                     {col.label}

@@ -20,6 +20,12 @@ export interface PageLayoutProps {
   logoLight?: string;
   logoDark?: string;
   headingClassName?: string;
+  /** Custom className for content wrapper. Defaults to 'max-w-7xl mx-auto space-y-6' */
+  contentClassName?: string;
+  /** Custom className for container wrapper. Defaults to 'pt-20 lg:pt-24 bg-background px-4 sm:px-6 lg:px-8 min-h-screen' */
+  containerClassName?: string;
+  /** Custom className for the outer wrapper around navbar + content. Defaults to 'container mx-auto'. */
+  outerContainerClassName?: string;
   children: ReactNode;
   onLogout?: () => void;
   onNavigateToWorkspace?: () => void;
@@ -30,6 +36,14 @@ export interface PageLayoutProps {
   hideActionCenter?: boolean;
   /** Passed through to Layout / ExperiencesNavbar. */
   hideQuickActions?: boolean;
+  /** Passed through to Layout / ExperiencesNavbar. */
+  hideTenantSwitcher?: boolean;
+  /** Current user's name. Passed through to Layout / ExperiencesNavbar. */
+  userName?: string;
+  /** Current user's role. Passed through to Layout / ExperiencesNavbar. */
+  userRole?: string;
+  /** Passed through to Layout / ExperiencesNavbar. When set, shows Change Password in the user menu. */
+  onChangePassword?: () => void;
 }
 
 export function PageLayout({
@@ -41,6 +55,9 @@ export function PageLayout({
   logoLight,
   logoDark,
   headingClassName,
+  contentClassName,
+  containerClassName,
+  outerContainerClassName,
   children,
   onLogout = () => {
     /* default no-op */
@@ -53,6 +70,10 @@ export function PageLayout({
   actionCenterDataState,
   hideActionCenter = false,
   hideQuickActions = false,
+  hideTenantSwitcher = false,
+  userName,
+  userRole,
+  onChangePassword,
 }: PageLayoutProps) {
   const navigate = useNavigate();
 
@@ -76,6 +97,9 @@ export function PageLayout({
     <Layout
       heading={heading}
       headingClassName={headingClassName}
+      contentClassName={contentClassName}
+      containerClassName={containerClassName}
+      outerContainerClassName={outerContainerClassName}
       subheading={subheading}
       headerActions={headerActions}
       navItems={navItems.map((item) => ({
@@ -94,6 +118,10 @@ export function PageLayout({
       logoDark={logoDark}
       hideActionCenter={hideActionCenter}
       hideQuickActions={hideQuickActions}
+      hideTenantSwitcher={hideTenantSwitcher}
+      userName={userName}
+      userRole={userRole}
+      onChangePassword={onChangePassword}
     >
       {children}
     </Layout>

@@ -26,7 +26,7 @@ export function Listbox({
                 aria-label={ariaLabel}
                 className={clsx(
                     className,
-                    'group relative block w-full rounded-lg border border-border bg-card py-1.5 pr-8 pl-3 text-left text-sm/6 text-zinc-950 dark:text-white',
+                    'group relative block w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 py-1.5 pr-8 pl-3 text-left text-sm/6 text-zinc-950 dark:text-white',
                     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-blue-500/25',
                     'data-[disabled]:opacity-50',
                     'hover:border-zinc-300 dark:hover:border-zinc-700'
@@ -37,7 +37,7 @@ export function Listbox({
                     options={options}
                     placeholder={
                         placeholder && (
-                            <span className="block truncate text-muted-foreground">{placeholder}</span>
+                            <span className="block truncate text-zinc-500 dark:text-zinc-400">{placeholder}</span>
                         )
                     }
                 >
@@ -51,21 +51,21 @@ export function Listbox({
                         }
                         if (placeholder) {
                             return (
-                                <span className="block truncate text-muted-foreground">{placeholder}</span>
+                                <span className="block truncate text-zinc-500 dark:text-zinc-400">{placeholder}</span>
                             )
                         }
                         return <Fragment />
                     }}
                 </HeadlessListboxSelectedOption>
                 <span className="pointer-events-none absolute top-2.5 right-2.5 size-4">
-                    <ChevronDown className="size-4 text-muted-foreground group-hover:text-muted-foreground dark:group-hover:text-zinc-300" />
+                    <ChevronDown className="size-4 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-300" />
                 </span>
             </HeadlessListboxButton>
             <HeadlessListboxOptions
                 transition
                 anchor="bottom start"
                 className={clsx(
-                    'w-[var(--button-width)] rounded-xl border border-border bg-card p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none',
+                    'w-[var(--button-width)] rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none',
                     'transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0',
                     'z-50 shadow-lg'
                 )}
@@ -94,12 +94,12 @@ export function ListboxOption({
                     className={clsx(
                         className,
                         'group flex cursor-default items-center gap-2 rounded-lg py-1.5 pr-3 pl-3 select-none',
-                        focus && 'bg-muted',
+                        focus && 'bg-zinc-100 dark:bg-zinc-800',
                         disabled && 'opacity-50 cursor-not-allowed',
-                        'text-foreground'
+                        'text-zinc-900 dark:text-white'
                     )}
                 >
-                    <Check className={clsx("invisible size-4 text-foreground", selected && "visible")} />
+                    <Check className={clsx("invisible size-4 text-zinc-900 dark:text-white", selected && "visible")} />
                     <div className="grid gap-0.5">
                         {children}
                     </div>
@@ -118,7 +118,7 @@ export function ListboxDescription({ className, ...props }: ComponentPropsWithou
         <span
             className={clsx(
                 className,
-                'block truncate text-xs/5 text-muted-foreground group-data-[focus]:text-muted-foreground dark:group-data-[focus]:text-zinc-300'
+                'block truncate text-xs/5 text-zinc-500 group-data-[focus]:text-zinc-600 dark:text-zinc-400 dark:group-data-[focus]:text-zinc-300'
             )}
             {...props}
         />

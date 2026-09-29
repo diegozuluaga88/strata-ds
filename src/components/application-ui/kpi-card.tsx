@@ -123,7 +123,7 @@ const densityClassMap: Record<KPICardDensity, string> = {
 };
 
 const iconWrapClassMap: Record<KPICardTone, string> = {
-  neutral: 'bg-zinc-100 text-muted-foreground dark:bg-zinc-800 dark:text-zinc-300 ring-zinc-600/20 dark:ring-zinc-400/30',
+  neutral: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 ring-zinc-600/20 dark:ring-zinc-400/30',
   success: 'bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400 ring-green-600/20 dark:ring-green-400/30',
   warning: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400 ring-amber-600/20 dark:ring-amber-400/30',
   danger: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400 ring-red-600/20 dark:ring-red-400/30',
@@ -137,7 +137,7 @@ const iconWrapClassMap: Record<KPICardTone, string> = {
 
 /** Summary density: small icon wrap (p-1 rounded-md, ring-inset). */
 const iconWrapSummaryClassMap: Record<KPICardTone, string> = {
-  neutral: 'ring-1 ring-inset bg-zinc-100 text-muted-foreground ring-zinc-600/20 dark:bg-zinc-800 dark:text-zinc-300 dark:ring-zinc-400/30',
+  neutral: 'ring-1 ring-inset bg-zinc-100 text-zinc-700 ring-zinc-600/20 dark:bg-zinc-800 dark:text-zinc-300 dark:ring-zinc-400/30',
   success: 'ring-1 ring-inset bg-green-50 text-green-700 ring-green-600/20 dark:bg-green-500/15 dark:text-green-300 dark:ring-green-400/30',
   warning: 'ring-1 ring-inset bg-amber-50 text-amber-700 ring-amber-600/20 dark:bg-amber-500/15 dark:text-amber-300 dark:ring-amber-400/30',
   danger: 'ring-1 ring-inset bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-500/15 dark:text-red-300 dark:ring-red-400/30',
@@ -152,7 +152,7 @@ const iconWrapSummaryClassMap: Record<KPICardTone, string> = {
 const trendBadgeClassMap: Record<KPICardTrendDirection, string> = {
   up: 'bg-green-50 text-green-700 dark:bg-green-500/20 dark:text-green-400',
   down: 'bg-red-50 text-red-700 dark:bg-red-500/20 dark:text-red-400',
-  neutral: 'bg-zinc-100 text-muted-foreground dark:bg-muted0/20 dark:text-zinc-300',
+  neutral: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-500/20 dark:text-zinc-300',
 };
 
 const primaryActionClassMap: Record<KPICardTone, string> = {
@@ -179,7 +179,7 @@ const primaryActionClassMap: Record<KPICardTone, string> = {
 };
 
 const dotClassMap: Record<KPICardTone, string> = {
-  neutral: 'bg-muted0',
+  neutral: 'bg-zinc-500',
   success: 'bg-green-500',
   warning: 'bg-amber-500',
   danger: 'bg-red-500',
