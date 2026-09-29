@@ -6,7 +6,10 @@
   --color-foreground: #02060C;
   --color-card: #fafafa;
   --color-card-foreground: #02060C;
-  --color-popover: #fafafa;
+  /* Sin primitiva a la que aliasear: es una superficie propia, no un peldano de
+     la rampa. Estaba escrito a mano en el CSS generado, que es justo donde se
+     pierde en el siguiente build. Vive aqui por eso. */
+  --color-popover: #f4f4f0;
   --color-popover-foreground: #02060C;
   --color-primary: #E6F993;
   --color-primary-foreground: #02060C;

@@ -13,7 +13,8 @@
       "value": "{color.zinc.900}"
     },
     "popover": {
-      "value": "{color.zinc.50}"
+      "value": "#f4f4f0",
+      "comment": "Sin primitiva a la que aliasear: es una superficie propia, no un peldano de\nla rampa. Estaba escrito a mano en el CSS generado, que es justo donde se\npierde en el siguiente build. Vive aqui por eso."
     },
     "popover-foreground": {
       "value": "{color.zinc.900}"

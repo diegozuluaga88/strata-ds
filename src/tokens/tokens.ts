@@ -3,7 +3,7 @@ export const tokens = {
   'color-foreground': '#02060C',
   'color-card': '#fafafa',
   'color-card-foreground': '#02060C',
-  'color-popover': '#fafafa',
+  'color-popover': '#f4f4f0',
   'color-popover-foreground': '#02060C',
   'color-primary': '#E6F993',
   'color-primary-foreground': '#02060C',

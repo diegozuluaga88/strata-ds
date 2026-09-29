@@ -1351,11 +1351,11 @@
           "codeToken": "--color-card",
           "values": {
             "Light": "#FAFAFA",
-            "Dark": "#02060C"
+            "Dark": "#0B0F1A"
           },
           "alias": {
             "Light": "Zinc/zinc-50",
-            "Dark": "Zinc/zinc-900"
+            "Dark": null
           },
           "tailwind": [
             "bg-card",
@@ -1385,12 +1385,12 @@
           "type": "COLOR",
           "codeToken": "--color-popover",
           "values": {
-            "Light": "#FAFAFA",
-            "Dark": "#02060C"
+            "Light": "#F4F4F0",
+            "Dark": "#0F1320"
           },
           "alias": {
-            "Light": "Zinc/zinc-50",
-            "Dark": "Zinc/zinc-900"
+            "Light": null,
+            "Dark": null
           },
           "tailwind": [
             "bg-popover",
