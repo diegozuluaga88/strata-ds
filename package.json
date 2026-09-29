@@ -36,6 +36,8 @@
     "build:guide": "node governance/build-guide.mjs",
     "lint:tsx-diff": "npx tsx scripts/lint-tsx-diff.mjs",
     "validate:tokens": "node scripts/validate-tokens.mjs",
+    "tokens:figma": "node scripts/figma-tokens.mjs",
+    "tokens:figma:check": "node scripts/figma-tokens.mjs --check",
     "build:tokens": "node scripts/validate-tokens.mjs && node build-tokens.mjs",
     "build:lib": "npm run build:tokens && vite build --config vite.config.lib.ts",
     "prepublishOnly": "npm run build:lib",
@@ -49,7 +51,11 @@
     "install-hooks": "node scripts/install-hooks.mjs",
     "analyze:refinements": "node scripts/analyze-refinements.mjs",
     "analyze:refinements:update": "node scripts/analyze-refinements.mjs --update",
-    "scan:security": "node scripts/scan-security.mjs"
+    "scan:security": "node scripts/scan-security.mjs",
+    "tokens:figma:audit": "node scripts/figma-tokens.mjs --audit-snippet",
+    "icons:figma": "node scripts/figma-icons.mjs",
+    "icons:figma:audit": "node scripts/figma-icons.mjs --audit-snippet",
+    "icons:figma:seed": "node scripts/figma-icons.mjs --seed-script"
   },
   "keywords": [
     "design-system",

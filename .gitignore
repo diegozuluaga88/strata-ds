@@ -37,3 +37,4 @@ yarn-error.log*
 
 # Daily Summary
 DAILY_SUMMARY.md
+.env*

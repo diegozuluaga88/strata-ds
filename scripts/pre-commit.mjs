@@ -32,6 +32,29 @@ function detectTier() {
   return 2;
 }
 
+// ─── FIGMA TOKEN FRESHNESS ────────────────────────────────────────────────────
+// Only runs inside the design system repo, where the token source lives. Keeps
+// strata-tokens.figma.json (the seed for the Figma library) in sync with
+// variables.css, so Figma can never drift from the code the way it did before.
+
+const figmaTokenScript = join(PROJECT_ROOT, "scripts/figma-tokens.mjs");
+if (existsSync(figmaTokenScript)) {
+  try {
+    execSync(`node "${figmaTokenScript}" --check`, {
+      cwd: PROJECT_ROOT,
+      encoding: "utf-8",
+      stdio: "pipe",
+    });
+    console.log("✅ strata-tokens.figma.json está al día");
+  } catch (err) {
+    console.error(err.stdout || "");
+    console.error("\n❌ Commit blocked — los tokens CSS cambiaron y strata-tokens.figma.json quedó viejo.");
+    console.error("   Correr: npm run tokens:figma");
+    console.error("   Después hay que re-sembrar las variables en el archivo de Figma.");
+    process.exit(1);
+  }
+}
+
 // ─── RUN AUDIT ────────────────────────────────────────────────────────────────
 
 const tier = detectTier();
