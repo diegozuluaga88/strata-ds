@@ -56,7 +56,7 @@ jobs:
         id: lint
         run: |
           set -o pipefail
-          node scripts/lint-tsx-diff.mjs --base ${{ steps.base.outputs.ref }} | tee lint-report.md
+          npx tsx scripts/lint-tsx-diff.mjs --base ${{ steps.base.outputs.ref }} | tee lint-report.md
         continue-on-error: true
 
       - name: Post comment on PR
