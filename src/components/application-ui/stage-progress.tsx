@@ -37,22 +37,22 @@ export interface StageProgressProps extends React.HTMLAttributes<HTMLDivElement>
 /** Full class names so Tailwind can generate them (dynamic bg-${x} is not purged). */
 const completedBgMap = {
   brand: 'bg-brand-500',
-  success: 'bg-success',
-  warning: 'bg-warning',
+  success: 'bg-status-success',
+  warning: 'bg-status-warning',
   error: 'bg-destructive',
 } as const;
 
 const borderMap = {
   brand: 'border-brand-500',
-  success: 'border-success',
-  warning: 'border-warning',
+  success: 'border-status-success',
+  warning: 'border-status-warning',
   error: 'border-destructive',
 } as const;
 
 const lineBgMap = {
   brand: 'bg-brand-500',
-  success: 'bg-success',
-  warning: 'bg-warning',
+  success: 'bg-status-success',
+  warning: 'bg-status-warning',
   error: 'bg-destructive',
 } as const;
 

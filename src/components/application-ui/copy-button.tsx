@@ -80,12 +80,12 @@ export function CopyButton({ formats, defaultFormat = 0, size = 'md' }: CopyButt
     return (
       <button
         onClick={() => handleCopy(0)}
-        className={`${sizeClasses[size]} inline-flex items-center gap-1.5 bg-muted hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 rounded font-mono font-medium text-muted-foreground transition-all`}
+        className={`${sizeClasses[size]} inline-flex items-center gap-1.5 bg-muted hover:bg-accent border border-border rounded font-mono font-medium text-muted-foreground transition-all`}
       >
         {copied ? (
           <>
-            <Check className="w-3.5 h-3.5 text-success" />
-            <span className="text-success">Copied</span>
+            <Check className="w-3.5 h-3.5 text-status-success" />
+            <span className="text-status-success">Copied</span>
           </>
         ) : (
           <>
@@ -104,12 +104,12 @@ export function CopyButton({ formats, defaultFormat = 0, size = 'md' }: CopyButt
         {/* Main copy button */}
         <button
           onClick={() => handleCopy(selectedFormat)}
-          className={`${sizeClasses[size]} inline-flex items-center gap-1.5 bg-muted hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 rounded-l font-mono font-medium text-muted-foreground transition-all`}
+          className={`${sizeClasses[size]} inline-flex items-center gap-1.5 bg-muted hover:bg-accent border border-border rounded-l font-mono font-medium text-muted-foreground transition-all`}
         >
           {copied ? (
             <>
-              <Check className="w-3.5 h-3.5 text-success" />
-              <span className="text-success">Copied</span>
+              <Check className="w-3.5 h-3.5 text-status-success" />
+              <span className="text-status-success">Copied</span>
             </>
           ) : (
             <>
@@ -143,14 +143,14 @@ export function CopyButton({ formats, defaultFormat = 0, size = 'md' }: CopyButt
               <button
                 key={index}
                 onClick={() => handleCopy(index)}
-                className="w-full px-4 py-2.5 text-left hover:bg-muted dark:hover:bg-zinc-800 transition-colors"
+                className="w-full px-4 py-2.5 text-left hover:bg-muted transition-colors"
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm font-semibold text-foreground">
                     {format.label}
                   </span>
                   {selectedFormat === index && (
-                    <span className="text-xs text-success font-semibold">
+                    <span className="text-xs text-status-success font-semibold">
                       Selected
                     </span>
                   )}

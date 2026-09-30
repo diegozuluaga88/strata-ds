@@ -119,7 +119,7 @@ export function SplitPaneReviewModal({
               {/* Header */}
               <header className="px-6 py-4 border-b border-border flex items-center justify-between gap-4 shrink-0">
                 <div className="flex items-center gap-3 min-w-0 shrink-0">
-                  <div className="h-9 w-9 rounded-xl bg-ai/10 text-ai flex items-center justify-center shrink-0">
+                  <div className="h-9 w-9 rounded-xl bg-status-ai/10 text-status-ai flex items-center justify-center shrink-0">
                     {headerIcon ?? <Sparkles className="h-5 w-5" aria-hidden="true" />}
                   </div>
                   <div className="min-w-0">
@@ -153,9 +153,9 @@ export function SplitPaneReviewModal({
 
               {/* AI banner row */}
               {aiBanner && (
-                <div className="px-6 py-2 bg-ai/5 border-b border-ai/20 flex items-center gap-2 shrink-0">
-                  <Sparkles className="h-3.5 w-3.5 text-ai shrink-0" aria-hidden="true" />
-                  <div className="text-[11px] text-ai font-medium truncate">
+                <div className="px-6 py-2 bg-status-ai/5 border-b border-status-ai/20 flex items-center gap-2 shrink-0">
+                  <Sparkles className="h-3.5 w-3.5 text-status-ai shrink-0" aria-hidden="true" />
+                  <div className="text-[11px] text-status-ai font-medium truncate">
                     {aiBanner}
                   </div>
                 </div>

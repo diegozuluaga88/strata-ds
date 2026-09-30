@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Upload, FileText, Plus, X, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/utils';
+import { Button } from '../application-ui/button';
 import {
   Dialog,
   DialogContent,
@@ -156,7 +157,7 @@ function ModalHeader({
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="shrink-0 h-7 w-7 rounded-md inline-flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          className="shrink-0 h-7 w-7 rounded-md inline-flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>
@@ -266,9 +267,9 @@ function SelectedStep({
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="w-full inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-md text-xs font-semibold bg-card border border-dashed border-border text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          className="w-full inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-md text-xs font-semibold bg-card border border-dashed border-border text-muted-foreground hover:bg-muted hover:text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Plus className="h-3.5 w-3.5" /> Add more files
+          <Plus className="h-3.5 w-3.5" aria-hidden="true" /> Add more files
         </button>
         <input
           ref={fileInputRef}
@@ -317,10 +318,10 @@ function SelectedStep({
                 <button
                   type="button"
                   onClick={() => onRemoveFile(i)}
-                  className="p-0.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                  className="p-0.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label={`Remove ${file.name}`}
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-3.5 h-3.5" aria-hidden="true" />
                 </button>
               </li>
             );
@@ -328,22 +329,13 @@ function SelectedStep({
         </ul>
       </div>
       <div className="px-5 py-3 border-t border-border bg-card flex items-center justify-end gap-2 shrink-0">
-        <button
-          type="button"
-          onClick={onClose}
-          className="inline-flex items-center justify-center h-9 px-4 rounded-md text-[12px] font-semibold bg-card border border-border text-foreground hover:bg-muted transition-colors"
-        >
+        <Button type="button" variant="outline" onClick={onClose}>
           Cancel
-        </button>
-        <button
-          type="button"
-          onClick={onStartUpload}
-          disabled={validCount === 0}
-          className="inline-flex items-center justify-center h-9 px-4 rounded-md text-[12px] font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-        >
+        </Button>
+        <Button type="button" onClick={onStartUpload} disabled={validCount === 0}>
           Process {validCount} {itemNoun}
           {validCount === 1 ? '' : 's'}
-        </button>
+        </Button>
       </div>
     </>
   );
@@ -408,8 +400,8 @@ function CompleteStep({
       </div>
       <div className="p-5 space-y-4">
         <div className="flex flex-col items-center gap-3 py-4">
-          <div className="h-14 w-14 rounded-full bg-success/15 flex items-center justify-center">
-            <CheckCircle2 className="h-7 w-7 text-success" aria-hidden="true" />
+          <div className="h-14 w-14 rounded-full bg-status-success/15 flex items-center justify-center">
+            <CheckCircle2 className="h-7 w-7 text-status-success" aria-hidden="true" />
           </div>
           <p className="text-sm font-bold text-foreground">
             {validCount} {itemNoun}
@@ -420,10 +412,10 @@ function CompleteStep({
           {files.map((file, i) => (
             <li
               key={`${file.name}-${i}`}
-              className="flex items-center gap-3 rounded-lg border border-success/20 bg-success/5 px-3 py-2"
+              className="flex items-center gap-3 rounded-lg border border-status-success/20 bg-status-success/5 px-3 py-2"
             >
               <CheckCircle2
-                className="w-4 h-4 text-success shrink-0"
+                className="w-4 h-4 text-status-success shrink-0"
                 aria-hidden="true"
               />
               <span className="flex-1 text-sm text-foreground truncate">
@@ -435,21 +427,13 @@ function CompleteStep({
       </div>
       <div className="px-5 py-3 border-t border-border bg-card flex items-center justify-end gap-2 shrink-0">
         {onUploadMore && (
-          <button
-            type="button"
-            onClick={onUploadMore}
-            className="inline-flex items-center justify-center h-9 px-4 rounded-md text-[12px] font-semibold bg-card border border-border text-foreground hover:bg-muted transition-colors"
-          >
+          <Button type="button" variant="outline" onClick={onUploadMore}>
             Upload More
-          </button>
+          </Button>
         )}
-        <button
-          type="button"
-          onClick={onFinish}
-          className="inline-flex items-center justify-center h-9 px-4 rounded-md text-[12px] font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-        >
+        <Button type="button" onClick={onFinish}>
           Done
-        </button>
+        </Button>
       </div>
     </>
   );

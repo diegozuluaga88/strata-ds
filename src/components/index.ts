@@ -164,3 +164,7 @@ export {
   type UserDetails,
   type TenantWithRoles,
 } from '../contexts/TenantContext';
+
+// Class-name helper the components use (clsx + tailwind-merge), for consumers
+// composing their own variants on top of DS components.
+export { cn } from './utils/cn';

@@ -145,17 +145,6 @@ function planUI(description: string): string {
 function createServer() {
   const server = new McpServer({ name: 'strata-ds', version: '1.0.0' });
 
-  server.tool('get_session_briefing',
-    'MUST BE CALLED ONCE AT SESSION START. Returns active DS rules + mandatory workflow.',
-    {}, async () => ({
-      content: [{ type: 'text', text: [
-        '# Strata DS — Session Briefing\n',
-        '## ABSOLUTE LAWS\n', readGovernanceFile('LAWS.md'),
-        '\n## KEY TOKENS (top 20)\n', readGovernanceFile('tokens/token-reference.md').split('\n').slice(0, 60).join('\n'),
-        '\n## MANDATORY WORKFLOW\n1. Call plan_ui() before ANY UI component\n2. Use only semantic tokens — never hex\n3. Dark mode via tokens only',
-      ].join('\n') }],
-    }));
-
   server.tool('plan_ui',
     '🚨 MANDATORY BEFORE ANY UI. Given a description, returns the recommended DS component, tokens, rules, and anti-patterns to avoid.',
     { description: z.string().describe('UI element to plan, e.g. "floating pill navbar with tabs"') },

@@ -18,20 +18,20 @@ export type OrderTrackingColor = 'default' | 'brand' | 'success';
 const connectorColorMap: Record<OrderTrackingColor, string> = {
     default: 'bg-zinc-200 dark:bg-zinc-800',
     brand: 'bg-brand-500/30 dark:bg-brand-500/30',
-    success: 'bg-success/30 dark:bg-success/30',
+    success: 'bg-status-success/30 dark:bg-status-success/30',
 };
 
 const completeCircleMap: Record<OrderTrackingColor, string> = {
     default: 'bg-zinc-900 dark:bg-zinc-100',
     brand: 'bg-brand-500 dark:bg-brand-500',
-    success: 'bg-success dark:bg-success',
+    success: 'bg-status-success dark:bg-status-success',
 };
 
 /** Ring (border) around step circles; color matches variant when showRing is true. */
 const ringMap: Record<OrderTrackingColor, string> = {
     default: 'ring-8 ring-white dark:ring-zinc-900',
     brand: 'ring-8 ring-brand-500/20 dark:ring-brand-500/30',
-    success: 'ring-8 ring-success/20 dark:ring-success/30',
+    success: 'ring-8 ring-status-success/20 dark:ring-status-success/30',
 };
 
 const completeIconMap: Record<OrderTrackingColor, string> = {
@@ -43,13 +43,13 @@ const completeIconMap: Record<OrderTrackingColor, string> = {
 const currentBorderMap: Record<OrderTrackingColor, string> = {
     default: 'border-zinc-900 dark:border-zinc-100',
     brand: 'border-brand-500 dark:border-brand-500',
-    success: 'border-success dark:border-success',
+    success: 'border-status-success dark:border-status-success',
 };
 
 const currentDotMap: Record<OrderTrackingColor, string> = {
     default: 'bg-zinc-900 dark:bg-zinc-100',
     brand: 'bg-brand-500 dark:bg-brand-500',
-    success: 'bg-success dark:bg-success',
+    success: 'bg-status-success dark:bg-status-success',
 };
 
 const upcomingRing = 'ring-8 ring-white dark:ring-zinc-900';

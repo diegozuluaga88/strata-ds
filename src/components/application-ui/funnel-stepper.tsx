@@ -85,12 +85,12 @@ export function FunnelStepper<TKey extends string = string>({
                   active
                     ? 'bg-primary-foreground/20'
                     : past
-                      ? 'bg-success/20'
+                      ? 'bg-status-success/20'
                       : 'bg-muted-foreground/20',
                 )}
               >
                 {past ? (
-                  <CheckCircle2 className={cn('text-success', sz.check)} />
+                  <CheckCircle2 className={cn('text-status-success', sz.check)} />
                 ) : (
                   <span className={cn('font-bold', sz.bulletText)}>{i + 1}</span>
                 )}

@@ -6,7 +6,6 @@ import {
 } from '@headlessui/react';
 import {
   BellIcon,
-  MagnifyingGlassIcon,
   XMarkIcon,
   Squares2X2Icon,
   ExclamationTriangleIcon,
@@ -33,6 +32,8 @@ import type {
 const EMPTY_NOTIFICATIONS: Notification[] = [];
 
 export interface ActionCenterProps {
+  /** Accessible name of the bell. The unread count is appended ("Notifications, 3 unread"). */
+  label?: string;
   actionConfigMap?: ActionCenterActionConfigMap;
   onActionExecute?: ActionCenterActionHandler;
   dataState?: ActionCenterDataState;
@@ -43,8 +44,11 @@ export function ActionPanelContent({
   actionConfigMap,
   onActionExecute,
   dataState,
+  onClose,
 }: {
   className?: string;
+  /** Renders a close button when provided (ActionCenter passes the popover's close). */
+  onClose?: () => void;
   actionConfigMap?: ActionCenterActionConfigMap;
   onActionExecute?: ActionCenterActionHandler;
   dataState?: ActionCenterDataState;
@@ -73,11 +77,11 @@ export function ActionPanelContent({
       count: notifications.filter((n) => n.unread).length,
       icon: Squares2X2Icon,
       colorTheme: {
-        activeBg: 'bg-zinc-800 dark:bg-white/10',
-        activeText: 'text-white',
-        activeBorder: 'border-white/10',
-        badgeBg: 'bg-white/20',
-        badgeText: 'text-white',
+        activeBg: 'bg-foreground',
+        activeText: 'text-background',
+        activeBorder: 'border-foreground',
+        badgeBg: 'bg-background/20',
+        badgeText: 'text-background',
       },
       filter: () => true,
     },
@@ -88,11 +92,11 @@ export function ActionPanelContent({
         .length,
       icon: ExclamationTriangleIcon,
       colorTheme: {
-        activeBg: 'bg-red-500/15',
-        activeText: 'text-red-500',
-        activeBorder: 'border-red-500/20',
-        badgeBg: 'bg-red-500/20',
-        badgeText: 'text-red-500',
+        activeBg: 'bg-status-error-soft',
+        activeText: 'text-foreground',
+        activeBorder: 'border-status-error/30',
+        badgeBg: 'bg-foreground/10',
+        badgeText: 'text-foreground',
       },
       filter: (n) => n.type === 'discrepancy',
     },
@@ -103,11 +107,11 @@ export function ActionPanelContent({
         .length,
       icon: CreditCardIcon,
       colorTheme: {
-        activeBg: 'bg-orange-500/15',
-        activeText: 'text-orange-500',
-        activeBorder: 'border-orange-500/20',
-        badgeBg: 'bg-orange-500/20',
-        badgeText: 'text-orange-500',
+        activeBg: 'bg-status-warning-soft',
+        activeText: 'text-foreground',
+        activeBorder: 'border-status-warning/30',
+        badgeBg: 'bg-foreground/10',
+        badgeText: 'text-foreground',
       },
       filter: (n) => n.type === 'payment',
     },
@@ -118,11 +122,11 @@ export function ActionPanelContent({
         .length,
       icon: ClipboardDocumentCheckIcon,
       colorTheme: {
-        activeBg: 'bg-cyan-500/15',
-        activeText: 'text-cyan-500',
-        activeBorder: 'border-cyan-500/20',
-        badgeBg: 'bg-cyan-500/20',
-        badgeText: 'text-cyan-500',
+        activeBg: 'bg-status-info-soft',
+        activeText: 'text-foreground',
+        activeBorder: 'border-status-info/30',
+        badgeBg: 'bg-foreground/10',
+        badgeText: 'text-foreground',
       },
       filter: (n) => n.type === 'approval',
     },
@@ -133,11 +137,11 @@ export function ActionPanelContent({
         .length,
       icon: TruckIcon,
       colorTheme: {
-        activeBg: 'bg-green-500/15',
-        activeText: 'text-green-500',
-        activeBorder: 'border-green-500/20',
-        badgeBg: 'bg-green-500/20',
-        badgeText: 'text-green-500',
+        activeBg: 'bg-status-success-soft',
+        activeText: 'text-foreground',
+        activeBorder: 'border-status-success/30',
+        badgeBg: 'bg-foreground/10',
+        badgeText: 'text-foreground',
       },
       filter: (n) => n.type === 'shipping',
     },
@@ -148,11 +152,11 @@ export function ActionPanelContent({
         .length,
       icon: MegaphoneIcon,
       colorTheme: {
-        activeBg: 'bg-purple-500/15',
-        activeText: 'text-purple-500',
-        activeBorder: 'border-purple-500/20',
-        badgeBg: 'bg-purple-500/20',
-        badgeText: 'text-purple-500',
+        activeBg: 'bg-status-ai-soft',
+        activeText: 'text-foreground',
+        activeBorder: 'border-status-ai/30',
+        badgeBg: 'bg-foreground/10',
+        badgeText: 'text-foreground',
       },
       filter: (n) => n.type === 'announcement',
     },
@@ -163,11 +167,11 @@ export function ActionPanelContent({
         .length,
       icon: ChatBubbleLeftRightIcon,
       colorTheme: {
-        activeBg: 'bg-indigo-500/15',
-        activeText: 'text-indigo-500',
-        activeBorder: 'border-indigo-500/20',
-        badgeBg: 'bg-indigo-500/20',
-        badgeText: 'text-indigo-500',
+        activeBg: 'bg-status-info-soft',
+        activeText: 'text-foreground',
+        activeBorder: 'border-status-info/30',
+        badgeBg: 'bg-foreground/10',
+        badgeText: 'text-foreground',
       },
       filter: (n) => n.type === 'live_chat',
     },
@@ -194,7 +198,7 @@ export function ActionPanelContent({
   return (
     <div
       className={clsx(
-        'bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl rounded-3xl overflow-hidden flex flex-col max-h-[80vh]',
+        'bg-popover text-popover-foreground border border-border shadow-2xl rounded-3xl overflow-hidden flex flex-col max-h-[80vh]',
         className
       )}
     >
@@ -204,17 +208,19 @@ export function ActionPanelContent({
         <>
           <div className="px-5 pt-5 pb-3 shrink-0">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-bold text-foreground">
                 Action Center
               </h3>
-              <div className="flex items-center gap-2">
-                <button className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 transition-colors">
-                  <MagnifyingGlassIcon className="w-5 h-5" />
+              {onClose && (
+                <button
+                  type="button"
+                  onClick={onClose}
+                  aria-label="Close notifications"
+                  className="p-1 rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <XMarkIcon className="w-5 h-5" aria-hidden="true" />
                 </button>
-                <button className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 transition-colors">
-                  <XMarkIcon className="w-5 h-5" />
-                </button>
-              </div>
+              )}
             </div>
 
             {!isLoading && !isError && (
@@ -241,8 +247,8 @@ export function ActionPanelContent({
               ))}
 
             {!isLoading && !isError && filteredNotifications.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-12 text-center text-gray-500 dark:text-gray-400">
-                <BellIcon className="w-12 h-12 mb-3 text-gray-300 dark:text-gray-600" />
+              <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground">
+                <BellIcon className="w-12 h-12 mb-3 text-muted-foreground/50" aria-hidden="true" />
                 <p className="text-sm font-medium">No updates found</p>
                 <p className="text-xs mt-1">You're all caught up!</p>
               </div>
@@ -250,12 +256,12 @@ export function ActionPanelContent({
           </div>
 
           {!isLoading && !isError && (
-            <div className="px-5 py-3 border-t border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-black/20 backdrop-blur-md flex items-center justify-between shrink-0">
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <div className="px-5 py-3 border-t border-border bg-muted/50 flex items-center justify-between shrink-0">
+              <p className="text-xs font-medium text-muted-foreground">
                 {filteredNotifications.length} actions
               </p>
-              <p className="text-xs font-bold text-red-500 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+              <p className={clsx('text-xs font-bold flex items-center gap-1.5', urgentCount > 0 ? 'text-status-error' : 'text-muted-foreground')}>
+                {urgentCount > 0 && <span className="w-1.5 h-1.5 rounded-full bg-status-error motion-safe:animate-pulse" aria-hidden="true" />}
                 {urgentCount} urgent
               </p>
             </div>
@@ -267,6 +273,7 @@ export function ActionPanelContent({
 }
 
 export default function ActionCenter({
+  label = 'Notifications',
   actionConfigMap,
   onActionExecute,
   dataState,
@@ -286,21 +293,19 @@ export default function ActionCenter({
       {({ open }) => (
         <>
           <PopoverButton
+            aria-label={totalCount > 0 ? `${label}, ${totalCount} unread` : label}
             className={clsx(
-              'relative p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors outline-none',
+              'relative p-2 rounded-full transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring',
               open
-                ? 'bg-black/5 dark:bg-white/10 text-gray-900 dark:text-white'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                ? 'bg-muted text-foreground'
+                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
             )}
           >
-            <BellIcon className="w-5 h-5" />
+            <BellIcon className="w-5 h-5" aria-hidden="true" />
             {totalCount > 0 && (
               <span
-                className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full ring-2"
-                style={{
-                  backgroundColor: 'var(--color-red-400)',
-                  boxShadow: '0 0 0 2px var(--color-background)',
-                }}
+                aria-hidden="true"
+                className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-status-error ring-2 ring-background"
               />
             )}
           </PopoverButton>
@@ -314,12 +319,15 @@ export default function ActionCenter({
             leaveFrom="opacity-100 translate-y-0 scale-100"
             leaveTo="opacity-0 translate-y-2 scale-95"
           >
-            <PopoverPanel className="fixed top-[90px] left-1/2 -translate-x-1/2 w-[95vw] max-h-[85vh] lg:w-[600px] lg:fixed lg:left-1/2 lg:-translate-x-1/2 p-0 z-50 focus:outline-none">
-              <ActionPanelContent
-                actionConfigMap={actionConfigMap}
-                onActionExecute={onActionExecute}
-                dataState={resolvedDataState}
-              />
+            <PopoverPanel className="fixed top-[90px] left-1/2 -translate-x-1/2 w-[95vw] max-h-[85vh] lg:w-[600px] lg:fixed lg:left-1/2 lg:-translate-x-1/2 p-0 z-50">
+              {({ close }) => (
+                <ActionPanelContent
+                  actionConfigMap={actionConfigMap}
+                  onActionExecute={onActionExecute}
+                  dataState={resolvedDataState}
+                  onClose={() => close()}
+                />
+              )}
             </PopoverPanel>
           </Transition>
         </>

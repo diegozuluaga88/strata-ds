@@ -10,27 +10,31 @@ interface FilterTabsProps {
 
 export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsProps) {
     return (
-        <div className="flex items-center gap-2 overflow-x-auto py-2 scrollbar-none px-1">
+        <div role="group" aria-label="Filter notifications" className="flex items-center gap-2 overflow-x-auto py-2 scrollbar-none px-1">
             <AnimatePresence mode="popLayout">
                 {tabs.map((tab) => {
                     const isActive = activeTab === tab.id;
 
                     return (
                         <button
+                            type="button"
                             key={tab.id}
                             onClick={() => onTabChange(tab.id)}
+                            // Collapsed tabs show only an icon, so the name lives here.
+                            aria-label={tab.count > 0 ? `${tab.label}, ${tab.count} unread` : tab.label}
+                            aria-pressed={isActive}
                             className={clsx(
-                                "relative flex items-center justify-center rounded-xl transition-all outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+                                "relative flex items-center justify-center rounded-xl transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring",
                                 isActive
                                     ? clsx(
                                         "px-3 py-2 border",
                                         tab.colorTheme.activeBg,
                                         tab.colorTheme.activeBorder
                                     )
-                                    : "p-2 hover:bg-black/5 dark:hover:bg-white/5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+                                    : "p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
                             )}
                         >
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2" aria-hidden="true">
                                 <tab.icon className={clsx(
                                     "w-5 h-5 transition-colors",
                                     isActive ? tab.colorTheme.activeText : "currentColor"
@@ -52,7 +56,7 @@ export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsP
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         className={clsx(
-                                            "ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold",
+                                            "ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold",
                                             tab.colorTheme.badgeBg,
                                             tab.colorTheme.badgeText
                                         )}
@@ -64,7 +68,7 @@ export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsP
 
                             {/* Collapsed Badge (Notification Dot) */}
                             {!isActive && tab.count > 0 && (
-                                <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold border-2 border-white dark:border-zinc-900">
+                                <span aria-hidden="true" className="absolute -top-1 -right-1 flex items-center justify-center min-w-[16px] h-4 px-1 rounded-full bg-status-error text-status-error-foreground text-[9px] font-bold border-2 border-popover">
                                     {tab.count}
                                 </span>
                             )}

@@ -126,7 +126,7 @@ export function DocumentReviewModal<TKey extends string = string>({
                     className={cn(
                       'h-12 inline-flex items-center gap-1.5 text-sm font-semibold transition-colors border-b-2',
                       isActive
-                        ? 'border-success text-foreground'
+                        ? 'border-status-success text-foreground'
                         : 'border-transparent text-muted-foreground hover:text-foreground',
                     )}
                   >
@@ -136,7 +136,7 @@ export function DocumentReviewModal<TKey extends string = string>({
                         className={cn(
                           'inline-flex items-center justify-center min-w-[18px] h-5 px-1.5 rounded-full text-[10px] font-bold',
                           isActive
-                            ? 'bg-success/15 text-success'
+                            ? 'bg-status-success/15 text-status-success'
                             : 'bg-muted text-muted-foreground',
                         )}
                       >
@@ -259,19 +259,21 @@ export interface ConfidenceIndicatorProps {
 
 /**
  * ConfidenceIndicator — single text + optional bar showing OCR confidence.
- * Color-coded: <60 destructive, 60-79 warning, 80+ success.
+ * A status dot carries the band (<60 error, 60-79 warning, 80+ success); the
+ * text stays foreground, because status-success is ~3:1 on light surfaces and
+ * destructive is ~1:1 on dark ones as small text.
  */
 export function ConfidenceIndicator({ value, className }: ConfidenceIndicatorProps) {
   const tone =
-    value >= 80 ? 'text-success' : value >= 60 ? 'text-warning' : 'text-destructive';
+    value >= 80 ? 'bg-status-success' : value >= 60 ? 'bg-status-warning' : 'bg-status-error';
   return (
     <span
       className={cn(
-        'text-xs font-medium tabular-nums',
-        tone,
+        'inline-flex items-center gap-1.5 text-xs font-medium tabular-nums text-foreground',
         className,
       )}
     >
+      <span className={cn('h-1.5 w-1.5 shrink-0 rounded-full', tone)} aria-hidden="true" />
       {value}% confidence
     </span>
   );

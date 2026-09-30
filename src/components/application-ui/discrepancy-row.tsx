@@ -139,21 +139,21 @@ export function DiscrepancyComparisonBlock({
 // ── DiscrepancyRow ───────────────────────────────────────────────────────
 
 const SEVERITY_CLASS: Record<DiscrepancySeverity, string> = {
-  low: 'bg-success/10 text-success border-success/30',
-  medium: 'bg-warning/15 text-warning border-warning/30',
+  low: 'bg-status-success/10 text-status-success border-status-success/30',
+  medium: 'bg-status-warning/15 text-status-warning border-status-warning/30',
   high: 'bg-destructive/15 text-destructive border-destructive/30',
 };
 
 const SEVERITY_BORDER: Record<DiscrepancySeverity, string> = {
-  low: 'border-success/30',
-  medium: 'border-warning/30',
+  low: 'border-status-success/30',
+  medium: 'border-status-warning/30',
   high: 'border-destructive/30',
 };
 
 const DECISION_CLASS: Record<DiscrepancyDecision, string> = {
-  accept: 'bg-success/10 text-success',
+  accept: 'bg-status-success/10 text-status-success',
   reject: 'bg-destructive/15 text-destructive',
-  flag: 'bg-info/15 text-info',
+  flag: 'bg-status-info/15 text-status-info',
 };
 
 const DECISION_LABEL: Record<DiscrepancyDecision, string> = {
@@ -225,7 +225,7 @@ export function DiscrepancyRow({
 
   const resolved = decision !== null;
   const borderClass = resolved
-    ? 'border-success/40'
+    ? 'border-status-success/40'
     : SEVERITY_BORDER[severity];
 
   return (
