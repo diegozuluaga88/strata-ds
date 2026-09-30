@@ -126,7 +126,7 @@ export function DocumentReviewModal<TKey extends string = string>({
                     className={cn(
                       'h-12 inline-flex items-center gap-1.5 text-sm font-semibold transition-colors border-b-2',
                       isActive
-                        ? 'border-success text-foreground'
+                        ? 'border-status-success text-foreground'
                         : 'border-transparent text-muted-foreground hover:text-foreground',
                     )}
                   >
@@ -136,7 +136,7 @@ export function DocumentReviewModal<TKey extends string = string>({
                         className={cn(
                           'inline-flex items-center justify-center min-w-[18px] h-5 px-1.5 rounded-full text-[10px] font-bold',
                           isActive
-                            ? 'bg-success/15 text-success'
+                            ? 'bg-status-success/15 text-status-success'
                             : 'bg-muted text-muted-foreground',
                         )}
                       >
@@ -263,7 +263,7 @@ export interface ConfidenceIndicatorProps {
  */
 export function ConfidenceIndicator({ value, className }: ConfidenceIndicatorProps) {
   const tone =
-    value >= 80 ? 'text-success' : value >= 60 ? 'text-warning' : 'text-destructive';
+    value >= 80 ? 'text-status-success' : value >= 60 ? 'text-status-warning' : 'text-destructive';
   return (
     <span
       className={cn(

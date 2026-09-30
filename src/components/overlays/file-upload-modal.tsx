@@ -408,8 +408,8 @@ function CompleteStep({
       </div>
       <div className="p-5 space-y-4">
         <div className="flex flex-col items-center gap-3 py-4">
-          <div className="h-14 w-14 rounded-full bg-success/15 flex items-center justify-center">
-            <CheckCircle2 className="h-7 w-7 text-success" aria-hidden="true" />
+          <div className="h-14 w-14 rounded-full bg-status-success/15 flex items-center justify-center">
+            <CheckCircle2 className="h-7 w-7 text-status-success" aria-hidden="true" />
           </div>
           <p className="text-sm font-bold text-foreground">
             {validCount} {itemNoun}
@@ -420,10 +420,10 @@ function CompleteStep({
           {files.map((file, i) => (
             <li
               key={`${file.name}-${i}`}
-              className="flex items-center gap-3 rounded-lg border border-success/20 bg-success/5 px-3 py-2"
+              className="flex items-center gap-3 rounded-lg border border-status-success/20 bg-status-success/5 px-3 py-2"
             >
               <CheckCircle2
-                className="w-4 h-4 text-success shrink-0"
+                className="w-4 h-4 text-status-success shrink-0"
                 aria-hidden="true"
               />
               <span className="flex-1 text-sm text-foreground truncate">

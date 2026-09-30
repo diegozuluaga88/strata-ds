@@ -84,8 +84,8 @@ export function CopyButton({ formats, defaultFormat = 0, size = 'md' }: CopyButt
       >
         {copied ? (
           <>
-            <Check className="w-3.5 h-3.5 text-success" />
-            <span className="text-success">Copied</span>
+            <Check className="w-3.5 h-3.5 text-status-success" />
+            <span className="text-status-success">Copied</span>
           </>
         ) : (
           <>
@@ -108,8 +108,8 @@ export function CopyButton({ formats, defaultFormat = 0, size = 'md' }: CopyButt
         >
           {copied ? (
             <>
-              <Check className="w-3.5 h-3.5 text-success" />
-              <span className="text-success">Copied</span>
+              <Check className="w-3.5 h-3.5 text-status-success" />
+              <span className="text-status-success">Copied</span>
             </>
           ) : (
             <>
@@ -150,7 +150,7 @@ export function CopyButton({ formats, defaultFormat = 0, size = 'md' }: CopyButt
                     {format.label}
                   </span>
                   {selectedFormat === index && (
-                    <span className="text-xs text-success font-semibold">
+                    <span className="text-xs text-status-success font-semibold">
                       Selected
                     </span>
                   )}
