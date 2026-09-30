@@ -17,16 +17,19 @@ import type {
 import { normalizeActionCenterActionKey } from './types';
 import { clsx } from 'clsx';
 
-const PriorityIcon = ({ type }: { type: Notification['type'] }) => {
-  if (type === 'discrepancy') return <ExclamationTriangleIcon className="w-4 h-4" />;
-  if (type === 'payment') return <CreditCardIcon className="w-4 h-4" />;
-  if (type === 'invoice') return <DocumentTextIcon className="w-4 h-4" />;
-  if (type === 'approval') return <ClipboardDocumentCheckIcon className="w-4 h-4" />;
-  if (type === 'shipping') return <TruckIcon className="w-4 h-4" />;
-  if (type === 'announcement') return <MegaphoneIcon className="w-4 h-4" />;
-  if (type === 'live_chat') return <ChatBubbleLeftRightIcon className="w-4 h-4" />;
+// Decorative: the badge text names the type.
+const iconProps = { className: 'w-4 h-4', 'aria-hidden': true } as const;
 
-  return <InformationCircleIcon className="w-4 h-4" />;
+const PriorityIcon = ({ type }: { type: Notification['type'] }) => {
+  if (type === 'discrepancy') return <ExclamationTriangleIcon {...iconProps} />;
+  if (type === 'payment') return <CreditCardIcon {...iconProps} />;
+  if (type === 'invoice') return <DocumentTextIcon {...iconProps} />;
+  if (type === 'approval') return <ClipboardDocumentCheckIcon {...iconProps} />;
+  if (type === 'shipping') return <TruckIcon {...iconProps} />;
+  if (type === 'announcement') return <MegaphoneIcon {...iconProps} />;
+  if (type === 'live_chat') return <ChatBubbleLeftRightIcon {...iconProps} />;
+
+  return <InformationCircleIcon {...iconProps} />;
 };
 
 export const PriorityBadge = ({
@@ -37,9 +40,9 @@ export const PriorityBadge = ({
   type: Notification['type'];
 }) => {
   const colors = {
-    high: 'text-red-500 dark:text-red-400 bg-red-500/10 border-red-500/20',
-    medium: 'text-orange-500 dark:text-orange-400 bg-orange-500/10 border-orange-500/20',
-    low: 'text-zinc-400 dark:text-zinc-300 bg-zinc-500/10 border-zinc-500/20',
+    high: 'text-foreground bg-status-error-soft border-status-error/30',
+    medium: 'text-foreground bg-status-warning-soft border-status-warning/30',
+    low: 'text-foreground bg-muted border-border',
   };
 
   const labels = {
@@ -56,7 +59,7 @@ export const PriorityBadge = ({
   return (
     <span
       className={clsx(
-        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium border',
+        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium border',
         colors[priority]
       )}
     >
@@ -120,67 +123,69 @@ export default function NotificationItem({
   };
 
   return (
-    <div className="group relative p-4 rounded-2xl bg-white dark:bg-black/20 border border-transparent hover:border-gray-200 dark:hover:border-white/10 hover:shadow-md transition-all duration-200">
+    <div className="group relative p-4 rounded-2xl bg-card border border-transparent hover:border-border hover:shadow-md transition-all duration-200">
       <div className="flex justify-between items-start gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <PriorityBadge priority={notification.priority} type={notification.type} />
             {notification.priority === 'high' && (
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400">
+              <span className="px-1.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-status-error-soft text-status-error">
                 High
               </span>
             )}
             {notification.priority === 'medium' && (
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400">
+              <span className="px-1.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-status-warning-soft text-foreground">
                 Medium
               </span>
             )}
             {notification.priority === 'low' && (
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary">
+              <span className="px-1.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-muted text-muted-foreground">
                 Low
               </span>
             )}
           </div>
 
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+          <h4 className="text-sm font-semibold text-foreground truncate">
             {notification.title}
           </h4>
 
-          <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 text-xs text-muted-foreground">
             {notification.message}
           </p>
 
-          <div className="mt-2 text-[10px] flex items-center gap-2 text-gray-400 dark:text-gray-500 font-mono">
+          <div className="mt-2 text-xs flex items-center gap-2 text-muted-foreground font-mono">
             <span>{notification.meta}</span>
-            <span>•</span>
+            <span aria-hidden="true">•</span>
             <span>{notification.timestamp}</span>
           </div>
         </div>
 
         {configuredActions.map(({ action, actionKey, displayLabel }, i) => (
           <button
+            type="button"
             key={`${notification.id}-${actionKey}-${i}`}
             className={clsx(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-sm',
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring',
               action.primary
                 ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm'
-                : 'bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-white/20'
+                : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
             )}
             onClick={() => handleActionClick(actionKey)}
           >
             {displayLabel}
-            <ArrowRightIcon className="w-3 h-3" />
+            <ArrowRightIcon className="w-3 h-3" aria-hidden="true" />
           </button>
         ))}
       </div>
 
       <div
+        aria-hidden="true"
         className={clsx(
           'absolute left-0 top-4 bottom-4 w-1 rounded-r-full',
           notification.priority === 'high'
-            ? 'bg-red-500'
+            ? 'bg-status-error'
             : notification.priority === 'medium'
-              ? 'bg-orange-500'
+              ? 'bg-status-warning'
               : 'bg-transparent'
         )}
       />
