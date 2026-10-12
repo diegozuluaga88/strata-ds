@@ -2,13 +2,42 @@
 
 ## Font families
 
-The DS uses 3 font families. Each one has a specific role — do not swap them.
+The DS ships 4 font families. Each one has a specific role — do not swap them.
 
 | Token | Family | CSS var | Usage |
 |---|---|---|---|
 | `font-brand` | **PP Monument Extended** | `--font-brand` | Brand headings, hero text, large numbers in KPIs |
 | `font-sans` (default) | **Inter** + system-ui fallback | `--font-sans` | Body text, general UI, anything that is not a brand heading |
 | `font-mono` | ui-monospace + SFMono + Menlo | `--font-mono` | Code, IDs, technical data, file paths |
+| `font-serif` | Georgia + Cambria + Times | `--font-serif` | **Document facsimiles only** — see below |
+
+### `font-serif` is not a UI family
+
+Serif exists for one job: **drawing paper that Strata did not produce**. A vendor
+invoice reproduced inside the app, a letterhead, a quoted email, a printed form —
+things the user recognises as a document from somewhere else. The serif is what
+makes them read as a facsimile instead of as our own interface.
+
+It is **never** UI chrome. Not headings, not dialog titles, not card titles, not
+labels, not buttons. Those are `font-sans`, which is the default and needs no
+class at all.
+
+```tsx
+// ✅ A vendor's invoice, reproduced inside the app
+<div className="font-serif text-3xl font-bold tracking-tight">LELAND</div>
+
+// ✅ Correspondence quoted from outside
+<blockquote className="font-serif italic text-muted-foreground">…</blockquote>
+
+// ❌ A dialog title — this is our interface, not a document
+<DialogTitle className="font-serif text-2xl font-semibold">Add Standard</DialogTitle>
+```
+
+**Why this is written down:** the token shipped before this rule named it, so for
+a while `font-serif` was a class that worked and that nothing checked. One app
+ended up with 17 serif titles across its dialogs and cards — the markup asked for
+it, the build obeyed, and QA reported it as a CSS bug. It was not: it was a
+family with no declared role.
 
 ```tsx
 // Brand heading
