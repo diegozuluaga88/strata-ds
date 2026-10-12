@@ -130,30 +130,28 @@ const CHECKS: Check[] = [
   // ── Icons (rule 05, code-usage Rule 3) ──────────────────────────────
   // ── Typography (rules/06) ───────────────────────────────────────────
   {
-    // The unambiguous half: a heading or a dialog title is our interface, so a
-    // serif on it is always wrong. This is the exact shape that reached a demo —
-    // 17 of them — without the validator noticing.
-    id: 'serif-on-ui-heading',
+    // Serif is not one of the three families. The rule says so without an
+    // exception, so this check does too: any use is a deviation, wherever it is.
+    //
+    // An earlier version split this in two — error on headings, warning
+    // elsewhere — on the theory that a letterhead was a legitimate narrow use.
+    // That theory was rejected: serif was never adopted by the system, it came
+    // in with the Tailwind defaults, and a family the rules do not name cannot
+    // have a sanctioned job. A warning would have left the engine guessing
+    // which uses were allowed, which is the gap that let 17 serif titles reach
+    // a demo in the first place.
+    //
+    // Bounded to ONE line (m flag). Without it, a className written as a
+    // template literal let the pattern run across the whole file and a single
+    // use produced dozens of findings.
+    id: 'serif-font-family',
     rule: 'rules/06-typography',
     severity: 'error',
-    pattern: /<(?:DialogTitle|Title|CardTitle|h[1-4])[^>]*className=(?:"[^"]*|\{`[^`]*)\bfont-serif\b/g,
-    message: 'Serif on UI chrome. Headings and dialog titles are sans (Inter), which is the default.',
-    suggestion: 'Drop font-serif and keep the size and weight classes.',
-  },
-  {
-    // The rest needs judgment the engine does not have: it cannot tell a
-    // letterhead from a label. A warning asks for the justification instead of
-    // guessing, the way the dark: and raw-<button> checks already do.
-    id: 'serif-outside-facsimile',
-    rule: 'rules/06-typography',
-    severity: 'warning',
-    // Acotado a UNA línea (bandera m): sin eso, el className con template
-    // literal dejaba que `[^`]*` cruzara el archivo y un solo font-serif
-    // producía decenas de avisos. El lookahead descarta las líneas que el
-    // chequeo de error de arriba ya reporta, así ninguna sale dos veces.
-    pattern: /^(?!.*<(?:DialogTitle|Title|CardTitle|h[1-4])).*\bfont-serif\b.*$/gm,
-    message: 'Serif is for document facsimiles only — letterheads, reproduced invoices, quoted correspondence.',
-    suggestion: 'If this is Strata UI, remove it. If it represents paper from outside Strata, keep it and say so in a comment.',
+    pattern: /^.*\bfont-serif\b.*$/gm,
+    message:
+      'font-serif is not a Strata family. The system ships three: brand, sans (the default) and mono.',
+    suggestion:
+      'Remove it and keep the size and weight classes. Paper from outside Strata is drawn with weight, spacing and layout, not another face.',
   },
   {
     id: 'text-character-icon',

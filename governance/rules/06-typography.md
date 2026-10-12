@@ -2,43 +2,46 @@
 
 ## Font families
 
-The DS ships 4 font families. Each one has a specific role — do not swap them.
+The DS ships 3 font families. Each one has a specific role — do not swap them.
 
 | Token | Family | CSS var | Usage |
 |---|---|---|---|
 | `font-brand` | **PP Monument Extended** | `--font-brand` | Brand headings, hero text, large numbers in KPIs |
 | `font-sans` (default) | **Inter** + system-ui fallback | `--font-sans` | Body text, general UI, anything that is not a brand heading |
 | `font-mono` | ui-monospace + SFMono + Menlo | `--font-mono` | Code, IDs, technical data, file paths |
-| `font-serif` | Georgia + Cambria + Times | `--font-serif` | **Document facsimiles only** — see below |
 
-### `font-serif` is not a UI family
+Three. There is no fourth.
 
-Serif exists for one job: **drawing paper that Strata did not produce**. A vendor
-invoice reproduced inside the app, a letterhead, a quoted email, a printed form —
-things the user recognises as a document from somewhere else. The serif is what
-makes them read as a facsimile instead of as our own interface.
+### `font-serif` is not a Strata family
 
-It is **never** UI chrome. Not headings, not dialog titles, not card titles, not
-labels, not buttons. Those are `font-sans`, which is the default and needs no
-class at all.
+A `--fontFamily-serif` variable exists in `variables.css`, and the Tailwind
+`font-serif` utility reads it. **It is not part of this system.** It arrived in
+the initial commit with the Tailwind and shadcn defaults, no component in the DS
+has ever used it, and no rule has ever named it. **Having the variable is not
+having a role.**
+
+So `font-serif` is a deviation wherever it appears — not a narrow exception and
+not a facsimile family. If a surface has to read as paper from somewhere else,
+that is carried by weight, spacing, rules and layout, inside the three families
+above.
 
 ```tsx
-// ✅ A vendor's invoice, reproduced inside the app
-<div className="font-serif text-3xl font-bold tracking-tight">LELAND</div>
-
-// ✅ Correspondence quoted from outside
-<blockquote className="font-serif italic text-muted-foreground">…</blockquote>
-
-// ❌ A dialog title — this is our interface, not a document
+// ❌ Never. Not a dialog title, not a letterhead, not a quoted email.
 <DialogTitle className="font-serif text-2xl font-semibold">Add Standard</DialogTitle>
+
+// ✅ The same title, in the system
+<DialogTitle className="text-2xl font-semibold">Add Standard</DialogTitle>
 ```
 
-**Why this is written down:** the token shipped before this rule named it, so for
+**Why this is written down.** The token shipped before any rule named it, so for
 a while `font-serif` was a class that worked and that nothing checked. One app
-ended up with 17 serif titles across its dialogs and cards — the markup asked for
-it, the build obeyed, and QA reported it as a CSS bug. It was not: it was a
-family with no declared role.
+inherited 17 serif titles across its cards, its record and every dialog — the
+markup asked for it, the build obeyed, and QA reported it as a CSS bug. It was
+not a bug. It was a family nobody had declared, doing work nobody had approved.
 
+The variable itself stays: it is inherited scaffolding, and removing a shipped
+custom property would break any consumer still reading it for no gain the rule
+does not already give. The rule and the validator are the enforcement.
 ```tsx
 // Brand heading
 <h1 className="font-brand text-4xl text-foreground">Strata</h1>
