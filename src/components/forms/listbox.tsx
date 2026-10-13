@@ -26,10 +26,10 @@ export function Listbox({
                 aria-label={ariaLabel}
                 className={clsx(
                     className,
-                    'group relative block w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 py-1.5 pr-8 pl-3 text-left text-sm/6 text-zinc-950 dark:text-white',
+                    'group relative block w-full rounded-lg border border-input bg-white dark:bg-zinc-900 py-1.5 pr-8 pl-3 text-left text-sm/6 text-zinc-950 dark:text-white',
                     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-blue-500/25',
                     'data-[disabled]:opacity-50',
-                    'hover:border-zinc-300 dark:hover:border-zinc-700'
+                    'hover:border-ring'
                 )}
             >
                 <HeadlessListboxSelectedOption
@@ -65,7 +65,7 @@ export function Listbox({
                 transition
                 anchor="bottom start"
                 className={clsx(
-                    'w-[var(--button-width)] rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none',
+                    'w-[var(--button-width)] rounded-xl border border-border bg-white dark:bg-zinc-900 p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none',
                     'transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0',
                     'z-50 shadow-lg'
                 )}

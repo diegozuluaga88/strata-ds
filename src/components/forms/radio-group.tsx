@@ -25,7 +25,7 @@ function RadioGroupItem({
     <RadioGroupPrimitive.Item
       data-slot="radio-group-item"
       className={cn(
-        "border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-50 data-[state=checked]:border-brand-500 dark:data-[state=checked]:border-brand-500 data-[state=checked]:text-brand-900 dark:data-[state=checked]:text-brand-500 focus-visible:border-brand-500 dark:focus-visible:border-brand-500 focus-visible:ring-brand-500/20 dark:focus-visible:ring-brand-500/20 aria-invalid:ring-red-600/20 dark:aria-invalid:ring-red-500/20 aria-invalid:border-red-600 dark:aria-invalid:border-red-500 dark:bg-zinc-950/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        "border-input text-zinc-900 dark:text-zinc-50 data-[state=checked]:border-brand-500 dark:data-[state=checked]:border-brand-500 data-[state=checked]:text-brand-900 dark:data-[state=checked]:text-brand-500 focus-visible:border-brand-500 dark:focus-visible:border-brand-500 focus-visible:ring-brand-500/20 dark:focus-visible:ring-brand-500/20 aria-invalid:ring-red-600/20 dark:aria-invalid:ring-red-500/20 aria-invalid:border-red-600 dark:aria-invalid:border-red-500 dark:bg-zinc-950/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}

@@ -152,7 +152,7 @@ function DatePicker({
     // pl-8 matches the trigger button's own w-8 exactly (no extra slack beyond its box),
     // so the calendar icon sits right up against the date segments instead of floating
     // with ~14px of dead space before "mm".
-    "relative flex h-9 w-full min-w-0 items-center gap-0 rounded-lg border border-zinc-300 bg-input-background/30 pl-8 pr-4 text-sm text-foreground shadow-sm outline-none transition-all dark:border-zinc-700",
+    "relative flex h-9 w-full min-w-0 items-center gap-0 rounded-lg border border-input bg-input-background/30 pl-8 pr-4 text-sm text-foreground shadow-sm outline-none transition-all",
     "focus-within:border-primary focus-within:ring-2 focus-within:ring-primary",
     disabled && "pointer-events-none opacity-50",
     className,
