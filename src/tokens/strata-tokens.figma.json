@@ -1101,7 +1101,7 @@
           "type": "STRING",
           "codeToken": "--fontFamily-brand",
           "values": {
-            "Value": "'PP Monument Extended', sans-serif"
+            "Value": "'PP Monument Extended', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
           },
           "figmaValue": "Inter"
         },

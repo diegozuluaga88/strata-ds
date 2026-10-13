@@ -112,9 +112,16 @@ export const foundationsData: Record<string, Record<string, unknown>> = {
 
   typography: {
     section: 'typography',
-    description: 'Strata uses PP Monument Extended for brand display and Inter for all UI text. All sizes follow a modular scale defined as CSS custom properties.',
+    description: 'Strata uses Inter for everything you see today. PP Monument Extended is declared as the brand family but is not licensed and ships no font files, so it falls through to Inter — see the brand row. All sizes follow a modular scale defined as CSS custom properties.',
     families: {
-      brand: { value: "'PP Monument Extended', sans-serif", use: 'Display headings, hero text, brand moments' },
+      // Declarada, no disponible. El valor lleva Inter como respaldo a
+      // proposito: antes caia al `sans-serif` generico, o sea a Arial. Esta
+      // fila es la que llevo al frontend de UW Health a pedir la licencia en
+      // octubre de 2026, asi que ahora dice lo que de verdad pasa.
+      brand: {
+        value: "'PP Monument Extended', Inter, system-ui, sans-serif",
+        use: 'Display headings, hero text, brand moments — declared but not licensed, so it renders as Inter',
+      },
       sans:  { value: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif', use: 'All UI body text, labels, buttons' },
       mono:  { value: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Courier New', monospace", use: 'Code, tokens, technical values' },
       serif: { value: "Georgia, Cambria, 'Times New Roman', Times, serif", use: 'Editorial / long-form content (rare)' },

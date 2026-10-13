@@ -179,7 +179,7 @@ export const tokens = {
   'borderWidth-2': '2px',
   'borderWidth-4': '4px',
   'borderWidth-8': '8px',
-  'fontFamily-brand': '\'PP Monument Extended\', sans-serif',
+  'fontFamily-brand': '\'PP Monument Extended\', Inter, system-ui, -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif',
   'fontFamily-sans': 'Inter, system-ui, -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif',
   'fontFamily-serif': 'Georgia, Cambria, \'Times New Roman\', Times, serif',
   'fontFamily-mono': 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \'Liberation Mono\', \'Courier New\', monospace',

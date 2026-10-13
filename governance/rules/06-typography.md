@@ -6,12 +6,36 @@ The DS ships 3 font families. Each one has a specific role — do not swap them.
 
 | Token | Family | CSS var | Usage |
 |---|---|---|---|
-| `font-brand` | **PP Monument Extended** | `--font-brand` | Brand headings, hero text, large numbers in KPIs |
+| `font-brand` | **PP Monument Extended** — *declared, not available* | `--font-brand` | Brand headings, hero text, large numbers in KPIs. **Renders as Inter today** — see below |
 | `font-sans` (default) | **Inter** + system-ui fallback | `--font-sans` | Body text, general UI, anything that is not a brand heading |
 | `font-mono` | ui-monospace + SFMono + Menlo | `--font-mono` | Code, IDs, technical data, file paths |
 
 Three. There is no fourth.
 
+### `font-brand` is declared but not licensed
+
+The family is real, the token is real, and using `font-brand` is legitimate. **The font files are
+not there, and they never were.** No commit in the history of this repo has ever added a `.woff2`
+or an `.otf`, and the commit that declared the family already carried a note saying they were
+missing.
+
+Measured in October 2026 across `gostrata.app`, `demo.gostrata.app`, `demo-qa`,
+`strata-ds.vercel.app`, the Avanto Storybook and UW Health: **not one of them downloads it**, and
+against a made-up family name it measures identically. It does not resolve anywhere — not even on
+a machine with the `.otf` files installed.
+
+So `--font-brand` falls through to **Inter**, which is the next family in its stack and the same
+one the rest of the product uses. That fallback is deliberate: before it was the generic
+`sans-serif`, so brand headings quietly rendered in Arial.
+
+**What this means in practice:** write `font-brand` where the rule says to. It carries the intent,
+and the day a licence is bought, adding the files makes it apply everywhere with no component
+change. Today it simply looks like `font-sans`.
+
+**Do not add the font files without a Pangram Pangram web licence.** The copy in circulation comes
+from befonts.com and is licensed "Personal Use Only" — it does not cover commercial use, embedding
+or serving. The licence is also per domain and annual (EULA §2.4, §2.1), so it is a decision with a
+recurring cost, not a one-off download.
 ### `font-serif` is not a Strata family
 
 A `--fontFamily-serif` variable exists in `variables.css`, and the Tailwind

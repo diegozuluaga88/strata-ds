@@ -16,9 +16,30 @@
  * registraria antes que `theme` y alteraria el orden entero.
  */
 
-/** 
- * Brand Font: PP Monument Extended
- * Note: Font files (.woff2) need to be added to src/assets/fonts/
+/**
+ * Fuente de marca: PP Monument Extended — DECLARADA, pero no disponible.
+ *
+ * Estas dos reglas apuntan a archivos que NO existen, y nunca existieron: en
+ * toda la historia de este repo no hay un solo commit que anada un .woff2 o un
+ * .otf, y el commit que las introdujo (a19bb2e, 21-ene-2026) ya traia la nota
+ * de que faltaban. Como ningun componente del paquete usa `font-brand`, el
+ * navegador ni siquiera pide los archivos: un @font-face solo se descarga
+ * cuando alguna regla usa esa familia.
+ *
+ * Medido en octubre de 2026 sobre gostrata.app, demo.gostrata.app, demo-qa,
+ * strata-ds.vercel.app, el Storybook de Avanto y UW Health: ninguno la
+ * descarga, y comparada contra una familia inventada mide exactamente igual.
+ * No se resuelve en ningun sitio — ni con los .otf instalados en la maquina.
+ *
+ * Se dejan a proposito: el dia que se licencie, basta anadir los archivos y
+ * empieza a aplicarse sin tocar un solo componente. Lo que se pinta mientras
+ * tanto es Inter, que es el respaldo declarado en `--fontFamily-brand`.
+ *
+ * NO anadir los archivos sin licencia web de Pangram Pangram. La copia que
+ * circula viene de befonts.com y su licencia dice "Personal Use Only": no
+ * cubre uso comercial, ni embeberla, ni servirla desde un sitio. Ponerla en
+ * `public/fonts/` convertiria un token huerfano en distribucion de una
+ * tipografia comercial dentro de un producto de cliente.
  */
 @font-face {
   font-family: 'PP Monument Extended';

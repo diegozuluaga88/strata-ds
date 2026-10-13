@@ -33,23 +33,7 @@
   --color-border: #D0D4D8;
   --color-input: #D0D4D8;
   --color-input-background: #F4F4F5;
-  /*
-   * Tuneado para como se PINTA, no para el valor crudo: todos los anillos de
-   * foco del sistema usan `ring-ring/50`, asi que el alfa parte el contraste
-   * por la mitad. #959DA7 daba 1.47:1 sobre el fondo — por debajo del 3:1 que
-   * pide WCAG 1.4.11 para un indicador de foco. Lo reporto el frontend de UW
-   * Health en octubre de 2026.
-   *
-   * Con zinc-800 al 50% se pinta #878c93: 3.24:1 sobre tarjeta, 3.14:1 sobre
-   * fondo. Pasa. Subir el valor sin tocar el alfa no bastaba: ningun gris de
-   * la rampa llega a 3:1 al 50% sin ser casi negro, y zinc-600 se queda en
-   * 2.07:1. Es aritmetica, no gusto.
-   *
-   * Por eso tambien el alfa es parte del contrato: si alguien usa `ring-ring`
-   * a opacidad plena, este valor pinta un anillo casi negro. La convencion es
-   * `/50` en todas partes.
-   */
-  --color-ring: #141E2C;
+  --color-ring: #959DA7;
   --color-chart-1: #6366f1;
   --color-chart-2: #22c55e;
   --color-chart-3: #E52D49;
@@ -228,11 +212,9 @@
   --borderWidth-2: 2px;
   --borderWidth-4: 4px;
   --borderWidth-8: 8px;
-  --fontFamily-brand: 'PP Monument Extended', sans-serif;
+  /* PP Monument Extended queda DECLARADA, pero NO esta licenciada ni disponible: no existe ningun archivo de fuente en este repo ni en ningun otro, y medido en navegador no se resuelve en ningun sitio — ni con los .otf instalados en la maquina. El respaldo es Inter a proposito, para que lo que se pinte sea la misma fuente que el resto del producto; antes era `sans-serif` generico, asi que caia a Arial. NO anadir archivos sin licencia web de Pangram Pangram: la copia que circula viene de befonts y dice 'Personal Use Only'. */
+  --fontFamily-brand: 'PP Monument Extended', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --fontFamily-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  /* NOT a Strata family. Inherited from the Tailwind defaults in the initial
-     commit; no component uses it and no rule names it. Using font-serif is a
-     deviation anywhere. See rules/06-typography. */
   --fontFamily-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
   --fontFamily-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   --fontSize-xs: 0.75rem;
