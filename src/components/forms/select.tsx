@@ -42,7 +42,7 @@ function SelectTrigger({
         "flex w-full items-center justify-evenly gap-2 rounded-lg border border-input bg-input-background/30 px-4 py-2 text-sm text-foreground whitespace-nowrap shadow-sm outline-none transition-all",
         "data-[placeholder]:text-muted-foreground",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg]:text-muted-foreground",
-        "focus:border-primary focus:ring-2 focus:ring-primary",
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
         "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
         "disabled:cursor-not-allowed disabled:opacity-50",
         "data-[size=default]:h-9 data-[size=sm]:h-8 data-[size=sm]:py-1.5",
