@@ -56,13 +56,15 @@
       "value": "{color.zinc.300}"
     },
     "input": {
-      "value": "{color.zinc.300}"
+      "comment": "El BORDE de un control, no el relleno. zinc-300 daba 1,36-1,43:1 contra la tarjeta y contra su propio relleno: por debajo del 3:1 que WCAG 1.4.11 pide a los limites de un control. zinc-600 es el primer peldano de la rampa que pasa en los tres encuadres (6,02 / 6,13 / 5,41). zinc-400 y zinc-500 no llegan.",
+      "value": "{color.zinc.600}"
     },
     "input-background": {
       "value": "{color.zinc.75}"
     },
     "ring": {
-      "value": "{color.zinc.500}"
+      "comment": "Tuneado para como se PINTA: los anillos usan `ring-ring/50`, asi que el alfa parte el contraste por la mitad. zinc-500 se veia a 1,47:1. Con zinc-800 al 50% se pinta #7f858d, 3,15:1. Subirlo sin tocar el alfa no bastaba: al 50% ningun gris de la rampa llega a 3:1 sin ser casi negro.",
+      "value": "{color.zinc.800}"
     },
     "chart-1": {
       "value": "{color.indigo.500}"

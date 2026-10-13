@@ -1612,12 +1612,12 @@
           "type": "COLOR",
           "codeToken": "--color-input",
           "values": {
-            "Light": "#D0D4D8",
-            "Dark": "#141E2C"
+            "Light": "#546070",
+            "Dark": "#959DA7"
           },
           "alias": {
-            "Light": "Zinc/zinc-300",
-            "Dark": "Zinc/zinc-800"
+            "Light": "Zinc/zinc-600",
+            "Dark": "Zinc/zinc-500"
           },
           "tailwind": [
             "border-input"
@@ -1647,11 +1647,11 @@
           "type": "COLOR",
           "codeToken": "--color-ring",
           "values": {
-            "Light": "#959DA7",
+            "Light": "#141E2C",
             "Dark": "#B4BBC2"
           },
           "alias": {
-            "Light": "Zinc/zinc-500",
+            "Light": "Zinc/zinc-800",
             "Dark": "Zinc/zinc-400"
           },
           "tailwind": [

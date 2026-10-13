@@ -27,7 +27,8 @@
   --color-destructive: #340209;
   --color-destructive-foreground: #fff5f6;
   --color-border: #141E2C;
-  --color-input: #141E2C;
+  /* El BORDE de un control. Valia lo MISMO que `input-background` y que `border`, los tres zinc-800: el borde de un Input se veia a 1,14:1 sobre la tarjeta y el del Checkbox a 1,00:1 contra su propio relleno — invisible. zinc-500 pasa los tres encuadres (6,73 / 6,98 / 7,41); zinc-600 se queda en 2,88. */
+  --color-input: #959DA7;
   --color-input-background: #141E2C;
   --color-ring: #B4BBC2;
   --color-chart-1: #6366f1;

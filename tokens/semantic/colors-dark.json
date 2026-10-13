@@ -55,7 +55,8 @@
       "value": "{color.zinc.800}"
     },
     "input": {
-      "value": "{color.zinc.800}"
+      "comment": "El BORDE de un control. Valia lo MISMO que `input-background` y que `border`, los tres zinc-800: el borde de un Input se veia a 1,14:1 sobre la tarjeta y el del Checkbox a 1,00:1 contra su propio relleno — invisible. zinc-500 pasa los tres encuadres (6,73 / 6,98 / 7,41); zinc-600 se queda en 2,88.",
+      "value": "{color.zinc.500}"
     },
     "input-background": {
       "value": "{color.zinc.800}"
