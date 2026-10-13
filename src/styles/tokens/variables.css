@@ -33,7 +33,23 @@
   --color-border: #D0D4D8;
   --color-input: #D0D4D8;
   --color-input-background: #F4F4F5;
-  --color-ring: #959DA7;
+  /*
+   * Tuneado para como se PINTA, no para el valor crudo: todos los anillos de
+   * foco del sistema usan `ring-ring/50`, asi que el alfa parte el contraste
+   * por la mitad. #959DA7 daba 1.47:1 sobre el fondo — por debajo del 3:1 que
+   * pide WCAG 1.4.11 para un indicador de foco. Lo reporto el frontend de UW
+   * Health en octubre de 2026.
+   *
+   * Con zinc-800 al 50% se pinta #878c93: 3.24:1 sobre tarjeta, 3.14:1 sobre
+   * fondo. Pasa. Subir el valor sin tocar el alfa no bastaba: ningun gris de
+   * la rampa llega a 3:1 al 50% sin ser casi negro, y zinc-600 se queda en
+   * 2.07:1. Es aritmetica, no gusto.
+   *
+   * Por eso tambien el alfa es parte del contrato: si alguien usa `ring-ring`
+   * a opacidad plena, este valor pinta un anillo casi negro. La convencion es
+   * `/50` en todas partes.
+   */
+  --color-ring: #141E2C;
   --color-chart-1: #6366f1;
   --color-chart-2: #22c55e;
   --color-chart-3: #E52D49;
