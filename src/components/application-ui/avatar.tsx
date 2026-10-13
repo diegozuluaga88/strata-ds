@@ -56,7 +56,12 @@ const avatarFallbackVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-500",
+        // `brand-800` y no `brand-700`: las iniciales son texto, y el texto pide
+        // 4.5:1 (WCAG 1.4.3). Sobre `brand-50` (#fdfee7), `brand-700` (#718B03)
+        // se queda en 3.80:1 — lo midio con axe el frontend de UW Health en
+        // octubre de 2026. `brand-800` (#507206) da 5.47:1. Aclarar el fondo no
+        // era alternativa: `brand-700` sobre blanco puro solo llega a 3.89:1.
+        default: "bg-brand-50 dark:bg-brand-500/10 text-brand-800 dark:text-brand-500",
         muted: "bg-muted text-foreground",
         gradient: "bg-gradient-to-br from-blue-500 to-purple-600 text-white",
         indigo:
