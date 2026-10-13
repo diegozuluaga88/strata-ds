@@ -1,8 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-* {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-}
+/*
+ * La familia por defecto NO va aqui.
+ *
+ * Estaba en este archivo como `* { font-family: Inter }` sin capa, y este
+ * archivo se importa ANTES de `@import "tailwindcss"`. Una regla sin capa le
+ * gana a cualquier regla dentro de una capa, sin importar la especificidad, y
+ * las utilidades de Tailwind v4 viven en `@layer utilities`. Resultado:
+ * `font-mono`, `font-brand` y `font-serif` no surtian efecto en ningun sitio.
+ * Lo levanto QA de UW Health en octubre de 2026 por los codigos de producto,
+ * que salian en Inter en vez de monoespaciada.
+ *
+ * Ahora vive en el bloque `@layer base` de index.css, que va DESPUES del
+ * import de Tailwind. Ahi la capa ya esta ordenada; declararla desde aqui la
+ * registraria antes que `theme` y alteraria el orden entero.
+ */
 
 /** 
  * Brand Font: PP Monument Extended

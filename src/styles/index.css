@@ -36,6 +36,21 @@ html, body {
  * and `DataGridPagination`'s `border-t`, both rendering a near-black border from
  * `--color-foreground` instead of the intended `--color-border`.
  */
+/*
+ * La familia por defecto. Vive en una capa a proposito: asi `font-mono`,
+ * `font-brand` y cualquier otra utilidad de tipografia pueden ganarle, que es
+ * justo lo que no pasaba cuando esta regla estaba suelta en fonts.css.
+ *
+ * Sigue siendo `*` y no `html`: los controles de formulario no heredan
+ * font-family del documento, y ese era el motivo original de usar el selector
+ * universal. Lo que estaba mal no era el selector, era la capa.
+ */
+@layer base {
+  * {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
 @layer base {
   *,
   ::before,
