@@ -198,8 +198,34 @@ Color alone is never the only carrier of information.
 | Large text (18pt+ or 14pt+ bold) | 3:1 |
 | Icon stroke on background | 3:1 |
 | Border that conveys structure | 3:1 |
+| **The selected state of a control** | **3:1 — or a cue that is not colour** |
 
-Strata semantic tokens already pass these ratios in both themes. Never override with arbitrary colors.
+Most Strata semantic tokens pass these ratios in both themes. **The selected state is the exception, and it is worth knowing why.**
+
+### The selected state needs more than the brand colour
+
+Marking "this one is chosen" with `bg-primary` alone does not meet 1.4.11 in the light theme: the brand lime (`brand-300`, `#E6F993`) contrasts **1.03:1** with the page background. It reads by hue, not by lightness, so for anyone who cannot separate those hues — or on a washed-out screen — there is nothing to see. The first step of the ramp that crosses 3:1 in light is `brand-700` (3.29:1), which is olive and no longer looks like the lime on the buttons, so raising the tone is not the answer.
+
+The answer is to keep the lime and add a cue that is not colour. `Toggle`, `FilterPills` and `Tabs` all do this:
+
+```tsx
+// ✅ Do — colour, plus weight, plus an outline
+data-[state=on]:bg-primary data-[state=on]:text-primary-foreground
+data-[state=on]:font-semibold
+data-[state=on]:outline-1 data-[state=on]:[outline-style:solid]
+data-[state=on]:outline-primary-foreground
+
+// ❌ Don't — the brand colour on its own
+data-[state=on]:bg-primary data-[state=on]:text-primary-foreground
+```
+
+Three things that are easy to get wrong here:
+
+- **Use `outline`, not `ring`.** Tailwind shares one variable between the state ring and the focus ring. With a ring, the selected state wins and the focus indicator takes its colour — measured in the dark theme, that gave a focus ring of **1.00:1**, black on black. `outline` does not share the variable, and it does not take up space either.
+- **Tie the outline colour to the pill's text**, not to `foreground`. With `foreground` it shows in light and vanishes in dark, because there it is nearly white and the lime pill is light too.
+- **The weight changes the label width.** Measured: 0.2&nbsp;px where the buttons already share a width, 1.6&nbsp;px where the label sets it. In a segmented control that makes the neighbours shift; reserve the width of the semibold label if it shows.
+
+Never override any of this with arbitrary colors.
 
 ---
 

@@ -26,7 +26,7 @@ Layer 1 — Neutral primitive (only for internal construction of DS components)
 | `bg-card` | #fafafa | #02060C | Cards, panels, elevated containers |
 | `bg-muted` | #fafafa | #141E2C | Secondary sections, tables |
 | `bg-secondary` | #fafafa | #141E2C | Alternative backgrounds |
-| `bg-accent` | #fafafa | #141E2C | Hover state backgrounds |
+| `bg-accent` | #fafafa | #141E2C | Hover state backgrounds — **hover only**, see below |
 | `bg-popover` | #fafafa | #02060C | Dropdowns, tooltips, popovers |
 
 ### Text colors
@@ -42,6 +42,8 @@ Layer 1 — Neutral primitive (only for internal construction of DS components)
 |---|---|---|---|
 | `bg-primary` | #E6F993 | #C3E433 | Main CTA button |
 | `text-primary` | #E6F993 | #C3E433 | Highlighted icons, active links |
+
+> **`bg-accent` is for hover, not for "this one is selected".** It sits one step from the page background, so a control that marks its selected state with it is marking nothing: measured on a real screen, the selected option contrasted **1.02:1** with the one beside it. `Toggle` did exactly this until Oct 2026. The selected state belongs to `bg-primary` plus a cue that is not colour — see [`rules/15-accessibility-focus.md`](./15-accessibility-focus.md).
 
 ### Borders and inputs
 | Token | Light | Dark | Use for |
