@@ -29,7 +29,7 @@ export function Listbox({
                     'group relative block w-full rounded-lg border border-input bg-white dark:bg-zinc-900 py-1.5 pr-8 pl-3 text-left text-sm/6 text-zinc-950 dark:text-white',
                     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-blue-500/25',
                     'data-[disabled]:opacity-50',
-                    'hover:border-ring'
+                    'hover:border-zinc-300 dark:hover:border-zinc-700'
                 )}
             >
                 <HeadlessListboxSelectedOption

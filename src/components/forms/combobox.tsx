@@ -44,7 +44,7 @@ export function Combobox<T>({
                     className,
                     "group relative block w-full rounded-lg border border-input bg-white dark:bg-zinc-900 text-left text-sm/6 text-zinc-950 dark:text-white",
                     "focus-within:outline-none focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-blue-500/25",
-                    "hover:border-ring"
+                    "hover:border-zinc-300 dark:hover:border-zinc-700"
                 )}>
                     <HeadlessComboboxInput
                         className="w-full border-none bg-transparent py-1.5 pl-3 pr-8 text-sm/6 text-zinc-950 dark:text-white placeholder:text-zinc-500 dark:placeholder:text-zinc-400 focus:ring-0"
