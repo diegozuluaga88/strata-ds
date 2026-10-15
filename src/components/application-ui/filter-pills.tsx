@@ -63,7 +63,7 @@ export function FilterPills<TKey extends string = string>({
             className={cn(
               'inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-xs font-medium transition-colors',
               active
-                ? 'bg-primary text-primary-foreground font-semibold outline-1 [outline-style:solid] outline-primary-foreground'
+                ? 'bg-primary text-primary-foreground font-semibold outline-1 outline-solid outline-primary-foreground'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted',
             )}
           >
