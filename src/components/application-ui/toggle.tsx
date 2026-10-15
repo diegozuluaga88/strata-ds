@@ -18,17 +18,20 @@ import { cn } from '@/utils';
  * de verdad faltaba es la segunda: los tres textos iban iguales. Con el no
  * elegido en muted hay dos senales, no una.
  *
- * **Queda un limite conocido, y es del sistema, no de este componente.** El
- * lima de marca en claro (brand-300, #E6F993) contrasta 1,03:1 con el fondo de
- * pagina: se distingue por tono, no por luminancia, asi que como UNICA senal no
- * cumpliria 1.4.11. Por eso importa el texto muted, y por eso `shadow-sm`. El
- * primero de la rampa que cruzaria 3:1 en claro es brand-700 (3,29:1), que es
- * verde oliva y ya no se parece al lima de los botones. `FilterPills` y `Tabs`
- * tienen exactamente el mismo limite: es una decision de paleta pendiente, no
- * un descuido de aqui.
+ * **Y el lima no basta solo.** En claro (brand-300, #E6F993) contrasta 1,03:1
+ * con el fondo de pagina: se distingue por tono, no por luminancia, asi que
+ * como unica senal no cumple 1.4.11. Andre decidio mantener el lima y anadir
+ * una senal que no sea color, en los tres componentes que cargan el mismo
+ * limite —este, `FilterPills` y `Tabs`—: **texto semibold y contorno de 1px en
+ * `foreground`**, que da 17:1 contra la pagina.
+ *
+ * El semibold cambia el ancho del texto, y en un grupo segmentado eso hace
+ * saltar las opciones de al lado al cambiar de elegido. Por eso el rotulo
+ * lleva una copia fantasma en semibold que reserva el ancho: el boton mide lo
+ * mismo este elegido o no.
  */
 const toggleVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:shadow-sm data-[state=on]:hover:bg-primary data-[state=on]:hover:text-primary-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap",
+  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:font-semibold data-[state=on]:outline-1 data-[state=on]:[outline-style:solid] data-[state=on]:outline-primary-foreground data-[state=on]:shadow-sm data-[state=on]:hover:bg-primary data-[state=on]:hover:text-primary-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap",
   {
     variants: {
       variant: {

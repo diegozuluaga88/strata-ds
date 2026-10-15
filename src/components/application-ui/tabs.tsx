@@ -92,7 +92,7 @@ function TabsTrigger({
               ]
               : [
                 "text-muted-foreground data-[state=inactive]:hover:bg-white/50 data-[state=inactive]:hover:text-foreground dark:data-[state=inactive]:hover:bg-zinc-700/50",
-                "data-[state=active]:bg-brand-300 data-[state=active]:text-zinc-900 dark:data-[state=active]:bg-brand-500 dark:data-[state=active]:text-zinc-900 dark:data-[state=active]:hover:bg-brand-600 data-[state=active]:shadow-sm",
+                "data-[state=active]:bg-brand-300 data-[state=active]:text-zinc-900 dark:data-[state=active]:bg-brand-500 dark:data-[state=active]:text-zinc-900 dark:data-[state=active]:hover:bg-brand-600 data-[state=active]:shadow-sm data-[state=active]:font-semibold data-[state=active]:outline-1 data-[state=active]:[outline-style:solid] data-[state=active]:outline-primary-foreground",
               ],
             size === "sm"
               ? "inline-flex items-center justify-center gap-2 px-3 py-1.5 text-xs"

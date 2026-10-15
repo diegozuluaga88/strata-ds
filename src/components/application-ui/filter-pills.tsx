@@ -12,7 +12,10 @@ import { cn } from '@/utils';
  * smart-comparator (Transactions filter tabs). Replaces ~30 LOC of duplicated
  * Tailwind in each consumer.
  *
- * Visual: active pill = bg-primary + text-primary-foreground; count badge
+ * Visual: active pill = bg-primary + text-primary-foreground, con semibold y
+ * contorno de 1px en `foreground` **porque el lima solo no se ve**: en claro
+ * contrasta 1,03:1 con el fondo de pagina, o sea por tono y no por luminancia.
+ * Es la misma senal que llevan `Toggle` y `Tabs` desde ST-2341; count badge
  * inside picks accent based on active state.
  */
 
@@ -60,7 +63,7 @@ export function FilterPills<TKey extends string = string>({
             className={cn(
               'inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-xs font-medium transition-colors',
               active
-                ? 'bg-primary text-primary-foreground'
+                ? 'bg-primary text-primary-foreground font-semibold outline-1 [outline-style:solid] outline-primary-foreground'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted',
             )}
           >
