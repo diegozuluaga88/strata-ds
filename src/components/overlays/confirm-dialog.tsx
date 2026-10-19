@@ -75,7 +75,20 @@ export function ConfirmDialog({
         <DialogDescription className="text-sm text-muted-foreground">
           {description}
         </DialogDescription>
-        <DialogFooter className="flex flex-row justify-end gap-3 sm:justify-end">
+        {/*
+          Sólo el `gap`: el apilado lo pone `DialogFooter`.
+
+          Antes esto traía `flex flex-row justify-end`, que por tailwind-merge
+          ganaba al `flex-col-reverse` del pie y lo anulaba. Resultado: en una
+          pantalla estrecha los dos botones no se apilaban — se apretaban en una
+          fila, que es justo lo que el pie del sistema venía a evitar.
+
+          Con el apilado puesto, en estrecho queda el destructivo arriba y el de
+          cancelar abajo. Y eso es lo que se quiere: en un móvil el pulgar
+          descansa abajo, así que quien cierra diálogos por reflejo pulsa el de
+          abajo. Ahí tiene que estar el que no rompe nada.
+        */}
+        <DialogFooter className="gap-3">
           <Button variant="secondary" onClick={onClose} className="cursor-pointer">
             Cancel
           </Button>
