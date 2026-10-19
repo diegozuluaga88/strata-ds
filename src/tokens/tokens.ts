@@ -13,7 +13,7 @@ export const tokens = {
   'color-muted-foreground': '#616A76',
   'color-accent': '#E8EAEC',
   'color-accent-foreground': '#02060C',
-  'color-destructive': '#E52D49',
+  'color-destructive': '#C11736',
   'color-destructive-foreground': '#ffffff',
   'color-border': '#D0D4D8',
   'color-input': '#546070',

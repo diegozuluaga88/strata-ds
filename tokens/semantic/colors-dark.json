@@ -46,10 +46,12 @@
       "value": "{color.zinc.100}"
     },
     "destructive": {
-      "value": "{color.red.900}"
+      "value": "{color.red.400}",
+      "comment": "Era red.900 (#340209): casi negro sobre casi negro, 1,06:1 contra la tarjeta\ny 1,12:1 como texto. En oscuro este token nunca fue un color visible, solo\nun fondo para texto blanco — asi que el mensaje de error de un formulario,\nel borde de un campo invalido y el punto de error de una celda eran\ninvisibles. Apunta al mismo primitivo que `status-error`."
     },
     "destructive-foreground": {
-      "value": "{color.red.50}"
+      "value": "{color.black}",
+      "comment": "Se mueve con el relleno: sobre red.400 el texto tiene que ser oscuro. Es lo\nque ya hace `status-error-foreground`, y es lo que le faltaba a este par\npara poder cumplir en los dos modos con un solo token."
     },
     "border": {
       "value": "{color.zinc.800}"

@@ -1560,12 +1560,12 @@
           "type": "COLOR",
           "codeToken": "--color-destructive",
           "values": {
-            "Light": "#E52D49",
-            "Dark": "#340209"
+            "Light": "#C11736",
+            "Dark": "#ED5F74"
           },
           "alias": {
-            "Light": "Red/red-500",
-            "Dark": "Red/red-900"
+            "Light": "Red/red-600",
+            "Dark": "Red/red-400"
           },
           "tailwind": [
             "bg-destructive",
@@ -1579,11 +1579,11 @@
           "codeToken": "--color-destructive-foreground",
           "values": {
             "Light": "#FFFFFF",
-            "Dark": "#FFF5F6"
+            "Dark": "#000000"
           },
           "alias": {
             "Light": "Base/white",
-            "Dark": "Red/red-50"
+            "Dark": "Base/black"
           },
           "tailwind": [
             "text-destructive-foreground"

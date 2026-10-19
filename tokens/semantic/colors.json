@@ -47,7 +47,8 @@
       "value": "{color.zinc.900}"
     },
     "destructive": {
-      "value": "{color.red.500}"
+      "value": "{color.red.600}",
+      "comment": "Era red.500 (#E52D49): con blanco encima daba 4,37:1 y como texto 3,70:1,\nlos dos por debajo del 4,5:1. Apunta al mismo primitivo que `status-error`,\nque es el rojo de error que el sistema ya habia validado. Medido: 6,10:1 el\ntexto del boton, 5,84:1 el relleno contra la tarjeta, 5,16:1 como texto."
     },
     "destructive-foreground": {
       "value": "{color.white}"

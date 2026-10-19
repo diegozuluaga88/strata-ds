@@ -28,7 +28,11 @@
      cebra. Es el rol que shadcn usa en `hover:bg-accent`. */
   --color-accent: #E8EAEC;
   --color-accent-foreground: #02060C;
-  --color-destructive: #E52D49;
+  /* Era red.500 (#E52D49): con blanco encima daba 4,37:1 y como texto 3,70:1,
+     los dos por debajo del 4,5:1. Apunta al mismo primitivo que `status-error`,
+     que es el rojo de error que el sistema ya habia validado. Medido: 6,10:1 el
+     texto del boton, 5,84:1 el relleno contra la tarjeta, 5,16:1 como texto. */
+  --color-destructive: #C11736;
   --color-destructive-foreground: #ffffff;
   --color-border: #D0D4D8;
   /* El BORDE de un control, no el relleno. zinc-300 daba 1,36-1,43:1 contra la tarjeta y contra su propio relleno: por debajo del 3:1 que WCAG 1.4.11 pide a los limites de un control. zinc-600 es el primer peldano de la rampa que pasa en los tres encuadres (6,02 / 6,13 / 5,41). zinc-400 y zinc-500 no llegan. */
