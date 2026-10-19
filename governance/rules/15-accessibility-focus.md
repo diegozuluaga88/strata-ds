@@ -199,6 +199,7 @@ Color alone is never the only carrier of information.
 | Icon stroke on background | 3:1 |
 | Border that conveys structure | 3:1 |
 | **The selected state of a control** | **3:1 — or a cue that is not colour** |
+| **A filled destructive button, as a shape** | **3:1 against the surface behind it** |
 
 Most Strata semantic tokens pass these ratios in both themes. **The selected state is the exception, and it is worth knowing why.**
 
@@ -207,6 +208,7 @@ Most Strata semantic tokens pass these ratios in both themes. **The selected sta
 Marking "this one is chosen" with `bg-primary` alone does not meet 1.4.11 in the light theme: the brand lime (`brand-300`, `#E6F993`) contrasts **1.03:1** with the page background. It reads by hue, not by lightness, so for anyone who cannot separate those hues — or on a washed-out screen — there is nothing to see. The first step of the ramp that crosses 3:1 in light is `brand-700` (3.29:1), which is olive and no longer looks like the lime on the buttons, so raising the tone is not the answer.
 
 The answer is to keep the lime and add a cue that is not colour. `Toggle`, `FilterPills` and `Tabs` all do this:
+
 
 ```tsx
 // ✅ Do — colour, plus weight, plus an outline
@@ -300,3 +302,51 @@ Field errors must be associated with the input via `aria-describedby`.
 - `governance/rules/05-icons.md` — icon aria-hidden vs aria-label
 - `Strata Design System/strata-ds/src/components/overlays/dialog.tsx` — Radix focus trap
 - `Strata Design System/strata-ds/src/components/forms/field.tsx` — Field compound
+
+---
+
+## El par destructivo tiene que moverse junto
+
+Un token de relleno y su `foreground` son una pareja, y el destructivo es el caso
+donde eso deja de ser teoría: **un rojo lo bastante oscuro para llevar texto blanco
+encima es demasiado oscuro para leerse como texto sobre un fondo oscuro.** Un solo
+token no puede servir para las dos cosas si su `foreground` no cambia por modo.
+
+Hasta octubre de 2026 no lo hacía, y el resultado medido en la galería era **14 de
+19 cruces por debajo del mínimo**:
+
+| | antes | ahora | mínimo |
+|---|---|---|---|
+| claro · texto sobre el relleno | 4,37:1 | **6,10:1** | 4,5:1 |
+| claro · el relleno como forma | 4,19:1 | **5,84:1** | 3:1 |
+| claro · el hover `/90` con su texto | 3,92:1 | **5,36:1** | 4,5:1 |
+| claro · como texto, sobre la página | 3,70:1 | **5,16:1** | 4,5:1 |
+| claro · el tinte `/10` de menú con su texto | 3,61:1 | **4,90:1** | 4,5:1 |
+| oscuro · texto sobre el relleno | 16,95:1 | 6,49:1 | 4,5:1 |
+| oscuro · el relleno como forma | **1,06:1** | **5,91:1** | 3:1 |
+| oscuro · como texto | **1,12:1** | **6,28:1** | 4,5:1 |
+| oscuro · el borde de campo inválido | **1,06:1** | **5,91:1** | 3:1 |
+
+Lo que estaba roto **no era el botón**. En oscuro el token era `red.900` (#340209),
+elegido como fondo para texto blanco y nunca como color visible: el mensaje de error
+de un formulario, el borde de un campo inválido, el punto de error de una celda y los
+items destructivos de menú eran ilegibles. Y en claro casi todo fallaba por poco,
+incluido el hover, que nadie había medido.
+
+Peor que ilegible: en oscuro el botón destructivo pesaba **menos** que el `secondary`
+de al lado. La jerarquía quedaba invertida — la acción peligrosa parecía la más
+callada de la fila.
+
+### Lo que no hay que volver a hacer
+
+- **Subir sólo el relleno.** Si `destructive` se aclara y `destructive-foreground` se
+  queda en blanco, el texto deja de cumplir. Se mueven los dos o ninguno.
+- **Elegir el rojo por lo bonito que queda en claro.** El valor tiene que pasar los
+  dos modos y las seis formas de uso: relleno, forma, hover, texto sobre página,
+  texto sobre tarjeta y tinte de menú.
+- **Aliasar `destructive` a `status-error`.** Tienen el mismo valor y siguen siendo
+  dos tokens a propósito: uno es una intención, el otro un estado.
+
+> Si tocas este par, mídelo. La batería de contraste del demo de UW Health ya sabe
+> entrar en los diálogos, que es donde vive el botón; la galería del sistema todavía
+> no la mide nadie.

@@ -331,6 +331,33 @@ A user who arrives at the footer after scrolling should know exactly what `Rejec
 </ModalFooter>
 ```
 
+### En estrecho el pie se apila, y lo seguro queda abajo
+
+El pie del sistema (`DialogFooter`, `AlertDialogFooter`) trae
+`flex-col-reverse sm:flex-row`: en ancho, los botones van en fila con el
+destructivo a la derecha; por debajo de `sm` se apilan, y **el orden invertido deja
+el destructivo arriba y el de cancelar abajo**.
+
+Eso no es un descuido, es la posición segura. En un móvil el pulgar descansa abajo,
+así que quien cierra diálogos por reflejo pulsa el de abajo — y ahí tiene que estar
+el que no rompe nada. Coincide además con iOS y con Material.
+
+```tsx
+// ✅ Do — se deja al pie hacer su trabajo
+<DialogFooter className="gap-3">
+  <Button variant="secondary" onClick={onClose}>Keep draft</Button>
+  <Button variant="destructive" onClick={onConfirm}>Discard draft</Button>
+</DialogFooter>
+
+// ❌ Don't — `flex-row` gana por tailwind-merge y anula el apilado:
+// en pantalla estrecha los dos botones se aprietan en una fila
+<DialogFooter className="flex flex-row justify-end gap-3">
+```
+
+`ConfirmDialog` hizo exactamente eso durante meses. Si necesitas cambiar el `gap`,
+pasa `gap-*` y nada más: cualquier `flex-row` o `flex-col` en el `className` pisa la
+decisión del sistema sin que nada avise.
+
 ### Footer stays fixed — header fixed, body scrolls
 
 Decision modals must keep the footer (and header) sticky. The body scrolls; the action surface never disappears under the fold.

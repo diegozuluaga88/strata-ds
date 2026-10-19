@@ -261,19 +261,90 @@ function validateSemantics() {
   return { ok: failed === 0, passed, failed };
 }
 
+/* ──────────────────────────────────────────────── tablas de governance ── */
+
+const REGLAS_DIR = path.join(__dirname, "../governance/rules");
+
+/**
+ * Las reglas no deberían repetir valores, pero los repiten.
+ *
+ * `01-color-tokens.md` lleva tablas de «token → hex», y son la autoridad que se
+ * cita en las revisiones. Al meter esta capa, 10 de sus 17 filas estaban viejas:
+ * decían el borde a #D0D4D8 y el anillo a #959DA7, que son los valores de antes
+ * de los arreglos de contraste de octubre. Un documento de gobierno equivocado
+ * es peor que ninguno, porque se cita.
+ *
+ * Se compara sólo la fila que tiene **a la vez** un hex y el nombre de un token
+ * como utilidad (`bg-x`, `text-x`, `border-x`, `ring-x`). Un hex suelto en un
+ * ejemplo de código no se toca: ahí puede ser a propósito, enseñando lo que no
+ * hay que hacer.
+ */
+function validateGovernance() {
+  log("\n🔍 Validando las tablas de governance...", "cyan");
+  log("━".repeat(50), "cyan");
+
+  const claro = tokensDelCss(CSS_CLARO);
+  const oscuro = tokensDelCss(CSS_OSCURO);
+  const nombres = [...new Set([...Object.keys(claro), ...Object.keys(oscuro)])]
+    .sort((a, b) => b.length - a.length); // el más largo primero: `input-background` antes que `input`
+
+  let passed = 0;
+  let failed = 0;
+
+  for (const archivo of fs.readdirSync(REGLAS_DIR).filter((x) => x.endsWith(".md"))) {
+    const lineas = fs.readFileSync(path.join(REGLAS_DIR, archivo), "utf8").split(/\r?\n/);
+    const malas = [];
+
+    lineas.forEach((linea, i) => {
+      if (!linea.includes("|")) return;
+      const hexes = [...linea.matchAll(/#[0-9a-fA-F]{6}\b/g)].map((m) => normalizeHex(m[0]));
+      if (hexes.length === 0) return;
+
+      const token = nombres.find((n) =>
+        new RegExp("(^|[^a-z-])(bg|text|border|ring)-" + n + "(?![a-z-])").test(linea),
+      );
+      if (!token) return;
+
+      const esperados = [claro[token], oscuro[token]].filter(Boolean);
+      const sobran = hexes.filter((h) => !esperados.includes(h));
+      if (sobran.length > 0) {
+        failed++;
+        malas.push(`    ❌ línea ${i + 1} · ${token}: dice ${sobran.join(", ")}, el CSS ${esperados.join(" / ")}`);
+      } else {
+        passed++;
+      }
+    });
+
+    if (malas.length > 0) {
+      log(`\n  governance/rules/${archivo}`, "blue");
+      for (const m of malas) log(m, "red");
+    }
+  }
+
+  if (failed > 0) {
+    log(`\n❌ Governance: ${failed} filas con un valor que ya no existe`, "red");
+    log("   Una regla que cita un hex viejo se usa para aprobar el color viejo.", "yellow");
+  } else {
+    log(`\n✅ Governance: las ${passed} filas con valor citan el del CSS.`, "green");
+  }
+  return { ok: failed === 0, passed, failed };
+}
+
 /* ───────────────────────────────────────────────────────────── arranque ── */
 
 try {
   const primitivos = validateColors();
   const semanticos = validateSemantics();
+  const gobierno = validateGovernance();
 
   log("\n" + "━".repeat(50), "cyan");
   log("\n📊 Resumen:", "bold");
   log(`   primitivos  ✅ ${primitivos.passed}   ❌ ${primitivos.failed}`, primitivos.ok ? "green" : "red");
   log(`   semánticos  ✅ ${semanticos.passed}   ❌ ${semanticos.failed}`, semanticos.ok ? "green" : "red");
+  log(`   governance  ✅ ${gobierno.passed}   ❌ ${gobierno.failed}`, gobierno.ok ? "green" : "red");
   log("", "reset");
 
-  process.exit(primitivos.ok && semanticos.ok ? 0 : 1);
+  process.exit(primitivos.ok && semanticos.ok && gobierno.ok ? 0 : 1);
 } catch (error) {
   log(`\n❌ Validation error: ${error.message}`, "red");
   log(error.stack, "red");

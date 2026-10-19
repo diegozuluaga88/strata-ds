@@ -23,17 +23,17 @@ Layer 1 — Neutral primitive (only for internal construction of DS components)
 | Token | Light | Dark | Use for |
 |---|---|---|---|
 | `bg-background` | #EBECEE | #02060C | Page background, root layout |
-| `bg-card` | #fafafa | #02060C | Cards, panels, elevated containers |
-| `bg-muted` | #fafafa | #141E2C | Secondary sections, tables |
-| `bg-secondary` | #fafafa | #141E2C | Alternative backgrounds |
-| `bg-accent` | #fafafa | #141E2C | Hover state backgrounds — **hover only**, see below |
-| `bg-popover` | #fafafa | #02060C | Dropdowns, tooltips, popovers |
+| `bg-card` | #fafafa | #0B0F1A | Cards, panels, elevated containers |
+| `bg-muted` | #F4F4F5 | #141E2C | Secondary sections, tables |
+| `bg-secondary` | #F4F4F5 | #141E2C | Alternative backgrounds |
+| `bg-accent` | #E8EAEC | #1E2A3A | Hover state backgrounds — **hover only**, see below |
+| `bg-popover` | #f4f4f0 | #0F1320 | Dropdowns, tooltips, popovers |
 
 ### Text colors
 | Token | Light | Dark | Use for |
 |---|---|---|---|
 | `text-foreground` | #02060C | #EBECEE | Primary text |
-| `text-muted-foreground` | #959DA7 | #959DA7 | Secondary text, placeholders |
+| `text-muted-foreground` | #616A76 | #B4BBC2 | Secondary text, placeholders |
 | `text-card-foreground` | #02060C | #EBECEE | Text inside cards |
 | `text-primary-foreground` | #02060C | #02060C | Text over primary (lime) background |
 
@@ -49,18 +49,42 @@ Layer 1 — Neutral primitive (only for internal construction of DS components)
 | Token | Light | Dark | Use for |
 |---|---|---|---|
 | `border-border` | #D0D4D8 | #141E2C | General borders |
-| `border-input` | #D0D4D8 | #141E2C | Input borders |
-| `bg-input` | #fafafa | — | Input background |
-| `ring-ring` | #959DA7 | — | Focus ring |
+| `border-input` | #546070 | #959DA7 | Input borders |
+| `bg-input-background` | #F4F4F5 | #141E2C | Input fill — **no `bg-input`**, que resuelve al color del borde |
+| `ring-ring` | #141E2C | #B4BBC2 | Focus ring |
 
 ### Semantic states
-| Token | Value | Use for |
-|---|---|---|
-| `text-success` / `bg-success` | #098400 | Confirmations, success |
-| `text-warning` / `bg-warning` | #b27d00 | Warnings |
-| `text-destructive` / `bg-destructive` | #E52D49 | Errors, destructive actions |
-| `text-info` / `bg-info` | #2164d1 | Information, help |
-| `text-ai` / `bg-ai` | #8b5cf6 | AI indicators |
+
+**Llevan prefijo `status-`.** `bg-success` y `text-success` no existen: no hay
+`--color-success`, así que esas clases no resuelven nada y el elemento se queda
+sin color. Esta tabla las nombraba durante meses.
+
+| Token | Light | Dark | Use for |
+|---|---|---|---|
+| `text-status-success` / `bg-status-success` | #16a34a | #4ade80 | Confirmations, success |
+| `text-status-warning` / `bg-status-warning` | #b45309 | #fbbf24 | Warnings |
+| `text-status-error` / `bg-status-error` | #C11736 | #ED5F74 | Error states |
+| `text-status-info` / `bg-status-info` | #2563eb | #60a5fa | Information, help |
+| `text-status-ai` / `bg-status-ai` | #8b5cf6 | #a78bfa | AI indicators |
+
+### La acción destructiva
+
+| Token | Light | Dark | Use for |
+|---|---|---|---|
+| `text-destructive` / `bg-destructive` | #C11736 | #ED5F74 | Destructive actions |
+| `text-destructive-foreground` | #ffffff | #000000 | Texto sobre un relleno destructivo |
+
+`destructive` y `status-error` tienen **el mismo valor y siguen siendo dos**
+tokens, a propósito: uno es una **intención** —esta acción destruye— y el otro un
+**estado** —esto está mal—. Hoy coinciden porque el rojo correcto es el mismo;
+mañana pueden separarse sin tocar los componentes. Aliasarlos ahorraría una línea
+y escondería la decisión.
+
+> **`destructive-foreground` cambia por modo**, que es lo que nadie espera de un
+> token de texto. No es un descuido: es lo que permite que un solo token cumpla en
+> los dos. Un rojo lo bastante oscuro para llevar blanco encima es demasiado oscuro
+> para leerse como texto sobre fondo oscuro. Si cambias el relleno, el `foreground`
+> se mueve con él.
 
 ---
 
