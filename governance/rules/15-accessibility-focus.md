@@ -347,6 +347,6 @@ callada de la fila.
 - **Aliasar `destructive` a `status-error`.** Tienen el mismo valor y siguen siendo
   dos tokens a propósito: uno es una intención, el otro un estado.
 
-> Si tocas este par, mídelo. La batería de contraste del demo de UW Health ya sabe
+> Si tocas este par, mídelo. La batería de contraste de uno de los productos ya sabe
 > entrar en los diálogos, que es donde vive el botón; la galería del sistema todavía
 > no la mide nadie.
