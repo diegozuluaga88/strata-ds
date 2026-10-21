@@ -103,7 +103,7 @@ className="ring-2 ring-primary/40"             // focus ring`,
   'law-4-semantic-tokens-before-primitive-tokens': {
     eyebrow: 'LAW 4',
     explanation:
-      'Semantic tokens (<code>bg-card</code>, <code>text-foreground</code>, <code>bg-success</code>) carry intent; primitive tokens (<code>bg-brand-500</code>, <code>bg-zinc-900</code>) carry only a value. Components consume semantic tokens so the DS can re-skin without code changes.',
+      'Semantic tokens (<code>bg-card</code>, <code>text-foreground</code>, <code>bg-status-success</code>) carry intent; primitive tokens (<code>bg-brand-500</code>, <code>bg-zinc-900</code>) carry only a value. Components consume semantic tokens so the DS can re-skin without code changes.',
     visual: `
       <div class="example-row">
         <div class="example-card is-bad">
@@ -224,14 +224,14 @@ const ANTI = {
         <div class="example-card is-good">
           <span class="ec-tag">✓ Semantic state token</span>
           <div class="ec-body"><span class="icon-pair icon-tone-success" style="background:transparent;padding:0;">${ICON.check} <span style="color:var(--success);font-weight:700;">Saved!</span></span></div>
-          <div class="ec-code">text-success</div>
+          <div class="ec-code">text-status-success</div>
         </div>
       </div>`,
     code: `// ❌
 <span className="text-green-500">Saved!</span>
 
 // ✓
-<span className="text-success">Saved!</span>`,
+<span className="text-status-success">Saved!</span>`,
     howto:
       'Mapping: <code>green/yellow/red</code> → <code>success/warning/destructive</code>. <code>blue</code> → <code>info</code>. Done.',
   },
@@ -503,7 +503,7 @@ const COLOR_TOKENS = {
             <span class="status-pill status-destructive">destructive</span>
             <span class="status-pill status-info">info</span>
           </div>
-          <div class="ec-code">bg-primary · bg-destructive · bg-info</div>
+          <div class="ec-code">bg-primary · bg-destructive · bg-status-info</div>
         </div>
       </div>`,
     code: `// ❌ Components reach into primitives
@@ -636,7 +636,7 @@ className="bg-primary text-primary-foreground"`,
         </div>
       </div>`,
     code: `<Badge variant="success">Active</Badge>
-<span className="text-warning">Heads up — partial coverage</span>
+<span className="text-status-warning">Heads up — partial coverage</span>
 <span className="text-destructive">Cannot delete the root record</span>`,
     howto:
       'Map every "is it ok / warning / problem / info" state to one of these four. Avoid introducing new ones unless the DS gets a 5th canonical state.',
@@ -651,16 +651,16 @@ className="bg-primary text-primary-foreground"`,
         <div class="example-card is-bad">
           <span class="ec-tag">✕ opacity on container</span>
           <div class="ec-body" style="display:block;"><div style="background:var(--success);opacity:0.10;padding:10px;border-radius:6px;color:var(--fg);">Text barely visible</div></div>
-          <div class="ec-code">bg-success opacity-10</div>
+          <div class="ec-code">bg-status-success opacity-10</div>
         </div>
         <div class="example-card is-good">
           <span class="ec-tag">✓ color opacity (token slash N)</span>
           <div class="ec-body" style="display:block;"><div style="background:color-mix(in srgb, var(--success) 12%, transparent);padding:10px;border-radius:6px;color:var(--fg);">Text stays crisp</div></div>
-          <div class="ec-code">bg-success/10</div>
+          <div class="ec-code">bg-status-success/10</div>
         </div>
       </div>`,
     code: `// Soft success banner
-<div className="bg-success/10 text-success border border-success/20 rounded-md p-3">
+<div className="bg-status-success/10 text-status-success border border-status-success/20 rounded-md p-3">
   Operation complete
 </div>`,
     howto:
@@ -706,11 +706,11 @@ className="bg-primary text-primary-foreground"`,
           </div>
         </div>
       </div>`,
-    code: `<div className="bg-success-light text-success px-3 py-2 rounded-md">
+    code: `<div className="bg-status-success-soft text-status-success px-3 py-2 rounded-md">
   All good
 </div>`,
     howto:
-      'Prefer light variants over <code>bg-success/10</code> when the DS exposes one — they are pre-tuned across light and dark themes.',
+      'Prefer light variants over <code>bg-status-success/10</code> when the DS exposes one — they are pre-tuned across light and dark themes.',
   },
 };
 
@@ -1623,8 +1623,8 @@ const ICONS = {
       </div>`,
     code: `import { Check, AlertTriangle, Info, Download } from 'lucide-react';
 
-<Check className="size-4 text-success" />
-<AlertTriangle className="size-4 text-warning" />`,
+<Check className="size-4 text-status-success" />
+<AlertTriangle className="size-4 text-status-warning" />`,
     howto:
       'For new screens use <code>lucide-react</code> exclusively. If you must mix, isolate one library per surface — never two libraries side by side.',
   },
@@ -1660,17 +1660,17 @@ const ICONS = {
         <div class="example-card">
           <span class="ec-tag">State-toned icons</span>
           <div class="ec-body" style="flex-wrap:wrap;">
-            <span class="icon-pair icon-tone-success">${ICON.check} text-success</span>
-            <span class="icon-pair icon-tone-warning">${ICON.alert} text-warning</span>
+            <span class="icon-pair icon-tone-success">${ICON.check} text-status-success</span>
+            <span class="icon-pair icon-tone-warning">${ICON.alert} text-status-warning</span>
             <span class="icon-pair icon-tone-destructive">${ICON.alert} text-destructive</span>
-            <span class="icon-pair">${ICON.info} text-info</span>
+            <span class="icon-pair">${ICON.info} text-status-info</span>
           </div>
         </div>
       </div>`,
-    code: `<Check className="size-4 text-success" />
-<AlertTriangle className="size-4 text-warning" />
+    code: `<Check className="size-4 text-status-success" />
+<AlertTriangle className="size-4 text-status-warning" />
 <AlertTriangle className="size-4 text-destructive" />
-<Info className="size-4 text-info" />`,
+<Info className="size-4 text-status-info" />`,
     howto:
       'The SVG inherits color from <code>currentColor</code> — set the color on the className, never on the SVG <code>stroke</code> attribute.',
   },
@@ -1796,12 +1796,12 @@ const ICONS = {
         <div class="example-card is-good">
           <span class="ec-tag">✓ className + aria</span>
           <div class="ec-body"><span class="icon-tone-success" aria-hidden="true">${ICON.check}</span> <span style="color:var(--success);font-weight:600;font-size:13px;">Saved</span></div>
-          <div class="ec-code">aria-hidden + text-success</div>
+          <div class="ec-code">aria-hidden + text-status-success</div>
         </div>
       </div>`,
     code: `// Decorative icon next to text:
 <span className="inline-flex items-center gap-1">
-  <Check className="size-4 text-success" aria-hidden="true" />
+  <Check className="size-4 text-status-success" aria-hidden="true" />
   Saved
 </span>
 
@@ -1974,7 +1974,7 @@ const TYPOGRAPHY = {
   'kpi-with-large-number': {
     eyebrow: 'Pattern · KPI',
     explanation:
-      'For KPI tiles: small uppercase label, huge tabular number, optional delta in <code>text-success</code> or <code>text-destructive</code>. Use <code>font-mono</code> on the number for stable digit widths.',
+      'For KPI tiles: small uppercase label, huge tabular number, optional delta in <code>text-status-success</code> or <code>text-destructive</code>. Use <code>font-mono</code> on the number for stable digit widths.',
     visual: `
       <div class="example-row">
         <div class="example-card">
@@ -1997,11 +1997,11 @@ const TYPOGRAPHY = {
   </p>
   <div className="flex items-baseline gap-3">
     <span className="text-3xl font-extrabold tabular-nums">$4,159.12</span>
-    <span className="text-sm font-semibold text-success">+12.5%</span>
+    <span className="text-sm font-semibold text-status-success">+12.5%</span>
   </div>
 </div>`,
     howto:
-      'Always add <code>tabular-nums</code> to KPI numbers so the digits line up when values change. Apply <code>text-success</code> / <code>text-destructive</code> to the delta, never to the main number.',
+      'Always add <code>tabular-nums</code> to KPI numbers so the digits line up when values change. Apply <code>text-status-success</code> / <code>text-destructive</code> to the delta, never to the main number.',
   },
 
   'form-label': {
@@ -2168,12 +2168,12 @@ bg-input-background → form fill`,
           </div>
         </div>
       </div>`,
-    code: `text-success     bg-success     bg-success-light
-text-warning     bg-warning     bg-warning-light
-text-destructive bg-destructive bg-destructive-light
-text-info        bg-info        bg-info-light`,
+    code: `text-status-success     bg-status-success     bg-status-success-soft
+text-status-warning     bg-status-warning     bg-status-warning-soft
+text-destructive bg-destructive bg-destructive-soft
+text-status-info        bg-status-info        bg-status-info-soft`,
     howto:
-      'Pick a state and use its complete family (text + bg + light variant). Never mix state token families in one component.',
+      'Pick a state and use its complete family (text + bg + soft variant). Never mix state token families in one component.',
   },
 
   'sidebar-tokens': {

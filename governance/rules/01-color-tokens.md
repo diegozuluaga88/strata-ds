@@ -55,7 +55,7 @@ Layer 1 — Neutral primitive (only for internal construction of DS components)
 
 ### Semantic states
 
-**Llevan prefijo `status-`.** `bg-success` y `text-success` no existen: no hay
+**Llevan prefijo `status-`.** `bg-status-success` y `text-status-success` no existen: no hay
 `--color-success`, así que esas clases no resuelven nada y el elemento se queda
 sin color. Esta tabla las nombraba durante meses.
 
@@ -94,19 +94,19 @@ For subtle state backgrounds, use opacity utilities:
 
 ```tsx
 // Subtle success state
-className="bg-success/5 border border-success/40 text-success"
+className="bg-status-success/5 border border-status-success/40 text-status-success"
 
 // Subtle warning state
-className="bg-warning/5 border border-warning/40 text-warning"
+className="bg-status-warning/5 border border-status-warning/40 text-status-warning"
 
 // Subtle error state
 className="bg-destructive/10 border border-destructive/30 text-destructive"
 
 // Subtle info state
-className="bg-info/5 border border-info/40 text-info"
+className="bg-status-info/5 border border-status-info/40 text-status-info"
 
 // Subtle AI state
-className="bg-ai/10 text-ai"
+className="bg-status-ai/10 text-status-ai"
 ```
 
 ---
@@ -130,26 +130,30 @@ fill="var(--color-chart-2)"     // green
 
 ---
 
-## State light variants (subtle background)
+## State soft variants (subtle background)
 
-For notification, banner, or subtle badge backgrounds, pre-calculated `*-light` variants exist. Use them instead of `bg-success/10` when the design needs a specific pastel tone.
+For notification, banner, or subtle badge backgrounds, pre-calculated `*-soft` variants exist. Use them instead of `bg-status-success/10` when the design needs a specific pastel tone, or when the surface has to survive a Figma instance — Figma drops the opacity of a paint bound to a variable, so `/10` does not make the round trip.
 
-| Token | Tailwind | Light value | Usage |
-|---|---|---|---|
-| `--color-success-light` | `bg-success-light` | #e5f9e4 | Background of success banners, subtle badges |
-| `--color-warning-light` | `bg-warning-light` | #fff5cd | Subtle warning background |
-| `--color-info-light` | `bg-info-light` | #ecf4ff | Informational message background |
-| `--color-error-light` | `bg-error-light` | #ffe4e7 | Subtle error background (alternative to destructive) |
-| `--color-ai-light` | `bg-ai-light` | #ede9fe | Subtle AI suggestion background |
+**These were documented as `*-light` until 2026-10-21, and that name never existed.** The misnaming hid something worse: because `--color-success-light` is not a real variable, the token validator had nothing to compare the hex column against, so these five values sat stale and unchecked for months. Below are the ones the CSS actually emits.
+
+| Token | Tailwind | Light value | Dark value | Usage |
+|---|---|---|---|---|
+| `--color-status-success-soft` | `bg-status-success-soft` | #e3f1e8 | #142e29 | Background of success banners, subtle badges |
+| `--color-status-warning-soft` | `bg-status-warning-soft` | #f3e9e2 | #2f291c | Subtle warning background |
+| `--color-status-info-soft` | `bg-status-info-soft` | #e5ebf9 | #18263c | Informational message background |
+| `--color-status-error-soft` | `bg-status-error-soft` | #f4e3e6 | #2d1b28 | Subtle error background (alternative to destructive) |
+| `--color-status-ai-soft` | `bg-status-ai-soft` | #efeafa | #22223c | Subtle AI suggestion background |
+
+> **No está en el paquete publicado de Avanto.** Esta familia es una de las once que sólo existen aquí (medido contra la `0.3.0` el 2026-10-21). Si una pantalla que se les entrega necesita una superficie suave, usa `bg-status-*/10`.
 
 ```tsx
 // Subtle success banner
-<div className="bg-success-light border border-success/30 rounded-lg p-3">
-  <p className="text-success font-medium">Order finalized</p>
+<div className="bg-status-success-soft border border-status-success/30 rounded-lg p-3">
+  <p className="text-status-success font-medium">Order finalized</p>
 </div>
 
 // AI tag
-<span className="bg-ai-light text-ai rounded-md px-2 py-0.5 text-xs">
+<span className="bg-status-ai-soft text-status-ai rounded-md px-2 py-0.5 text-xs">
   AI suggestion
 </span>
 ```

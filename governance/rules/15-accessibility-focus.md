@@ -187,7 +187,7 @@ Color alone is never the only carrier of information.
 </StatusBadge>
 
 // ❌ Don't — color is the only signal
-<div className="w-3 h-3 rounded-full bg-success" />   {/* no text, no aria */}
+<div className="w-3 h-3 rounded-full bg-status-success" />   {/* no text, no aria */}
 ```
 
 ### Minimum contrast ratios

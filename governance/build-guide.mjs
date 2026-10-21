@@ -104,7 +104,7 @@ const EXAMPLES = {
             <button class="demo-btn demo-btn-primary">Sign in</button>
             <span class="status-pill status-success">${ICON.check} Active</span>
           </div>
-          <div class="ec-code">bg-primary, bg-success/15, ring-primary</div>
+          <div class="ec-code">bg-primary, bg-status-success/15, ring-primary</div>
         </div>
       </div>
 
@@ -166,7 +166,7 @@ const EXAMPLES = {
               <span class="status-pill status-info">${ICON.info} Info</span>
             </div>
           </div>
-          <div class="ec-code">text-success, bg-success/15, text-warning, text-destructive</div>
+          <div class="ec-code">text-status-success, bg-status-success/15, text-status-warning, text-destructive</div>
         </div>
       </div>
     </div>
@@ -351,8 +351,8 @@ const EXAMPLES = {
         <div class="example-card">
           <span class="ec-tag">Tone — driven by semantic color</span>
           <div class="ec-body">
-            <span class="icon-pair icon-tone-success">${ICON.check} text-success</span>
-            <span class="icon-pair icon-tone-warning">${ICON.alert} text-warning</span>
+            <span class="icon-pair icon-tone-success">${ICON.check} text-status-success</span>
+            <span class="icon-pair icon-tone-warning">${ICON.alert} text-status-warning</span>
             <span class="icon-pair icon-tone-destructive">${ICON.alert} text-destructive</span>
             <span class="icon-pair icon-tone-muted">${ICON.info} text-muted-foreground</span>
           </div>
@@ -362,7 +362,7 @@ const EXAMPLES = {
           <div class="ec-body">
             <span class="icon-pair" style="color:#22c55e;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> stroke="#22c55e"</span>
           </div>
-          <div class="ec-code">Use className="text-success" — SVG inherits via currentColor</div>
+          <div class="ec-code">Use className="text-status-success" — SVG inherits via currentColor</div>
         </div>
       </div>
     </div>
@@ -425,7 +425,7 @@ const EXAMPLES = {
         <div class="example-card is-good">
           <span class="ec-tag">✓ Semantic state token</span>
           <div class="ec-body"><span style="color:var(--success); font-weight:600;">Saved!</span></div>
-          <div class="ec-code">text-success</div>
+          <div class="ec-code">text-status-success</div>
         </div>
       </div>
 

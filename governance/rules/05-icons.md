@@ -23,19 +23,19 @@ import { SparklesIcon } from '@heroicons/react/24/solid'  // solid for emphasis
 ### State icons
 ```tsx
 // Success
-<CheckCircleIcon className="text-success w-5 h-5" />
+<CheckCircleIcon className="text-status-success w-5 h-5" />
 
 // Warning
-<ExclamationTriangleIcon className="text-warning w-5 h-5" />
+<ExclamationTriangleIcon className="text-status-warning w-5 h-5" />
 
 // Error / Destructive
 <XCircleIcon className="text-destructive w-5 h-5" />
 
 // Info
-<InformationCircleIcon className="text-info w-5 h-5" />
+<InformationCircleIcon className="text-status-info w-5 h-5" />
 
 // AI / Magic
-<SparklesIcon className="text-ai w-5 h-5" />
+<SparklesIcon className="text-status-ai w-5 h-5" />
 ```
 
 ### Secondary / neutral icons
@@ -85,8 +85,8 @@ For icons that need a background:
 </div>
 
 // Success container
-<div className="bg-success/10 rounded-lg p-2 w-fit">
-  <CheckCircleIcon className="text-success w-5 h-5" />
+<div className="bg-status-success/10 rounded-lg p-2 w-fit">
+  <CheckCircleIcon className="text-status-success w-5 h-5" />
 </div>
 
 // Muted container (neutral)
@@ -103,5 +103,5 @@ For icons that need a background:
 2. **Outline vs Solid** — outline for general UI, solid for emphasis states or active indicators
 3. **aria-hidden on decorative icons** — `<Icon aria-hidden="true" />`
 4. **aria-label on icon buttons** — `<button aria-label="Close"><XMarkIcon /></button>`
-5. **Do not hardcode color hex** — always use semantic classes (`text-success`, `text-primary`, etc.)
+5. **Do not hardcode color hex** — always use semantic classes (`text-status-success`, `text-primary`, etc.)
 6. **Size consistency within groups** — all icons in the same component must share the same size

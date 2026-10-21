@@ -116,18 +116,18 @@ When a card or section represents a specific state:
 
 ```tsx
 // Success section
-<div className="bg-success/5 border border-success/40 rounded-lg p-4">
+<div className="bg-status-success/5 border border-status-success/40 rounded-lg p-4">
   <div className="flex items-center gap-2">
-    <CheckIcon className="text-success w-5 h-5" />
-    <span className="text-success font-medium">Completed</span>
+    <CheckIcon className="text-status-success w-5 h-5" />
+    <span className="text-status-success font-medium">Completed</span>
   </div>
   <p className="text-foreground text-sm mt-1">Result description</p>
 </div>
 
 // Warning section
-<div className="bg-warning/5 border border-warning/40 rounded-lg p-4">
-  <ExclamationIcon className="text-warning w-5 h-5" />
-  <span className="text-warning font-medium">Warning</span>
+<div className="bg-status-warning/5 border border-status-warning/40 rounded-lg p-4">
+  <ExclamationIcon className="text-status-warning w-5 h-5" />
+  <span className="text-status-warning font-medium">Warning</span>
 </div>
 
 // Error section
@@ -137,15 +137,15 @@ When a card or section represents a specific state:
 </div>
 
 // Info section
-<div className="bg-info/5 border border-info/40 rounded-lg p-4">
-  <InfoIcon className="text-info w-5 h-5" />
-  <span className="text-info font-medium">Information</span>
+<div className="bg-status-info/5 border border-status-info/40 rounded-lg p-4">
+  <InfoIcon className="text-status-info w-5 h-5" />
+  <span className="text-status-info font-medium">Information</span>
 </div>
 
 // AI section
-<div className="bg-ai/10 border border-ai/30 rounded-lg p-4">
-  <SparklesIcon className="text-ai w-5 h-5" />
-  <span className="text-ai font-medium">AI suggestion</span>
+<div className="bg-status-ai/10 border border-status-ai/30 rounded-lg p-4">
+  <SparklesIcon className="text-status-ai w-5 h-5" />
+  <span className="text-status-ai font-medium">AI suggestion</span>
 </div>
 ```
 

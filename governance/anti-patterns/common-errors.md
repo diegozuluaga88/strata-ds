@@ -18,10 +18,10 @@ className="text-blue-600"
 
 ```tsx
 // ✅ CORRECT — semantic state tokens
-className="text-success"
+className="text-status-success"
 className="text-destructive"
-className="bg-warning/10 text-warning"
-className="text-info"
+className="bg-status-warning/10 text-status-warning"
+className="text-status-info"
 ```
 
 **Why it fails:** Raw colors (green-500, red-500) do not adapt to the theme system and may have inadequate contrast in dark mode. They are not synced with the DS tokens.

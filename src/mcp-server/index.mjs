@@ -1723,7 +1723,7 @@ useEffect(() => {
       "bg-zinc-100 / dark:bg-zinc-800": "button background (Tier 2 — uses zinc directly)",
       "border-zinc-300 / dark:border-zinc-700": "button border",
       "text-zinc-700 / dark:text-zinc-300": "button text color",
-      "text-success": "checkmark and 'Copied' label color",
+      "text-status-success": "checkmark and 'Copied' label color",
       "hover:bg-zinc-200 / dark:hover:bg-zinc-700": "hover state",
     },
     whenToUse: [
@@ -1812,7 +1812,8 @@ useEffect(() => {
       "actionCenterActionConfigMap? / onActionCenterActionExecute? / actionCenterDataState? — wire ActionCenter behavior",
     ],
     tokens: {
-      "bg-navbar/80 + backdrop-blur-xl": "translucent navbar background",
+      "bg-card/80 + backdrop-blur-xl":
+        "translucent navbar background. Aqui ponia `bg-navbar` [fantasma-ok], que no esta registrada en theme-v4.css y por tanto compila a nada. Aparte: el propio navbar.tsx sigue usando `bg-white dark:bg-zinc-900` crudos, lo que incumple LAW 1 y LAW 5 — eso es deuda del componente, no de este spec.",
       "border-border": "navbar border",
       "shadow-lg / dark:shadow-glow-md": "elevation",
       "bg-brand-300 / dark:bg-brand-500": "active nav item / brand CTA",
@@ -3594,8 +3595,8 @@ const items: CartItem[] = [
     ],
     tokens: {
       "bg-brand-500 + border-brand-500": "brand color completed/current stage",
-      "bg-success + border-success": "success color stage",
-      "bg-warning + border-warning": "warning color stage",
+      "bg-status-success + border-status-success": "success color stage",
+      "bg-status-warning + border-status-warning": "warning color stage",
       "bg-destructive + border-destructive": "error color stage",
       "bg-card + border-border": "incomplete stage",
       "text-foreground / text-muted-foreground": "completed / incomplete labels",
@@ -3974,8 +3975,8 @@ const items: CartItem[] = [
       "ProgressTracker.totalSteps: number — required",
     ],
     tokens: {
-      "bg-zinc-200 / bg-brand-500/30 / bg-success/30": "connector colors by `color` prop (Tier 2 mix)",
-      "ring-8 + ring-white + ring-brand-500/20 / ring-success/20": "current step ring",
+      "bg-zinc-200 / bg-brand-500/30 / bg-status-success/30": "connector colors by `color` prop (Tier 2 mix)",
+      "ring-8 + ring-white + ring-brand-500/20 / ring-status-success/20": "current step ring",
       "rounded-full + h-8 + w-8": "step dot dimensions",
       "border-2 + border-zinc-200": "upcoming step border",
       "text-white + text-zinc-900": "step indicator text colors",

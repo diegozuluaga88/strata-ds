@@ -432,7 +432,7 @@ const CHECKS: Check[] = [
     severity: 'warning',
     pattern: /\b(bg-(?:primary|success|warning|destructive|info))\s+[^"`]*?\bopacity-(?:5|10|15|20|25|30)\b/g,
     message: 'Opacity on container fades text too. Use color opacity syntax.',
-    suggestion: 'bg-success opacity-10 → bg-success/10',
+    suggestion: 'bg-status-success opacity-10 → bg-status-success/10',
   },
 
   // ── Component choice (rule 04, code-usage) ──────────────────────────

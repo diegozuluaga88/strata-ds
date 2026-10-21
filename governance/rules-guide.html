@@ -672,7 +672,7 @@ pre:hover .copy-btn { opacity: 1; }
       <div class="page-header">
         <div>
           <h1>Strata DS — Rules Guide</h1>
-          <div class="subtitle">Generated 2026-10-19T18:30:40.633Z · 20 rule files · 9 overview blocks + 111 sub-rule examples · 218 CSS tokens</div>
+          <div class="subtitle">Generated 2026-10-21T15:28:57.111Z · 20 rule files · 9 overview blocks + 111 sub-rule examples · 218 CSS tokens</div>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button">Toggle theme</button>
       </div>
@@ -709,7 +709,7 @@ pre:hover .copy-btn { opacity: 1; }
             <button class="demo-btn demo-btn-primary">Sign in</button>
             <span class="status-pill status-success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Active</span>
           </div>
-          <div class="ec-code">bg-primary, bg-success/15, ring-primary</div>
+          <div class="ec-code">bg-primary, bg-status-success/15, ring-primary</div>
         </div>
       </div>
 
@@ -759,7 +759,7 @@ className=&quot;bg-zinc-900&quot;
 </code></pre>
 <p><strong>CORRECT:</strong></p>
 <pre><code class="language-tsx">className=&quot;bg-primary text-primary-foreground&quot;
-className=&quot;text-success&quot;
+className=&quot;text-status-success&quot;
 className=&quot;bg-background&quot;
 </code></pre>
 <p><strong>Why:</strong> Hardcoded hex breaks dark/light theming and does not propagate when tokens change. Raw Tailwind classes (green-500, zinc-900) ignore the semantic system.</p>
@@ -850,7 +850,7 @@ className=&quot;bg-primary text-foreground&quot; // use the correct variable
   <header class="ve-block-head">
     <span class="ve-block-eyebrow">Example · LAW 4</span>
   </header>
-  <p class="ve-block-explanation">Semantic tokens (<code>bg-card</code>, <code>text-foreground</code>, <code>bg-success</code>) carry intent; primitive tokens (<code>bg-brand-500</code>, <code>bg-zinc-900</code>) carry only a value. Components consume semantic tokens so the DS can re-skin without code changes.</p>
+  <p class="ve-block-explanation">Semantic tokens (<code>bg-card</code>, <code>text-foreground</code>, <code>bg-status-success</code>) carry intent; primitive tokens (<code>bg-brand-500</code>, <code>bg-zinc-900</code>) carry only a value. Components consume semantic tokens so the DS can re-skin without code changes.</p>
   <div class="ve-block-visual">
       <div class="example-row">
         <div class="example-card is-bad">
@@ -879,7 +879,7 @@ className=&quot;bg-primary text-primary-foreground&quot;</code></pre>
 </ol>
 <p>For states:</p>
 <ol>
-<li><code>text-success</code> ✓</li>
+<li><code>text-status-success</code> ✓</li>
 <li><code>text-green-600</code> ✗</li>
 <li><code>text-[#098400]</code> ✗</li>
 </ol>
@@ -1013,7 +1013,7 @@ className=&quot;... hover:text-primary transition-colors&quot;
 <h2 id="quick-summary-for-ai-agents">Quick summary for AI agents</h2>
 <p>When generating code for Strata DS, before writing any className:</p>
 <ol>
-<li>Is it a color? → Use a semantic token (<code>bg-background</code>, <code>text-foreground</code>, <code>text-success</code>)</li>
+<li>Is it a color? → Use a semantic token (<code>bg-background</code>, <code>text-foreground</code>, <code>text-status-success</code>)</li>
 <li>Is it lime/brand? → Only as primary action background, never as text</li>
 <li>Does it have dark mode? → If you use semantic tokens, it is already covered automatically</li>
 <li>Is it interactive? → Add hover + transition</li>
@@ -2136,7 +2136,7 @@ import { AlertCircle } from &#39;lucide-react&#39;;
               <span class="status-pill status-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Info</span>
             </div>
           </div>
-          <div class="ec-code">text-success, bg-success/15, text-warning, text-destructive</div>
+          <div class="ec-code">text-status-success, bg-status-success/15, text-status-warning, text-destructive</div>
         </div>
       </div>
     </div>
@@ -2168,7 +2168,7 @@ import { AlertCircle } from &#39;lucide-react&#39;;
             <span class="status-pill status-destructive">destructive</span>
             <span class="status-pill status-info">info</span>
           </div>
-          <div class="ec-code">bg-primary · bg-destructive · bg-info</div>
+          <div class="ec-code">bg-primary · bg-destructive · bg-status-info</div>
         </div>
       </div></div>
   <pre class="ve-block-code"><code>// ❌ Components reach into primitives
@@ -2457,11 +2457,11 @@ Layer 1 — Neutral primitive (only for internal construction of DS components)
         </div>
       </div></div>
   <pre class="ve-block-code"><code>&lt;Badge variant=&quot;success&quot;&gt;Active&lt;/Badge&gt;
-&lt;span className=&quot;text-warning&quot;&gt;Heads up — partial coverage&lt;/span&gt;
+&lt;span className=&quot;text-status-warning&quot;&gt;Heads up — partial coverage&lt;/span&gt;
 &lt;span className=&quot;text-destructive&quot;&gt;Cannot delete the root record&lt;/span&gt;</code></pre>
   <p class="ve-block-howto"><strong>How to use:</strong> Map every "is it ok / warning / problem / info" state to one of these four. Avoid introducing new ones unless the DS gets a 5th canonical state.</p>
 </aside>
-<p><strong>Llevan prefijo <code>status-</code>.</strong> <code>bg-success</code> y <code>text-success</code> no existen: no hay
+<p><strong>Llevan prefijo <code>status-</code>.</strong> <code>bg-status-success</code> y <code>text-status-success</code> no existen: no hay
 <code>--color-success</code>, así que esas clases no resuelven nada y el elemento se queda
 sin color. Esta tabla las nombraba durante meses.</p>
 <table>
@@ -2552,35 +2552,35 @@ se mueve con él.</p>
         <div class="example-card is-bad">
           <span class="ec-tag">✕ opacity on container</span>
           <div class="ec-body" style="display:block;"><div style="background:var(--success);opacity:0.10;padding:10px;border-radius:6px;color:var(--fg);">Text barely visible</div></div>
-          <div class="ec-code">bg-success opacity-10</div>
+          <div class="ec-code">bg-status-success opacity-10</div>
         </div>
         <div class="example-card is-good">
           <span class="ec-tag">✓ color opacity (token slash N)</span>
           <div class="ec-body" style="display:block;"><div style="background:color-mix(in srgb, var(--success) 12%, transparent);padding:10px;border-radius:6px;color:var(--fg);">Text stays crisp</div></div>
-          <div class="ec-code">bg-success/10</div>
+          <div class="ec-code">bg-status-success/10</div>
         </div>
       </div></div>
   <pre class="ve-block-code"><code>// Soft success banner
-&lt;div className=&quot;bg-success/10 text-success border border-success/20 rounded-md p-3&quot;&gt;
+&lt;div className=&quot;bg-status-success/10 text-status-success border border-status-success/20 rounded-md p-3&quot;&gt;
   Operation complete
 &lt;/div&gt;</code></pre>
   <p class="ve-block-howto"><strong>How to use:</strong> Tints between 5 and 20 read as subtle ("/5", "/10", "/15", "/20"). For hover states a +5 from base is enough.</p>
 </aside>
 <p>For subtle state backgrounds, use opacity utilities:</p>
 <pre><code class="language-tsx">// Subtle success state
-className=&quot;bg-success/5 border border-success/40 text-success&quot;
+className=&quot;bg-status-success/5 border border-status-success/40 text-status-success&quot;
 
 // Subtle warning state
-className=&quot;bg-warning/5 border border-warning/40 text-warning&quot;
+className=&quot;bg-status-warning/5 border border-status-warning/40 text-status-warning&quot;
 
 // Subtle error state
 className=&quot;bg-destructive/10 border border-destructive/30 text-destructive&quot;
 
 // Subtle info state
-className=&quot;bg-info/5 border border-info/40 text-info&quot;
+className=&quot;bg-status-info/5 border border-status-info/40 text-status-info&quot;
 
 // Subtle AI state
-className=&quot;bg-ai/10 text-ai&quot;
+className=&quot;bg-status-ai/10 text-status-ai&quot;
 </code></pre>
 <hr>
 <h2 id="charts-rule">Charts rule</h2>
@@ -2620,78 +2620,65 @@ fill=&quot;var(--color-chart-2)&quot;     // green
 // --color-chart-5: #818cf8 (light indigo)
 </code></pre>
 <hr>
-<h2 id="state-light-variants-subtle-background">State light variants (subtle background)</h2>
-
-<aside class="ve-block" data-key="state-light-variants-subtle-background">
-  <header class="ve-block-head">
-    <span class="ve-block-eyebrow">Example · Light states</span>
-  </header>
-  <p class="ve-block-explanation">Each state token has a sibling soft variant (<code>success-light</code>, <code>warning-light</code>, etc.) that is already at the right subtle opacity for backgrounds. Use them when you need a pre-defined tint instead of computing one with the slash syntax.</p>
-  <div class="ve-block-visual">
-      <div class="example-row">
-        <div class="example-card">
-          <span class="ec-tag">Light variants</span>
-          <div class="ec-body" style="flex-wrap:wrap;">
-            <span class="status-pill status-success">success-light</span>
-            <span class="status-pill status-warning">warning-light</span>
-            <span class="status-pill status-destructive">destructive-light</span>
-            <span class="status-pill status-info">info-light</span>
-          </div>
-        </div>
-      </div></div>
-  <pre class="ve-block-code"><code>&lt;div className=&quot;bg-success-light text-success px-3 py-2 rounded-md&quot;&gt;
-  All good
-&lt;/div&gt;</code></pre>
-  <p class="ve-block-howto"><strong>How to use:</strong> Prefer light variants over <code>bg-success/10</code> when the DS exposes one — they are pre-tuned across light and dark themes.</p>
-</aside>
-<p>For notification, banner, or subtle badge backgrounds, pre-calculated <code>*-light</code> variants exist. Use them instead of <code>bg-success/10</code> when the design needs a specific pastel tone.</p>
+<h2 id="state-soft-variants-subtle-background">State soft variants (subtle background)</h2>
+<p>For notification, banner, or subtle badge backgrounds, pre-calculated <code>*-soft</code> variants exist. Use them instead of <code>bg-status-success/10</code> when the design needs a specific pastel tone, or when the surface has to survive a Figma instance — Figma drops the opacity of a paint bound to a variable, so <code>/10</code> does not make the round trip.</p>
+<p><strong>These were documented as <code>*-light</code> until 2026-10-21, and that name never existed.</strong> The misnaming hid something worse: because <code>--color-success-light</code> is not a real variable, the token validator had nothing to compare the hex column against, so these five values sat stale and unchecked for months. Below are the ones the CSS actually emits.</p>
 <table>
 <thead>
 <tr>
 <th>Token</th>
 <th>Tailwind</th>
 <th>Light value</th>
+<th>Dark value</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>--color-success-light</code></td>
-<td><code>bg-success-light</code></td>
-<td>#e5f9e4</td>
+<td><code>--color-status-success-soft</code></td>
+<td><code>bg-status-success-soft</code></td>
+<td>#e3f1e8</td>
+<td>#142e29</td>
 <td>Background of success banners, subtle badges</td>
 </tr>
 <tr>
-<td><code>--color-warning-light</code></td>
-<td><code>bg-warning-light</code></td>
-<td>#fff5cd</td>
+<td><code>--color-status-warning-soft</code></td>
+<td><code>bg-status-warning-soft</code></td>
+<td>#f3e9e2</td>
+<td>#2f291c</td>
 <td>Subtle warning background</td>
 </tr>
 <tr>
-<td><code>--color-info-light</code></td>
-<td><code>bg-info-light</code></td>
-<td>#ecf4ff</td>
+<td><code>--color-status-info-soft</code></td>
+<td><code>bg-status-info-soft</code></td>
+<td>#e5ebf9</td>
+<td>#18263c</td>
 <td>Informational message background</td>
 </tr>
 <tr>
-<td><code>--color-error-light</code></td>
-<td><code>bg-error-light</code></td>
-<td>#ffe4e7</td>
+<td><code>--color-status-error-soft</code></td>
+<td><code>bg-status-error-soft</code></td>
+<td>#f4e3e6</td>
+<td>#2d1b28</td>
 <td>Subtle error background (alternative to destructive)</td>
 </tr>
 <tr>
-<td><code>--color-ai-light</code></td>
-<td><code>bg-ai-light</code></td>
-<td>#ede9fe</td>
+<td><code>--color-status-ai-soft</code></td>
+<td><code>bg-status-ai-soft</code></td>
+<td>#efeafa</td>
+<td>#22223c</td>
 <td>Subtle AI suggestion background</td>
 </tr>
 </tbody></table>
+<blockquote>
+<p><strong>No está en el paquete publicado de Avanto.</strong> Esta familia es una de las once que sólo existen aquí (medido contra la <code>0.3.0</code> el 2026-10-21). Si una pantalla que se les entrega necesita una superficie suave, usa <code>bg-status-*/10</code>.</p>
+</blockquote>
 <pre><code class="language-tsx">// Subtle success banner
-&lt;div className=&quot;bg-success-light border border-success/30 rounded-lg p-3&quot;&gt;
-  &lt;p className=&quot;text-success font-medium&quot;&gt;Order finalized&lt;/p&gt;
+&lt;div className=&quot;bg-status-success-soft border border-status-success/30 rounded-lg p-3&quot;&gt;
+  &lt;p className=&quot;text-status-success font-medium&quot;&gt;Order finalized&lt;/p&gt;
 &lt;/div&gt;
 
 // AI tag
-&lt;span className=&quot;bg-ai-light text-ai rounded-md px-2 py-0.5 text-xs&quot;&gt;
+&lt;span className=&quot;bg-status-ai-soft text-status-ai rounded-md px-2 py-0.5 text-xs&quot;&gt;
   AI suggestion
 &lt;/span&gt;
 </code></pre>
@@ -3412,18 +3399,18 @@ App in Dark  → Light sidebar (white / zinc-50)
 </aside>
 <p>When a card or section represents a specific state:</p>
 <pre><code class="language-tsx">// Success section
-&lt;div className=&quot;bg-success/5 border border-success/40 rounded-lg p-4&quot;&gt;
+&lt;div className=&quot;bg-status-success/5 border border-status-success/40 rounded-lg p-4&quot;&gt;
   &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-    &lt;CheckIcon className=&quot;text-success w-5 h-5&quot; /&gt;
-    &lt;span className=&quot;text-success font-medium&quot;&gt;Completed&lt;/span&gt;
+    &lt;CheckIcon className=&quot;text-status-success w-5 h-5&quot; /&gt;
+    &lt;span className=&quot;text-status-success font-medium&quot;&gt;Completed&lt;/span&gt;
   &lt;/div&gt;
   &lt;p className=&quot;text-foreground text-sm mt-1&quot;&gt;Result description&lt;/p&gt;
 &lt;/div&gt;
 
 // Warning section
-&lt;div className=&quot;bg-warning/5 border border-warning/40 rounded-lg p-4&quot;&gt;
-  &lt;ExclamationIcon className=&quot;text-warning w-5 h-5&quot; /&gt;
-  &lt;span className=&quot;text-warning font-medium&quot;&gt;Warning&lt;/span&gt;
+&lt;div className=&quot;bg-status-warning/5 border border-status-warning/40 rounded-lg p-4&quot;&gt;
+  &lt;ExclamationIcon className=&quot;text-status-warning w-5 h-5&quot; /&gt;
+  &lt;span className=&quot;text-status-warning font-medium&quot;&gt;Warning&lt;/span&gt;
 &lt;/div&gt;
 
 // Error section
@@ -3433,15 +3420,15 @@ App in Dark  → Light sidebar (white / zinc-50)
 &lt;/div&gt;
 
 // Info section
-&lt;div className=&quot;bg-info/5 border border-info/40 rounded-lg p-4&quot;&gt;
-  &lt;InfoIcon className=&quot;text-info w-5 h-5&quot; /&gt;
-  &lt;span className=&quot;text-info font-medium&quot;&gt;Information&lt;/span&gt;
+&lt;div className=&quot;bg-status-info/5 border border-status-info/40 rounded-lg p-4&quot;&gt;
+  &lt;InfoIcon className=&quot;text-status-info w-5 h-5&quot; /&gt;
+  &lt;span className=&quot;text-status-info font-medium&quot;&gt;Information&lt;/span&gt;
 &lt;/div&gt;
 
 // AI section
-&lt;div className=&quot;bg-ai/10 border border-ai/30 rounded-lg p-4&quot;&gt;
-  &lt;SparklesIcon className=&quot;text-ai w-5 h-5&quot; /&gt;
-  &lt;span className=&quot;text-ai font-medium&quot;&gt;AI suggestion&lt;/span&gt;
+&lt;div className=&quot;bg-status-ai/10 border border-status-ai/30 rounded-lg p-4&quot;&gt;
+  &lt;SparklesIcon className=&quot;text-status-ai w-5 h-5&quot; /&gt;
+  &lt;span className=&quot;text-status-ai font-medium&quot;&gt;AI suggestion&lt;/span&gt;
 &lt;/div&gt;
 </code></pre>
 <hr>
@@ -4059,8 +4046,8 @@ className=&quot;... hover:shadow-lg hover:border-primary/50 transition-all&quot;
         <div class="example-card">
           <span class="ec-tag">Tone — driven by semantic color</span>
           <div class="ec-body">
-            <span class="icon-pair icon-tone-success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> text-success</span>
-            <span class="icon-pair icon-tone-warning"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> text-warning</span>
+            <span class="icon-pair icon-tone-success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> text-status-success</span>
+            <span class="icon-pair icon-tone-warning"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> text-status-warning</span>
             <span class="icon-pair icon-tone-destructive"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> text-destructive</span>
             <span class="icon-pair icon-tone-muted"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> text-muted-foreground</span>
           </div>
@@ -4070,7 +4057,7 @@ className=&quot;... hover:shadow-lg hover:border-primary/50 transition-all&quot;
           <div class="ec-body">
             <span class="icon-pair" style="color:#22c55e;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> stroke="#22c55e"</span>
           </div>
-          <div class="ec-code">Use className="text-success" — SVG inherits via currentColor</div>
+          <div class="ec-code">Use className="text-status-success" — SVG inherits via currentColor</div>
         </div>
       </div>
     </div>
@@ -4096,8 +4083,8 @@ className=&quot;... hover:shadow-lg hover:border-primary/50 transition-all&quot;
       </div></div>
   <pre class="ve-block-code"><code>import { Check, AlertTriangle, Info, Download } from 'lucide-react';
 
-&lt;Check className=&quot;size-4 text-success&quot; /&gt;
-&lt;AlertTriangle className=&quot;size-4 text-warning&quot; /&gt;</code></pre>
+&lt;Check className=&quot;size-4 text-status-success&quot; /&gt;
+&lt;AlertTriangle className=&quot;size-4 text-status-warning&quot; /&gt;</code></pre>
   <p class="ve-block-howto"><strong>How to use:</strong> For new screens use <code>lucide-react</code> exclusively. If you must mix, isolate one library per surface — never two libraries side by side.</p>
 </aside>
 <p>Strata DS uses <strong>@heroicons/react</strong> as the main library.</p>
@@ -4145,33 +4132,33 @@ import { SparklesIcon } from &#39;@heroicons/react/24/solid&#39;  // solid for e
         <div class="example-card">
           <span class="ec-tag">State-toned icons</span>
           <div class="ec-body" style="flex-wrap:wrap;">
-            <span class="icon-pair icon-tone-success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> text-success</span>
-            <span class="icon-pair icon-tone-warning"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> text-warning</span>
+            <span class="icon-pair icon-tone-success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> text-status-success</span>
+            <span class="icon-pair icon-tone-warning"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> text-status-warning</span>
             <span class="icon-pair icon-tone-destructive"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> text-destructive</span>
-            <span class="icon-pair"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> text-info</span>
+            <span class="icon-pair"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> text-status-info</span>
           </div>
         </div>
       </div></div>
-  <pre class="ve-block-code"><code>&lt;Check className=&quot;size-4 text-success&quot; /&gt;
-&lt;AlertTriangle className=&quot;size-4 text-warning&quot; /&gt;
+  <pre class="ve-block-code"><code>&lt;Check className=&quot;size-4 text-status-success&quot; /&gt;
+&lt;AlertTriangle className=&quot;size-4 text-status-warning&quot; /&gt;
 &lt;AlertTriangle className=&quot;size-4 text-destructive&quot; /&gt;
-&lt;Info className=&quot;size-4 text-info&quot; /&gt;</code></pre>
+&lt;Info className=&quot;size-4 text-status-info&quot; /&gt;</code></pre>
   <p class="ve-block-howto"><strong>How to use:</strong> The SVG inherits color from <code>currentColor</code> — set the color on the className, never on the SVG <code>stroke</code> attribute.</p>
 </aside>
 <pre><code class="language-tsx">// Success
-&lt;CheckCircleIcon className=&quot;text-success w-5 h-5&quot; /&gt;
+&lt;CheckCircleIcon className=&quot;text-status-success w-5 h-5&quot; /&gt;
 
 // Warning
-&lt;ExclamationTriangleIcon className=&quot;text-warning w-5 h-5&quot; /&gt;
+&lt;ExclamationTriangleIcon className=&quot;text-status-warning w-5 h-5&quot; /&gt;
 
 // Error / Destructive
 &lt;XCircleIcon className=&quot;text-destructive w-5 h-5&quot; /&gt;
 
 // Info
-&lt;InformationCircleIcon className=&quot;text-info w-5 h-5&quot; /&gt;
+&lt;InformationCircleIcon className=&quot;text-status-info w-5 h-5&quot; /&gt;
 
 // AI / Magic
-&lt;SparklesIcon className=&quot;text-ai w-5 h-5&quot; /&gt;
+&lt;SparklesIcon className=&quot;text-status-ai w-5 h-5&quot; /&gt;
 </code></pre>
 <h3 id="secondary-neutral-icons">Secondary / neutral icons</h3>
 
@@ -4343,8 +4330,8 @@ import { SparklesIcon } from &#39;@heroicons/react/24/solid&#39;  // solid for e
 &lt;/div&gt;
 
 // Success container
-&lt;div className=&quot;bg-success/10 rounded-lg p-2 w-fit&quot;&gt;
-  &lt;CheckCircleIcon className=&quot;text-success w-5 h-5&quot; /&gt;
+&lt;div className=&quot;bg-status-success/10 rounded-lg p-2 w-fit&quot;&gt;
+  &lt;CheckCircleIcon className=&quot;text-status-success w-5 h-5&quot; /&gt;
 &lt;/div&gt;
 
 // Muted container (neutral)
@@ -4370,12 +4357,12 @@ import { SparklesIcon } from &#39;@heroicons/react/24/solid&#39;  // solid for e
         <div class="example-card is-good">
           <span class="ec-tag">✓ className + aria</span>
           <div class="ec-body"><span class="icon-tone-success" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> <span style="color:var(--success);font-weight:600;font-size:13px;">Saved</span></div>
-          <div class="ec-code">aria-hidden + text-success</div>
+          <div class="ec-code">aria-hidden + text-status-success</div>
         </div>
       </div></div>
   <pre class="ve-block-code"><code>// Decorative icon next to text:
 &lt;span className=&quot;inline-flex items-center gap-1&quot;&gt;
-  &lt;Check className=&quot;size-4 text-success&quot; aria-hidden=&quot;true&quot; /&gt;
+  &lt;Check className=&quot;size-4 text-status-success&quot; aria-hidden=&quot;true&quot; /&gt;
   Saved
 &lt;/span&gt;
 
@@ -4390,7 +4377,7 @@ import { SparklesIcon } from &#39;@heroicons/react/24/solid&#39;  // solid for e
 <li><strong>Outline vs Solid</strong> — outline for general UI, solid for emphasis states or active indicators</li>
 <li><strong>aria-hidden on decorative icons</strong> — <code>&lt;Icon aria-hidden=&quot;true&quot; /&gt;</code></li>
 <li><strong>aria-label on icon buttons</strong> — <code>&lt;button aria-label=&quot;Close&quot;&gt;&lt;XMarkIcon /&gt;&lt;/button&gt;</code></li>
-<li><strong>Do not hardcode color hex</strong> — always use semantic classes (<code>text-success</code>, <code>text-primary</code>, etc.)</li>
+<li><strong>Do not hardcode color hex</strong> — always use semantic classes (<code>text-status-success</code>, <code>text-primary</code>, etc.)</li>
 <li><strong>Size consistency within groups</strong> — all icons in the same component must share the same size</li>
 </ol>
 
@@ -4893,7 +4880,7 @@ does not already give. The rule and the validator are the enforcement.</p>
   <header class="ve-block-head">
     <span class="ve-block-eyebrow">Example · Pattern · KPI</span>
   </header>
-  <p class="ve-block-explanation">For KPI tiles: small uppercase label, huge tabular number, optional delta in <code>text-success</code> or <code>text-destructive</code>. Use <code>font-mono</code> on the number for stable digit widths.</p>
+  <p class="ve-block-explanation">For KPI tiles: small uppercase label, huge tabular number, optional delta in <code>text-status-success</code> or <code>text-destructive</code>. Use <code>font-mono</code> on the number for stable digit widths.</p>
   <div class="ve-block-visual">
       <div class="example-row">
         <div class="example-card">
@@ -4916,10 +4903,10 @@ does not already give. The rule and the validator are the enforcement.</p>
   &lt;/p&gt;
   &lt;div className=&quot;flex items-baseline gap-3&quot;&gt;
     &lt;span className=&quot;text-3xl font-extrabold tabular-nums&quot;&gt;$4,159.12&lt;/span&gt;
-    &lt;span className=&quot;text-sm font-semibold text-success&quot;&gt;+12.5%&lt;/span&gt;
+    &lt;span className=&quot;text-sm font-semibold text-status-success&quot;&gt;+12.5%&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-  <p class="ve-block-howto"><strong>How to use:</strong> Always add <code>tabular-nums</code> to KPI numbers so the digits line up when values change. Apply <code>text-success</code> / <code>text-destructive</code> to the delta, never to the main number.</p>
+  <p class="ve-block-howto"><strong>How to use:</strong> Always add <code>tabular-nums</code> to KPI numbers so the digits line up when values change. Apply <code>text-status-success</code> / <code>text-destructive</code> to the delta, never to the main number.</p>
 </aside>
 <pre><code class="language-tsx">&lt;div className=&quot;space-y-1&quot;&gt;
   &lt;span className=&quot;text-xs uppercase tracking-wider text-muted-foreground&quot;&gt;
@@ -5381,7 +5368,7 @@ does not already give. The rule and the validator are the enforcement.</p>
         <div class="example-card is-good">
           <span class="ec-tag">✓ Semantic state token</span>
           <div class="ec-body"><span style="color:var(--success); font-weight:600;">Saved!</span></div>
-          <div class="ec-code">text-success</div>
+          <div class="ec-code">text-status-success</div>
         </div>
       </div>
 
@@ -5454,14 +5441,14 @@ does not already give. The rule and the validator are the enforcement.</p>
         <div class="example-card is-good">
           <span class="ec-tag">✓ Semantic state token</span>
           <div class="ec-body"><span class="icon-pair icon-tone-success" style="background:transparent;padding:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <span style="color:var(--success);font-weight:700;">Saved!</span></span></div>
-          <div class="ec-code">text-success</div>
+          <div class="ec-code">text-status-success</div>
         </div>
       </div></div>
   <pre class="ve-block-code"><code>// ❌
 &lt;span className=&quot;text-green-500&quot;&gt;Saved!&lt;/span&gt;
 
 // ✓
-&lt;span className=&quot;text-success&quot;&gt;Saved!&lt;/span&gt;</code></pre>
+&lt;span className=&quot;text-status-success&quot;&gt;Saved!&lt;/span&gt;</code></pre>
   <p class="ve-block-howto"><strong>How to use:</strong> Mapping: <code>green/yellow/red</code> → <code>success/warning/destructive</code>. <code>blue</code> → <code>info</code>. Done.</p>
 </aside>
 <p><strong>Observed in:</strong> UI-Dealer, Smart Comparator, MBI Builder</p>
@@ -5472,10 +5459,10 @@ className=&quot;bg-yellow-100 text-yellow-800&quot;
 className=&quot;text-blue-600&quot;
 </code></pre>
 <pre><code class="language-tsx">// ✅ CORRECT — semantic state tokens
-className=&quot;text-success&quot;
+className=&quot;text-status-success&quot;
 className=&quot;text-destructive&quot;
-className=&quot;bg-warning/10 text-warning&quot;
-className=&quot;text-info&quot;
+className=&quot;bg-status-warning/10 text-status-warning&quot;
+className=&quot;text-status-info&quot;
 </code></pre>
 <p><strong>Why it fails:</strong> Raw colors (green-500, red-500) do not adapt to the theme system and may have inadequate contrast in dark mode. They are not synced with the DS tokens.</p>
 <hr>
@@ -6104,11 +6091,11 @@ bg-input-background → form fill</code></pre>
           </div>
         </div>
       </div></div>
-  <pre class="ve-block-code"><code>text-success     bg-success     bg-success-light
-text-warning     bg-warning     bg-warning-light
-text-destructive bg-destructive bg-destructive-light
-text-info        bg-info        bg-info-light</code></pre>
-  <p class="ve-block-howto"><strong>How to use:</strong> Pick a state and use its complete family (text + bg + light variant). Never mix state token families in one component.</p>
+  <pre class="ve-block-code"><code>text-status-success     bg-status-success     bg-status-success-soft
+text-status-warning     bg-status-warning     bg-status-warning-soft
+text-destructive bg-destructive bg-destructive-soft
+text-status-info        bg-status-info        bg-status-info-soft</code></pre>
+  <p class="ve-block-howto"><strong>How to use:</strong> Pick a state and use its complete family (text + bg + soft variant). Never mix state token families in one component.</p>
 </aside>
 <table>
 <thead>
@@ -6133,61 +6120,61 @@ text-info        bg-info        bg-info-light</code></pre>
 </tr>
 <tr>
 <td><code>--color-success</code></td>
-<td><code>text-success</code> / <code>bg-success</code></td>
+<td><code>text-status-success</code> / <code>bg-status-success</code></td>
 <td>#098400</td>
 <td>Success, confirmation</td>
 </tr>
 <tr>
 <td><code>--color-success-light</code></td>
-<td><code>bg-success-light</code></td>
+<td><code>bg-status-success-soft</code></td>
 <td>#e5f9e4</td>
 <td>Subtle success background</td>
 </tr>
 <tr>
 <td><code>--color-warning</code></td>
-<td><code>text-warning</code> / <code>bg-warning</code></td>
+<td><code>text-status-warning</code> / <code>bg-status-warning</code></td>
 <td>#b27d00</td>
 <td>Warnings</td>
 </tr>
 <tr>
 <td><code>--color-warning-light</code></td>
-<td><code>bg-warning-light</code></td>
+<td><code>bg-status-warning-soft</code></td>
 <td>#fff5cd</td>
 <td>Subtle warning background</td>
 </tr>
 <tr>
 <td><code>--color-info</code></td>
-<td><code>text-info</code> / <code>bg-info</code></td>
+<td><code>text-status-info</code> / <code>bg-status-info</code></td>
 <td>#2164d1</td>
 <td>Information</td>
 </tr>
 <tr>
 <td><code>--color-info-light</code></td>
-<td><code>bg-info-light</code></td>
+<td><code>bg-status-info-soft</code></td>
 <td>#ecf4ff</td>
 <td>Subtle info background</td>
 </tr>
 <tr>
 <td><code>--color-error</code></td>
-<td><code>text-error</code> / <code>bg-error</code></td>
+<td><code>text-status-error</code> / <code>bg-status-error</code></td>
 <td>#d20322</td>
 <td>Error (alternative)</td>
 </tr>
 <tr>
 <td><code>--color-error-light</code></td>
-<td><code>bg-error-light</code></td>
+<td><code>bg-status-error-soft</code></td>
 <td>#ffe4e7</td>
 <td>Subtle error background</td>
 </tr>
 <tr>
 <td><code>--color-ai</code></td>
-<td><code>text-ai</code> / <code>bg-ai</code></td>
+<td><code>text-status-ai</code> / <code>bg-status-ai</code></td>
 <td>#8b5cf6</td>
 <td>AI indicators</td>
 </tr>
 <tr>
 <td><code>--color-ai-light</code></td>
-<td><code>bg-ai-light</code></td>
+<td><code>bg-status-ai-soft</code></td>
 <td>#ede9fe</td>
 <td>Subtle AI background</td>
 </tr>
@@ -7213,13 +7200,13 @@ decisión del sistema sin que nada avise.</p>
 <pre><code class="language-tsx">// ✅ Do — KPI with delta inline
 &lt;div className=&quot;flex items-baseline gap-3&quot;&gt;
   &lt;span className=&quot;text-3xl font-extrabold tabular-nums&quot;&gt;$4,159&lt;/span&gt;
-  &lt;span className=&quot;text-sm font-semibold text-success&quot;&gt;+12.5%&lt;/span&gt;
+  &lt;span className=&quot;text-sm font-semibold text-status-success&quot;&gt;+12.5%&lt;/span&gt;
 &lt;/div&gt;
 
 // ❌ Don&#39;t — two rows for one KPI
 &lt;div&gt;
   &lt;div className=&quot;text-3xl&quot;&gt;$4,159&lt;/div&gt;
-  &lt;div className=&quot;text-sm text-success&quot;&gt;+12.5%&lt;/div&gt;
+  &lt;div className=&quot;text-sm text-status-success&quot;&gt;+12.5%&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
 <hr>
@@ -8953,7 +8940,7 @@ $4,159
 &lt;/StatusBadge&gt;
 
 // ❌ Don&#39;t — color is the only signal
-&lt;div className=&quot;w-3 h-3 rounded-full bg-success&quot; /&gt;   {/* no text, no aria */}
+&lt;div className=&quot;w-3 h-3 rounded-full bg-status-success&quot; /&gt;   {/* no text, no aria */}
 </code></pre>
 <h3 id="minimum-contrast-ratios">Minimum contrast ratios</h3>
 <table>

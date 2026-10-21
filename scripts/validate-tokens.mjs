@@ -330,21 +330,121 @@ function validateGovernance() {
   return { ok: failed === 0, passed, failed };
 }
 
+/* ──────────────────────────────────────────────── utilidades fantasma ── */
+
+/**
+ * Las utilidades que el gobierno recomienda y que no existen.
+ *
+ * El 2026-10-21 había **129 en 14 ficheros**. `LAWS.md` marcaba `text-success ✓`
+ * frente a `text-green-600 ✗`, y `common-errors.md` ponía `bg-warning/10` bajo
+ * «✅ CORRECT». No hay `--color-success` ni `--color-warning`: sólo
+ * `--color-status-*`. Quien seguía la ley escribía una clase que compila a nada
+ * — y encima el sugeridor del validador proponía `bg-success/10`.
+ *
+ * Lo peor no era la documentación: siete estaban en `mcp-server/index.mjs` y
+ * tres en la skill `planning-strata-ui`, que es lo que consultan `ds-plan` y
+ * `ds-architect` **antes de que nadie escriba UI**.
+ *
+ * Y el nombre inventado escondía algo peor. Como `--color-success-light` no es
+ * una variable real, la capa de tablas no tenía contra qué comparar su columna
+ * de hex, así que cinco valores llevaban meses caducados sin que nadie lo viera.
+ * Al renombrarlos salieron los cinco de golpe.
+ *
+ * **Esto es una guardia de regresión, no un analizador.** Comprobar «toda clase
+ * que no resuelva a un token» daría falsos positivos a mansalva —`text-sm`,
+ * `border-2`, `bg-clip-text`— así que se listan los nombres que de verdad
+ * hicieron daño. Si aparece otro, se añade aquí.
+ */
+const FANTASMAS = [
+  {
+    re: /\b(?:bg|text|border|ring|fill|stroke|divide|from|to|via|outline|accent|caret|decoration)-(?:success|warning|info|ai|error)\b(?!-soft)/g,
+    di: "usa `status-success`, `status-warning`, `status-info`, `status-ai` o `status-error`",
+  },
+  { re: /\b(?:bg|text|border|ring|fill|stroke)-[a-z]+-light\b/g, di: "la familia suave es `-soft`, no `-light`" },
+  { re: /\bbg-navbar\b/g, di: "no está en theme-v4.css; usa `bg-card` o `bg-background`" },
+  { re: /\bprimary-foreground-soft\b/g, di: "se renombró a `primary-tint`" },
+];
+
+const MIRAR = ["governance", "src/mcp-server"];
+const EXT_MIRAR = new Set([".md", ".mjs", ".ts", ".tsx"]);
+/* `rules-guide.html` sale de `build:guide`, así que se arregla en su fuente. */
+const SALTAR_MIRAR = new Set(["node_modules", "dist", ".git"]);
+
+function* ficherosDe(dir) {
+  for (const n of fs.readdirSync(dir)) {
+    if (SALTAR_MIRAR.has(n)) continue;
+    const p = path.join(dir, n);
+    if (fs.statSync(p).isDirectory()) yield* ficherosDe(p);
+    else if (EXT_MIRAR.has(path.extname(n).toLowerCase())) yield p;
+  }
+}
+
+function validatePhantoms() {
+  log("\n🔍 Buscando utilidades que no existen...", "cyan");
+  log("━".repeat(50), "cyan");
+
+  let passed = 0;
+  let failed = 0;
+
+  for (const d of MIRAR) {
+    const raiz = path.join(__dirname, "..", d);
+    if (!fs.existsSync(raiz)) continue;
+    for (const f of ficherosDe(raiz)) {
+      const lineas = fs.readFileSync(f, "utf8").split(/\r?\n/);
+      const malas = [];
+      lineas.forEach((linea, i) => {
+        /*
+         * La salida: documentar que una utilidad no existe obliga a escribirla.
+         * Sin esto, la propia nota que explica el anti-patrón lo dispara — pasó
+         * con la que dice que `bg-navbar` no está registrada. Marcar la línea es
+         * afirmar «sé lo que pone y es a propósito».
+         */
+        if (linea.includes("[fantasma-ok]")) return;
+        /* Y vale puesto encima, que es donde se escribe un comentario. */
+        if (i > 0 && lineas[i - 1].includes("[fantasma-ok]")) return;
+        for (const { re, di } of FANTASMAS) {
+          re.lastIndex = 0;
+          const m = re.exec(linea);
+          if (m) malas.push({ n: i + 1, clase: m[0], di });
+        }
+      });
+      if (malas.length === 0) {
+        passed++;
+        continue;
+      }
+      failed += malas.length;
+      log(`\n  ${path.relative(path.join(__dirname, ".."), f).replace(/\\/g, "/")}`, "blue");
+      for (const x of malas.slice(0, 6)) log(`    ❌ línea ${x.n} · ${x.clase} — ${x.di}`, "red");
+      if (malas.length > 6) log(`    … y ${malas.length - 6} más`, "red");
+    }
+  }
+
+  if (failed > 0) {
+    log(`\n❌ Fantasmas: ${failed} utilidades que compilan a nada`, "red");
+    log("   El gobierno no puede recomendar algo que el CSS no emite.", "yellow");
+  } else {
+    log(`\n✅ Fantasmas: ninguna, en ${passed} ficheros.`, "green");
+  }
+  return { ok: failed === 0, passed, failed };
+}
+
 /* ───────────────────────────────────────────────────────────── arranque ── */
 
 try {
   const primitivos = validateColors();
   const semanticos = validateSemantics();
   const gobierno = validateGovernance();
+  const fantasmas = validatePhantoms();
 
   log("\n" + "━".repeat(50), "cyan");
   log("\n📊 Resumen:", "bold");
   log(`   primitivos  ✅ ${primitivos.passed}   ❌ ${primitivos.failed}`, primitivos.ok ? "green" : "red");
   log(`   semánticos  ✅ ${semanticos.passed}   ❌ ${semanticos.failed}`, semanticos.ok ? "green" : "red");
   log(`   governance  ✅ ${gobierno.passed}   ❌ ${gobierno.failed}`, gobierno.ok ? "green" : "red");
+  log(`   fantasmas   ✅ ${fantasmas.passed}   ❌ ${fantasmas.failed}`, fantasmas.ok ? "green" : "red");
   log("", "reset");
 
-  process.exit(primitivos.ok && semanticos.ok && gobierno.ok ? 0 : 1);
+  process.exit(primitivos.ok && semanticos.ok && gobierno.ok && fantasmas.ok ? 0 : 1);
 } catch (error) {
   log(`\n❌ Validation error: ${error.message}`, "red");
   log(error.stack, "red");

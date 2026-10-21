@@ -49,16 +49,16 @@ Quick reference of all available tokens. Source: `src/styles/tokens/variables.cs
 |---|---|---|---|
 | `--color-destructive` | `bg-destructive` / `text-destructive` | #E52D49 | Errors, destructive |
 | `--color-destructive-foreground` | `text-destructive-foreground` | #ffffff | Text over destructive |
-| `--color-success` | `text-success` / `bg-success` | #098400 | Success, confirmation |
-| `--color-success-light` | `bg-success-light` | #e5f9e4 | Subtle success background |
-| `--color-warning` | `text-warning` / `bg-warning` | #b27d00 | Warnings |
-| `--color-warning-light` | `bg-warning-light` | #fff5cd | Subtle warning background |
-| `--color-info` | `text-info` / `bg-info` | #2164d1 | Information |
-| `--color-info-light` | `bg-info-light` | #ecf4ff | Subtle info background |
-| `--color-error` | `text-error` / `bg-error` | #d20322 | Error (alternative) |
-| `--color-error-light` | `bg-error-light` | #ffe4e7 | Subtle error background |
-| `--color-ai` | `text-ai` / `bg-ai` | #8b5cf6 | AI indicators |
-| `--color-ai-light` | `bg-ai-light` | #ede9fe | Subtle AI background |
+| `--color-success` | `text-status-success` / `bg-status-success` | #098400 | Success, confirmation |
+| `--color-success-light` | `bg-status-success-soft` | #e5f9e4 | Subtle success background |
+| `--color-warning` | `text-status-warning` / `bg-status-warning` | #b27d00 | Warnings |
+| `--color-warning-light` | `bg-status-warning-soft` | #fff5cd | Subtle warning background |
+| `--color-info` | `text-status-info` / `bg-status-info` | #2164d1 | Information |
+| `--color-info-light` | `bg-status-info-soft` | #ecf4ff | Subtle info background |
+| `--color-error` | `text-status-error` / `bg-status-error` | #d20322 | Error (alternative) |
+| `--color-error-light` | `bg-status-error-soft` | #ffe4e7 | Subtle error background |
+| `--color-ai` | `text-status-ai` / `bg-status-ai` | #8b5cf6 | AI indicators |
+| `--color-ai-light` | `bg-status-ai-soft` | #ede9fe | Subtle AI background |
 
 ---
 

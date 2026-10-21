@@ -16,7 +16,7 @@ className="bg-zinc-900"
 **CORRECT:**
 ```tsx
 className="bg-primary text-primary-foreground"
-className="text-success"
+className="text-status-success"
 className="bg-background"
 ```
 
@@ -68,7 +68,7 @@ Preference order:
 3. `bg-[#E6F993]` ✗ NEVER
 
 For states:
-1. `text-success` ✓
+1. `text-status-success` ✓
 2. `text-green-600` ✗
 3. `text-[#098400]` ✗
 
@@ -124,7 +124,7 @@ className="... hover:text-primary transition-colors"
 ## Quick summary for AI agents
 
 When generating code for Strata DS, before writing any className:
-1. Is it a color? → Use a semantic token (`bg-background`, `text-foreground`, `text-success`)
+1. Is it a color? → Use a semantic token (`bg-background`, `text-foreground`, `text-status-success`)
 2. Is it lime/brand? → Only as primary action background, never as text
 3. Does it have dark mode? → If you use semantic tokens, it is already covered automatically
 4. Is it interactive? → Add hover + transition

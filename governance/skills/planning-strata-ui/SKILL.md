@@ -34,7 +34,7 @@ Call `list_components()` and `get_component({id})` to find the right primitive. 
 
 ### 4. Use semantic tokens for color
 
-Never inline hex. Call `get_tokens()` for the full table. Surface = `bg-card` or `bg-muted`, body text = `text-foreground`, helper = `text-muted-foreground`, states = `text-success / text-warning / text-destructive / text-info`. Brand = CTA / focus ring / accent ONLY.
+Never inline hex. Call `get_tokens()` for the full table. Surface = `bg-card` or `bg-muted`, body text = `text-foreground`, helper = `text-muted-foreground`, states = `text-status-success / text-status-warning / text-destructive / text-status-info`. Brand = CTA / focus ring / accent ONLY.
 
 ### 5. Lint before committing
 

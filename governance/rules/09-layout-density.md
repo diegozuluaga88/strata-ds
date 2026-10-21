@@ -153,13 +153,13 @@ If two pieces of information are read together (label + value, before + after, c
 // ✅ Do — KPI with delta inline
 <div className="flex items-baseline gap-3">
   <span className="text-3xl font-extrabold tabular-nums">$4,159</span>
-  <span className="text-sm font-semibold text-success">+12.5%</span>
+  <span className="text-sm font-semibold text-status-success">+12.5%</span>
 </div>
 
 // ❌ Don't — two rows for one KPI
 <div>
   <div className="text-3xl">$4,159</div>
-  <div className="text-sm text-success">+12.5%</div>
+  <div className="text-sm text-status-success">+12.5%</div>
 </div>
 ```
 
