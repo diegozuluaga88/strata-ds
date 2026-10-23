@@ -91,6 +91,31 @@ For navigation or inline actions in text.
 
 ---
 
+## Tocar un estado es tocarlo en todas las variantes
+
+**Si cambias el estado de un componente, lo cambias en todas sus variantes o
+escribes por qué no.** No es una preferencia de estilo: es la causa de los tres
+últimos avisos que nos ha devuelto el consumidor, y los tres tienen la misma
+forma.
+
+| Cuándo | Qué se arregló | Qué se quedó fuera | Cómo salió |
+|---|---|---|---|
+| 19-oct | El botón destructivo | `text-destructive`, el borde de campo inválido, los tintes de menú — 14 de 19 cruces | Lo reportaron como «el botón no se ve en oscuro»; al medirlo fallaba la familia entera |
+| 15-oct | El estado elegido de `default`, `toggle` y `filter-pills` | La variante `link` de `Tabs`, con el texto a 3,29:1 | Lo reportaron siete días después (209696) |
+| 15-oct | Lo mismo | La variante `pill` de `Toggle`, sin señal no cromática | Movieron su conmutador de `pill` a `outline` para esquivarlo |
+
+Las tres veces el arreglo era correcto y estaba incompleto, y las tres veces lo
+encontró quien lo consume, no quien lo escribió. Lo que falla no es el criterio:
+es que nada obliga a recorrer la lista de variantes.
+
+**En la práctica:** abre el `cva` del componente, mira cuántas variantes declara,
+y decide en cada una. Si una se queda fuera a propósito —porque su estado elegido
+no es un relleno, porque no aplica— eso se escribe en el propio `className`, al
+lado del código. Un hueco explicado es una decisión; un hueco callado es el
+siguiente aviso.
+
+---
+
 ## Button states
 
 ### Disabled

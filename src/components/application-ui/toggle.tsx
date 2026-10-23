@@ -38,7 +38,26 @@ const toggleVariants = cva(
         default: "bg-transparent data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:font-semibold data-[state=on]:outline-1 data-[state=on]:outline-solid data-[state=on]:outline-primary-foreground data-[state=on]:shadow-sm data-[state=on]:hover:bg-primary data-[state=on]:hover:text-primary-foreground",
         outline:
           "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:font-semibold data-[state=on]:outline-1 data-[state=on]:outline-solid data-[state=on]:outline-primary-foreground data-[state=on]:shadow-sm data-[state=on]:hover:bg-primary data-[state=on]:hover:text-primary-foreground",
-        pill: "bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground rounded-md data-[state=on]:bg-card data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=on]:hover:bg-card",
+        /*
+         * `font-semibold` en el elegido, igual que `default` y `outline`.
+         *
+         * Sin él, esta variante señalaba la elección **sólo** con un cambio de
+         * superficie (`bg-card`) y una sombra, que a tamaño `sm` es casi nada:
+         * el frontend acabó moviendo su conmutador de vista de `pill` a
+         * `outline` precisamente porque «la pill no tiene señal» (22-oct).
+         *
+         * Es la tercera vez con la misma forma: se arregla el estado elegido de
+         * unas variantes y se deja otra. Primero el par destructivo, luego la
+         * variante `link` de Tabs, ahora ésta. Por eso la regla 04 pasa a pedir
+         * que se recorran todas las variantes o se escriba por qué no.
+         *
+         * No lleva `outline-*` como las otras dos: ahí el contorno se dibuja
+         * sobre el relleno lima con `outline-primary-foreground`, y aquí el
+         * elegido no es lima sino una superficie elevada — un contorno pelearía
+         * con la sombra que da el relieve. El peso es lo que falta y es lo que
+         * se añade.
+         */
+        pill: "bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground rounded-md data-[state=on]:bg-card data-[state=on]:text-foreground data-[state=on]:font-semibold data-[state=on]:shadow-sm data-[state=on]:hover:bg-card",
       },
       size: {
         default: "h-9 px-2 min-w-9",

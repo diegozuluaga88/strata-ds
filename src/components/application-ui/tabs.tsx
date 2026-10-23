@@ -74,7 +74,24 @@ function TabsTrigger({
         variant === "link"
           ? [
             "py-4 text-sm font-medium border-b-2 outline-none transition-colors cursor-pointer",
-            "data-[state=active]:border-brand-700 data-[state=active]:text-brand-700 dark:data-[state=active]:border-brand-500 dark:data-[state=active]:text-brand-500",
+            /*
+             * El texto va en `foreground`; el subrayado se queda en marca.
+             *
+             * Con `text-brand-700` el texto de 14 px daba 3,29:1 sobre la página
+             * y 3,73:1 sobre tarjeta, cuando 1.4.3 pide 4,5:1 (reportado por el
+             * frontend, 209696). El subrayado **no** cambia: es un elemento no
+             * textual, su mínimo es 3:1 por 1.4.11, y `brand-700` ya lo cumple
+             * con esos mismos 3,29 y 3,73. Se arregla la legibilidad sin que la
+             * variante pierda su señal de marca — que es además el argumento de
+             * quien lo reportó: el subrayado ya marca la elegida, el color no
+             * tiene que cargar con eso.
+             *
+             * **Oscuro se deja como está, a propósito**: ahí el par da 13,99:1 y
+             * cumple. Cambiarlo sería tocar un estado que pasa, y eso se acuerda
+             * aparte. Queda la asimetría de que en claro el texto es `foreground`
+             * y en oscuro `brand-500`; está vista y es deliberada.
+             */
+            "data-[state=active]:border-brand-700 data-[state=active]:text-foreground dark:data-[state=active]:border-brand-500 dark:data-[state=active]:text-brand-500",
             "data-[state=inactive]:border-transparent data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground",
             "disabled:pointer-events-none disabled:opacity-50",
           ]

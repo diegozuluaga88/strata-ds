@@ -672,7 +672,7 @@ pre:hover .copy-btn { opacity: 1; }
       <div class="page-header">
         <div>
           <h1>Strata DS — Rules Guide</h1>
-          <div class="subtitle">Generated 2026-10-21T15:28:57.111Z · 20 rule files · 9 overview blocks + 111 sub-rule examples · 218 CSS tokens</div>
+          <div class="subtitle">Generated 2026-10-23T19:38:32.298Z · 20 rule files · 9 overview blocks + 111 sub-rule examples · 218 CSS tokens</div>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button">Toggle theme</button>
       </div>
@@ -3755,6 +3755,48 @@ className=&quot;... hover:shadow-lg hover:border-primary/50 transition-all&quot;
   Cancel
 &lt;/button&gt;
 </code></pre>
+<hr>
+<h2 id="tocar-un-estado-es-tocarlo-en-todas-las-variantes">Tocar un estado es tocarlo en todas las variantes</h2>
+<p><strong>Si cambias el estado de un componente, lo cambias en todas sus variantes o
+escribes por qué no.</strong> No es una preferencia de estilo: es la causa de los tres
+últimos avisos que nos ha devuelto el consumidor, y los tres tienen la misma
+forma.</p>
+<table>
+<thead>
+<tr>
+<th>Cuándo</th>
+<th>Qué se arregló</th>
+<th>Qué se quedó fuera</th>
+<th>Cómo salió</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>19-oct</td>
+<td>El botón destructivo</td>
+<td><code>text-destructive</code>, el borde de campo inválido, los tintes de menú — 14 de 19 cruces</td>
+<td>Lo reportaron como «el botón no se ve en oscuro»; al medirlo fallaba la familia entera</td>
+</tr>
+<tr>
+<td>15-oct</td>
+<td>El estado elegido de <code>default</code>, <code>toggle</code> y <code>filter-pills</code></td>
+<td>La variante <code>link</code> de <code>Tabs</code>, con el texto a 3,29:1</td>
+<td>Lo reportaron siete días después (209696)</td>
+</tr>
+<tr>
+<td>15-oct</td>
+<td>Lo mismo</td>
+<td>La variante <code>pill</code> de <code>Toggle</code>, sin señal no cromática</td>
+<td>Movieron su conmutador de <code>pill</code> a <code>outline</code> para esquivarlo</td>
+</tr>
+</tbody></table>
+<p>Las tres veces el arreglo era correcto y estaba incompleto, y las tres veces lo
+encontró quien lo consume, no quien lo escribió. Lo que falla no es el criterio:
+es que nada obliga a recorrer la lista de variantes.</p>
+<p><strong>En la práctica:</strong> abre el <code>cva</code> del componente, mira cuántas variantes declara,
+y decide en cada una. Si una se queda fuera a propósito —porque su estado elegido
+no es un relleno, porque no aplica— eso se escribe en el propio <code>className</code>, al
+lado del código. Un hueco explicado es una decisión; un hueco callado es el
+siguiente aviso.</p>
 <hr>
 <h2 id="button-states">Button states</h2>
 <h3 id="disabled">Disabled</h3>
