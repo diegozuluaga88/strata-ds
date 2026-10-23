@@ -1,6 +1,6 @@
 # Strata DS — Governance
 
-This folder is the source of truth for every Strata Design System rule, token reference, and anti-pattern. Three audiences consume it:
+This folder is the source of truth for every Strata Design System rule and anti-pattern — **how** the system is applied and how elements behave. The token reference here documents the values this repo generates; for **what exists** in a consumer's hands, the published package is what counts (see *On authority* below). Three audiences consume it:
 
 1. **The DS app at `localhost:5173`** — renders each `.md` file via `GovernanceView`.
 2. **The MCP server** (`strata-ds`) — exposes the markdown files as tools (`get_laws`, `get_rules({category})`, `get_tokens`, `get_anti_patterns`, `search_governance`, `get_overview`, `validate_component_against_rules`).
@@ -120,7 +120,11 @@ The `AvantoDev/front-react-strata-storybook` repo ships a sibling MCP server in 
 | Component spec | ✅ `get_component` | ✅ `get_component` |
 | Error reporting | `report_error` (logs only) | `report_error` (opens GitHub issue) |
 
-Either MCP can be consumed by the same Strata project. The dev team's MCP is the recommended choice when consuming Strata from the published storybook; this MCP is the canonical reference + linter for the DS itself.
+Either MCP can be consumed by the same Strata project. The dev team's MCP is the recommended choice when consuming Strata from the published storybook; this one is the reference for **how** the system is applied — the governance and the linter, which live only here.
+
+**On authority, because these lines used to say the opposite.** The published package rules on **what exists**: components, variants, props, tokens. It is the delivery boundary, and whatever is not in it does not exist for the consumer regardless of how well it is documented here. This repo rules on **how it is applied** and how elements behave. Calling this repo the "canonical reference" without that split is how a token nobody can consume ends up recommended — measured on 2026-10-21, 11 of the 139 `--color-*` tokens here are not in the published package.
+
+Note also that the `:3001` HTTP transport is **not hosted**: paying for it was deferred. Nothing here depends on it — the MCP also speaks stdio, its source is the GitHub tarball cached under `~/.cache/strata-ds-mcp/<sha>/`, and `rules-guide.html` opens offline with no dependencies. What that does mean is that **governance changes only reach agents once they are pushed**, since the tarball comes from GitHub and not from a working copy.
 
 ## Editing rules
 

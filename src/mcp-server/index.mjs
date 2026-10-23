@@ -27,15 +27,41 @@ const DS_ROOT = join(__dirname, "../..");
 // ─── OVERVIEW ─────────────────────────────────────────────────────────────────
 
 const OVERVIEW = `
-# Strata Design System — P1 (strata-ds)
+# Strata Design System (strata-ds)
 
 **Stack:** React 19 · TypeScript 5 · Tailwind CSS v4 · CVA · Radix UI · Vite
 
-## Architecture
-- **P1** (strata-ds) = unified source of truth — components, tokens, dev app, MCP server
-- **P2** (front-react-strata-storybook) = Storybook documentation (uses P1 as library)
-- **MCP Server** = this server, the authoritative DS knowledge hub for AI tools
-- MCP replaces all Figma integration for AI-assisted development
+## Architecture — who rules on what
+
+Two repos, two different kinds of authority. Getting this backwards is how a
+token or a variant that **does not exist for the consumer** ends up recommended.
+
+- **The Storybook** (\`front-react-strata-storybook\`, published as
+  \`@avantodev/strata-design-system\`) **rules on what exists**: components,
+  variants, props, tokens. It is the delivery boundary — whatever is not in the
+  published package does not exist for whoever consumes it, no matter who wrote
+  it or how well it is documented here.
+- **This repo** (\`strata-ds\`) **rules on how it is applied**: which token plays
+  which role, hierarchy, focus, spacing rhythm, modal patterns, microcopy, and
+  how elements behave. Plus the governance and the linter, which live only here.
+- **MCP Server** = this server, the knowledge hub for AI tools on the *how*. For
+  the *what*, the published package wins.
+
+Until 2026-10-23 these lines said the opposite — that this repo was the "unified
+source of truth" and the Storybook mere "documentation (uses P1 as library)".
+That was false and it was read by every agent before writing UI. The machinery
+already knew better: \`sync/sync-check.mjs\` walks the Storybook's manifest and
+reports what is \`missing\` here, which only makes sense if the Storybook is the
+reference list.
+
+The old \`P1\`/\`P2\` naming is kept out on purpose: it implied a precedence that
+does not hold.
+
+**Measured consequence** (2026-10-21, against \`v0.3.0\`): the published package
+has 128 \`--color-*\` tokens and this repo has 139. All 128 of theirs are here;
+the 11 extra are **ours alone** — the \`status-*-soft\` family, \`destructive-soft\`,
+\`primary-soft\`, \`primary-tint\` and \`zinc-75/150/850\`. They are off-contract
+until they ship there, so a screen that is delivered must not depend on them.
 
 ## Token System (3 levels)
 1. **Primitives** — raw palette values (zinc, brand, status palettes)
